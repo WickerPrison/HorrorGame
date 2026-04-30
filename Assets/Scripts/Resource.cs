@@ -1,0 +1,31 @@
+using UnityEngine;
+
+public class Resource : MonoBehaviour, IUnhideWhenSeen
+{
+    Room room;
+    int value;
+    SpriteRenderer sprite;
+    PlayerManager playerManager;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        playerManager = PlayerEvents.i.GetComponent<PlayerManager>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        room = Utils.GetRooms(transform.position)[0];
+        room.resources.Add(this);
+
+        value = Random.Range(1, 5);
+    }
+
+    public void Unhide()
+    {
+        sprite.enabled = true;
+    }
+
+    public void GetCollected()
+    {
+        playerManager.GainResources(value);
+        Destroy(gameObject);
+    }
+}
