@@ -70,12 +70,12 @@ public class RoomSetupEditor : Editor
 
     void ClearWalls(RoomSetup roomSetup)
     {
-        for(int i = roomSetup.wallsList.Count - 1; i >= 0; i--)
+        Transform parent = roomSetup.wallsParent.transform;
+        for(int i = parent.childCount - 1; i >= 0; i--)
         {
-            GameObject wall = roomSetup.wallsList[i];
+            GameObject wall = parent.GetChild(i).gameObject;
             if(wall != null)
             {
-                roomSetup.wallsList.RemoveAt(i);
                 Undo.DestroyObjectImmediate(wall);
             }
         }
@@ -90,6 +90,10 @@ public class RoomSetupEditor : Editor
         if (Mathf.Abs(roomSetup.handles[index2].x - roomSetup.handles[index1].x) > Mathf.Abs(roomSetup.handles[index2].y - roomSetup.handles[index1].y))
         {
             HorizontalDoorPoints(hits, points);
+        }
+        else
+        {
+            VerticalDoorPoints(hits, points);
         }
 
         points.Add(roomSetup.handles[index2]);
@@ -111,6 +115,17 @@ public class RoomSetupEditor : Editor
         }
     }
 
+    void VerticalDoorPoints(RaycastHit2D[] hits, List<Vector3> points)
+    {
+        foreach (RaycastHit2D hit in hits)
+        {
+            float width = hit.collider.transform.localScale.x;
+            float yPos = hit.transform.position.y;
+            points.Add(new Vector3(points[0].x, yPos + width / 2, 0));
+            points.Add(new Vector3(points[0].x, yPos - width / 2, 0));
+        }
+    }
+
     void CreateWall(RoomSetup roomSetup, Vector3 point1, Vector3 point2)
     {
         float distance = Vector3.Distance(point1, point2);
@@ -129,6 +144,5 @@ public class RoomSetupEditor : Editor
         {
             newWall.transform.localScale = new Vector3(roomSetup.wallWidth, distance + roomSetup.wallWidth, 1);
         }
-        roomSetup.wallsList.Add(newWall);
     }
 }

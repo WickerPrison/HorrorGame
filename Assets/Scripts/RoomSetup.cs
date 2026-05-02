@@ -17,6 +17,5 @@ public class RoomSetup : MonoBehaviour
     public int[] yLocks = { 1, 0, 3, 2 };
     public GameObject wallsParent;
     public GameObject wallPrefab;
-    public List<GameObject> wallsList = new List<GameObject>();
     public LayerMask doorDetectionMask;
 }
