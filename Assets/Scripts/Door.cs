@@ -5,20 +5,20 @@ using UnityEngine.InputSystem;
 
 public enum DoorState
 {
-    OPEN, CLOSED
+    OPEN, CLOSED, OPENING, CLOSING
 }
 
 public class Door : MonoBehaviour
 {
     DoorState state = DoorState.CLOSED;
-    [SerializeField] Collider2D navCollider;
-    SpriteRenderer sprite;
     List<Room> rooms;
+
+    public event System.Action<float> onDoorProgress;
+    float doorProgress = 0;
+    float doorSpeed = 5;
 
     private void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
-        sprite.enabled = false;
         rooms = Utils.GetRooms(transform.position);
         foreach(Room room in rooms)
         {
@@ -31,11 +31,38 @@ public class Door : MonoBehaviour
                 }
             }
         }
+        onDoorProgress?.Invoke(doorProgress);
+    }
+
+    private void Update()
+    {
+        switch (state)
+        {
+            case DoorState.OPENING:
+                doorProgress += Time.deltaTime * doorSpeed;
+                if(doorProgress >= 1)
+                {
+                    doorProgress = 1;
+                    state = DoorState.OPEN;
+                    onDoorProgress?.Invoke(doorProgress);
+                }
+                onDoorProgress?.Invoke(doorProgress);
+                break;
+            case DoorState.CLOSING:
+                doorProgress -= Time.deltaTime * doorSpeed;
+                if (doorProgress <= 0)
+                {
+                    doorProgress = 0;
+                    state = DoorState.CLOSED;
+                }
+                onDoorProgress?.Invoke(doorProgress);
+                break;
+        }
     }
 
     private void Room_onChangeState(RoomState newState)
     {
-        if (newState != RoomState.HIDDEN) sprite.enabled = true;
+        //if (newState != RoomState.HIDDEN) sprite.enabled = true;
     }
 
     private void OnEnable()
@@ -57,28 +84,14 @@ public class Door : MonoBehaviour
         Collider2D hit = Physics2D.OverlapPoint(worldPos, Layers.clickableMask);
         if (hit != null && hit.gameObject == gameObject)
         {
-            if(state == DoorState.OPEN)
+            if(state == DoorState.OPEN || state == DoorState.OPENING)
             {
-                CloseDoor();
+                state = DoorState.CLOSING;
             }
             else
             {
-                OpenDoor();
+                state = DoorState.OPENING;
             }
         }
-    }
-
-    void OpenDoor()
-    {
-        state = DoorState.OPEN;
-        navCollider.enabled = false;
-        sprite.color = Color.white;
-    }
-
-    void CloseDoor()
-    {
-        state = DoorState.CLOSED;
-        navCollider.enabled = true;
-        sprite.color = Color.blue;
     }
 }

@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.DynamicGridObstacle
   version: 1
-  uniqueID: 5935477419758141415
+  uniqueID: 2042395850006203682
   updateError: 1
   checkTime: 0.2
 --- !u!1 &2674440373465296188
@@ -104,11 +104,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8410644806496024524}
+  - component: {fileID: 6935188007367842546}
+  - component: {fileID: 5412944342101816634}
   - component: {fileID: 2185256536380734598}
   - component: {fileID: 6556461108081079719}
-  - component: {fileID: 6935188007367842546}
   m_Layer: 7
-  m_Name: Door
+  m_Name: LegacyDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,6 +131,31 @@ Transform:
   - {fileID: 1742385482589658101}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6935188007367842546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2674440373465296188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dda4400104624549ae857079e8e2790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  navCollider: {fileID: 4995959343450641618}
+--- !u!114 &5412944342101816634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2674440373465296188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f3a717cb943e9f408fa642758203a58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!212 &2185256536380734598
 SpriteRenderer:
   serializedVersion: 2
@@ -235,16 +261,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6935188007367842546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2674440373465296188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dda4400104624549ae857079e8e2790, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  navCollider: {fileID: 4995959343450641618}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
 
 [CustomEditor(typeof(RoomSetup))]
 public class RoomSetupEditor : Editor
@@ -40,7 +41,7 @@ public class RoomSetupEditor : Editor
         {
             Vector3 handle = roomSetup.handles[i];
             EditorGUI.BeginChangeCheck();
-            Vector3 newPos = Handles.FreeMoveHandle(handle, 0.5f, Vector3.one * 5f, Handles.SphereHandleCap);
+            Vector3 newPos = Handles.FreeMoveHandle(handle, 0.2f, Vector3.one * 5f, Handles.SphereHandleCap);
             float xPos = Mathf.Round((newPos.x - roomSetup.gridCenter.x) / roomSetup.nodeSize) * roomSetup.nodeSize + roomSetup.gridCenter.x + roomSetup.nodeSize / 2;
             float yPos = Mathf.Round((newPos.y - roomSetup.gridCenter.y) / roomSetup.nodeSize) * roomSetup.nodeSize + roomSetup.gridCenter.y + roomSetup.nodeSize / 2;
             newPos = new Vector3(xPos, yPos, 0);
@@ -69,17 +70,49 @@ public class RoomSetupEditor : Editor
 
     void ClearWalls(RoomSetup roomSetup)
     {
-        foreach(GameObject wall in roomSetup.wallsList)
+        for(int i = roomSetup.wallsList.Count - 1; i >= 0; i--)
         {
-            Undo.DestroyObjectImmediate(wall);
+            GameObject wall = roomSetup.wallsList[i];
+            if(wall != null)
+            {
+                roomSetup.wallsList.RemoveAt(i);
+                Undo.DestroyObjectImmediate(wall);
+            }
         }
-        roomSetup.wallsList.Clear();
     }
 
     void BuildWalls(RoomSetup roomSetup, int index1, int index2)
     {
-        Vector3 point1 = roomSetup.handles[index1];
-        Vector3 point2 = roomSetup.handles[index2];
+        List<Vector3> points = new List<Vector3>();
+        points.Add(roomSetup.handles[index1]);
+
+        RaycastHit2D[] hits = Physics2D.LinecastAll(roomSetup.handles[index1], roomSetup.handles[index2], roomSetup.doorDetectionMask);
+        if (Mathf.Abs(roomSetup.handles[index2].x - roomSetup.handles[index1].x) > Mathf.Abs(roomSetup.handles[index2].y - roomSetup.handles[index1].y))
+        {
+            HorizontalDoorPoints(hits, points);
+        }
+
+        points.Add(roomSetup.handles[index2]);
+
+        for(int i = 0; i < points.Count; i += 2)
+        {
+            CreateWall(roomSetup, points[i], points[i + 1]);
+        }
+    }
+
+    void HorizontalDoorPoints(RaycastHit2D[] hits, List<Vector3> points)
+    {
+        foreach(RaycastHit2D hit in hits)
+        {
+            float width = hit.collider.transform.localScale.x;
+            float xPos = hit.transform.position.x;
+            points.Add(new Vector3(xPos + width / 2, points[0].y, 0));
+            points.Add(new Vector3(xPos - width / 2, points[0].y, 0));
+        }
+    }
+
+    void CreateWall(RoomSetup roomSetup, Vector3 point1, Vector3 point2)
+    {
         float distance = Vector3.Distance(point1, point2);
         Vector3 direction = Vector3.Normalize(point2 - point1);
         Vector3 midPoint = (point1 + point2) / 2;
@@ -88,7 +121,7 @@ public class RoomSetupEditor : Editor
         Undo.RegisterCreatedObjectUndo(newWall, "Create wall");
         newWall.transform.SetParent(roomSetup.wallsParent.transform);
         newWall.transform.position = midPoint;
-        if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
             newWall.transform.localScale = new Vector3(distance + roomSetup.wallWidth, roomSetup.wallWidth, 1);
         }
