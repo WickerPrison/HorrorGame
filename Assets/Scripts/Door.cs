@@ -32,6 +32,12 @@ public class Door : MonoBehaviour
             }
         }
         onDoorProgress?.Invoke(doorProgress);
+
+        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sprite in spriteRenderers)
+        {
+            sprite.enabled = false;
+        }
     }
 
     private void Update()
@@ -62,7 +68,14 @@ public class Door : MonoBehaviour
 
     private void Room_onChangeState(RoomState newState)
     {
-        //if (newState != RoomState.HIDDEN) sprite.enabled = true;
+        if (newState != RoomState.HIDDEN)
+        {
+            SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+            foreach(SpriteRenderer sprite in spriteRenderers)
+            {
+                sprite.enabled = true;
+            }
+        }
     }
 
     private void OnEnable()

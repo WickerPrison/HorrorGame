@@ -49,9 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Room
   adjacentRooms: []
   enemies: []
-  wallsAndFloorObject: {fileID: 9208890054656582282}
-  emptyIndicator: {fileID: 0}
-  enemyIndicator: {fileID: 0}
+  wallsParent: {fileID: 3315981120404886954}
   alwaysPowered: 0
   powered: 0
 --- !u!114 &797117722920883751
@@ -78,7 +76,6 @@ MonoBehaviour:
   yLocks: 01000000000000000300000002000000
   wallsParent: {fileID: 9208890054656582282}
   wallPrefab: {fileID: 4132229806485607415, guid: 9fc23e3927cb02d46a83ad87fcd27c02, type: 3}
-  wallsList: []
   doorDetectionMask:
     serializedVersion: 2
     m_Bits: 128

@@ -6,16 +6,19 @@ public enum RoomState
     HIDDEN, DISCOVERED, EXPLORED
 }
 
+public enum ScanningState
+{
+    UNSCANNED, DANGER, SAFE
+}
+
 public class Room : MonoBehaviour
 {
     public List<Room> adjacentRooms;
     public List<Enemy> enemies;
-    [SerializeField] GameObject wallsAndFloorObject;
-    SpriteRenderer[] wallsAndFloor;
+    [SerializeField] Transform wallsParent;
+    List<Wall> walls = new List<Wall>();
     RoomState state = RoomState.HIDDEN;
     public event System.Action<RoomState> onChangeState;
-    [SerializeField] SpriteRenderer emptyIndicator;
-    [SerializeField] SpriteRenderer enemyIndicator;
     List<PlayerUnit> scanningUnits = new List<PlayerUnit>();
     [System.NonSerialized] public List<Resource> resources = new List<Resource>();
     [SerializeField] bool alwaysPowered;
@@ -23,10 +26,14 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        wallsAndFloor = wallsAndFloorObject.GetComponentsInChildren<SpriteRenderer>();
-        foreach(SpriteRenderer sprite in wallsAndFloor)
+        foreach(Transform child in wallsParent)
         {
-            sprite.enabled = false;
+            walls.Add(child.GetComponent<Wall>());
+        }
+
+        foreach(Wall wall in walls)
+        {
+            wall.SpriteVisible(false);
         }
     }
 
@@ -45,9 +52,17 @@ public class Room : MonoBehaviour
             case RoomState.EXPLORED:
                 state = RoomState.EXPLORED;
                 onChangeState?.Invoke(RoomState.EXPLORED);
-                foreach(SpriteRenderer sprite in wallsAndFloor)
+                foreach(Wall wall in walls)
                 {
-                    sprite.enabled = true;
+                    wall.SpriteVisible(true);
+                }
+                break;
+            case RoomState.DISCOVERED:
+                state = RoomState.EXPLORED;
+                onChangeState?.Invoke(RoomState.EXPLORED);
+                foreach (Wall wall in walls)
+                {
+                    wall.SpriteVisible(true);
                 }
                 break;
         }
@@ -63,26 +78,32 @@ public class Room : MonoBehaviour
 
     public void GetScanned(PlayerUnit scanningUnit)
     {
+        if (state == RoomState.HIDDEN) SetState(RoomState.DISCOVERED);
         if (!scanningUnits.Contains(scanningUnit))
         {
             scanningUnits.Add(scanningUnit);
         }
         if(enemies.Count == 0)
         {
-            enemyIndicator.enabled = false;
-            emptyIndicator.enabled = true;
+            SetWallScanState(ScanningState.SAFE);
         }
         else
         {
-            enemyIndicator.enabled = true;
-            emptyIndicator.enabled = false;
+            SetWallScanState(ScanningState.DANGER);
         }
     }
 
     void StopGettingScanned()
     {
-        enemyIndicator.enabled = false;
-        emptyIndicator.enabled = false;
+        SetWallScanState(ScanningState.UNSCANNED);
+    }
+
+    void SetWallScanState(ScanningState setState)
+    {
+        foreach(Wall wall in walls)
+        {
+            wall.SetScanState(setState);
+        }
     }
 
     private void Global_onUnitStopScanning(PlayerUnit scanningUnit)
