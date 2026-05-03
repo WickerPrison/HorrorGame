@@ -26,6 +26,7 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen
     public void GetCollected()
     {
         playerManager.GainResources(value);
+        room.resources.Remove(this);
         Destroy(gameObject);
     }
 }

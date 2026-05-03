@@ -13,6 +13,7 @@ public class PlayerUnit : MonoBehaviour
     SpriteMask visionMask;
     float collectRange = 0.3f;
     Resource collectResource = null;
+    Room scanningFromRoom = null;
 
     void Start()
     {
@@ -33,6 +34,11 @@ public class PlayerUnit : MonoBehaviour
                 collectResource = null;
             }
         }
+
+        if (scanningFromRoom != null)
+        {
+            scanningFromRoom.ScanAdjacentRooms(this);
+        }
     }
 
     public void SetDestination(Vector3 destination)
@@ -51,18 +57,18 @@ public class PlayerUnit : MonoBehaviour
         }
         else
         {
-            outline.color = Color.black;
+            outline.color = Color.white;
         }
     }
 
     public void Scan()
     {
-        List<Room> rooms = Utils.GetRooms(transform.position, 0.1f);
-        rooms[0].ScanAdjacentRooms(this);
+        scanningFromRoom = Utils.GetRoom(transform.position);
     }
 
     void StopScanning()
     {
+        scanningFromRoom = null;
         GlobalEvents.i.UnitStopScanning(this);
     }
 
