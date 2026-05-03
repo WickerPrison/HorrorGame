@@ -1117,6 +1117,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hack"",
+                    ""type"": ""Button"",
+                    ""id"": ""737af0ac-0277-410f-89eb-e65fe588974f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1172,6 +1181,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Collect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""641b7bcb-0e8e-4d1d-b1f8-50748b6ac849"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1270,6 +1290,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_ControlUnits_RightClick = m_ControlUnits.FindAction("RightClick", throwIfNotFound: true);
         m_ControlUnits_Scan = m_ControlUnits.FindAction("Scan", throwIfNotFound: true);
         m_ControlUnits_Collect = m_ControlUnits.FindAction("Collect", throwIfNotFound: true);
+        m_ControlUnits_Hack = m_ControlUnits.FindAction("Hack", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1735,6 +1756,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ControlUnits_RightClick;
     private readonly InputAction m_ControlUnits_Scan;
     private readonly InputAction m_ControlUnits_Collect;
+    private readonly InputAction m_ControlUnits_Hack;
     /// <summary>
     /// Provides access to input actions defined in input action map "ControlUnits".
     /// </summary>
@@ -1762,6 +1784,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "ControlUnits/Collect".
         /// </summary>
         public InputAction @Collect => m_Wrapper.m_ControlUnits_Collect;
+        /// <summary>
+        /// Provides access to the underlying input action "ControlUnits/Hack".
+        /// </summary>
+        public InputAction @Hack => m_Wrapper.m_ControlUnits_Hack;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1800,6 +1826,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Collect.started += instance.OnCollect;
             @Collect.performed += instance.OnCollect;
             @Collect.canceled += instance.OnCollect;
+            @Hack.started += instance.OnHack;
+            @Hack.performed += instance.OnHack;
+            @Hack.canceled += instance.OnHack;
         }
 
         /// <summary>
@@ -1823,6 +1852,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Collect.started -= instance.OnCollect;
             @Collect.performed -= instance.OnCollect;
             @Collect.canceled -= instance.OnCollect;
+            @Hack.started -= instance.OnHack;
+            @Hack.performed -= instance.OnHack;
+            @Hack.canceled -= instance.OnHack;
         }
 
         /// <summary>
@@ -2105,5 +2137,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCollect(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Hack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHack(InputAction.CallbackContext context);
     }
 }

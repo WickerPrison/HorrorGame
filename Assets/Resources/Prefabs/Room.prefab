@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2187ca3f1dd470a4587f0f3a9cc0dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
-  adjacentRooms: []
+  colorData: {fileID: 11400000, guid: f1181f3012833e64a8674a5c89468206, type: 2}
+  doors: []
   enemies: []
   wallsParent: {fileID: 3315981120404886954}
   alwaysPowered: 0

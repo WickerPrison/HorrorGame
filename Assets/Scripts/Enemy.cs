@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     {
         playerManager = PlayerEvents.i.GetComponent<PlayerManager>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        sprite.enabled = false;
         layerMask = LayerMask.GetMask("Default", "Obstacle", "Player");
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();

@@ -74,7 +74,7 @@ public class PlayerUnit : MonoBehaviour
 
     public void Collect()
     {
-        Room room = Utils.GetRooms(transform.position, 0.1f)[0];
+        Room room = Utils.GetRoom(transform.position, 0.1f);
         Resource closestResource = null;
         float closestDistance = 1000f;
         foreach(Resource resource in room.resources)
@@ -93,6 +93,16 @@ public class PlayerUnit : MonoBehaviour
             aiPath.destination = closestResource.transform.position;
         }
 
+    }
+
+    public void Hack()
+    {
+        Room room = Utils.GetRoom(transform.position);
+        if(room.terminals.Count > 0)
+        {
+            seeker.StartPath(transform.position, room.terminals[0].transform.position);
+            aiPath.destination = room.terminals[0].transform.position;
+        }
     }
 
     public void Death()

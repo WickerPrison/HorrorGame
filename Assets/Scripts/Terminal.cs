@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class Terminal : MonoBehaviour, IUnhideWhenSeen
 {
-    SpriteRenderer sprite;
+    SpriteRenderer[] sprites;
+    Room room;
 
     void Start()
     {
-        sprite = GetComponentInChildren<SpriteRenderer>();        
+        room = Utils.GetRoom(transform.position);
+        room.terminals.Add(this);
+        sprites = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            sprite.enabled = false;
+        }
     }
 
     public void Unhide()
     {
-        sprite.enabled = true;
+        foreach(SpriteRenderer sprite in sprites)
+        {
+            sprite.enabled = true;
+        }
     }
 }

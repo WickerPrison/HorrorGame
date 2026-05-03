@@ -13,6 +13,7 @@ public enum ScanningState
 
 public class Room : MonoBehaviour
 {
+    [SerializeField] ColorData colorData;
     public List<Door> doors;
     public List<Enemy> enemies;
     [SerializeField] Transform wallsParent;
@@ -21,13 +22,16 @@ public class Room : MonoBehaviour
     public event System.Action<RoomState> onChangeState;
     List<PlayerUnit> scanningUnits = new List<PlayerUnit>();
     [System.NonSerialized] public List<Resource> resources = new List<Resource>();
+    [System.NonSerialized] public List<Terminal> terminals = new List<Terminal>();
     [SerializeField] bool alwaysPowered;
-    public bool powered;
+    public bool powered = false;
     BoxCollider2D boxCollider;
 
     private void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
+
+        if (alwaysPowered) powered = true;
 
         foreach(Transform child in wallsParent)
         {
@@ -139,7 +143,7 @@ public class Room : MonoBehaviour
     {
         foreach(Wall wall in walls)
         {
-            wall.SetScanState(setState);
+            wall.SetScanState(setState, powered);
         }
     }
 

@@ -10,6 +10,7 @@ public enum DoorState
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] ColorData colorData;
     DoorState state = DoorState.CLOSED;
     List<Room> rooms;
     public Dictionary<Room, Room> roomDict = new Dictionary<Room, Room>();
@@ -17,6 +18,7 @@ public class Door : MonoBehaviour
     public event System.Action<float> onDoorProgress;
     float doorProgress = 0;
     float doorSpeed = 5;
+    bool powered;
 
     private void Start()
     {
@@ -30,9 +32,12 @@ public class Door : MonoBehaviour
         roomDict.Add(rooms[1], rooms[0]);
         onDoorProgress?.Invoke(doorProgress);
 
+        powered = rooms[0].powered || rooms[1].powered;
+        Color color = powered ? colorData.powered : colorData.unpowered;
         SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in spriteRenderers)
         {
+            sprite.color = color;
             sprite.enabled = false;
         }
     }
@@ -100,6 +105,7 @@ public class Door : MonoBehaviour
 
     void RightClick(Vector3 worldPos)
     {
+        if (!powered) return;
         Collider2D hit = Physics2D.OverlapPoint(worldPos, Layers.clickableMask);
         if (hit != null && hit.gameObject == gameObject)
         {

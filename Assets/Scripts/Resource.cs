@@ -12,7 +12,8 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen
     {
         playerManager = PlayerEvents.i.GetComponent<PlayerManager>();
         sprite = GetComponentInChildren<SpriteRenderer>();
-        room = Utils.GetRooms(transform.position)[0];
+        sprite.enabled = false;
+        room = Utils.GetRoom(transform.position);
         room.resources.Add(this);
 
         value = Random.Range(1, 5);
