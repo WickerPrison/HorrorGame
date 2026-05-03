@@ -12,6 +12,7 @@ public class Door : MonoBehaviour
 {
     DoorState state = DoorState.CLOSED;
     List<Room> rooms;
+    public Dictionary<Room, Room> roomDict = new Dictionary<Room, Room>();
 
     public event System.Action<float> onDoorProgress;
     float doorProgress = 0;
@@ -23,14 +24,10 @@ public class Door : MonoBehaviour
         foreach(Room room in rooms)
         {
             room.onChangeState += Room_onChangeState;
-            foreach(Room adjacentRoom in rooms)
-            {
-                if(adjacentRoom != room)
-                {
-                    room.adjacentRooms.Add(adjacentRoom);
-                }
-            }
+            room.doors.Add(this);
         }
+        roomDict.Add(rooms[0], rooms[1]);
+        roomDict.Add(rooms[1], rooms[0]);
         onDoorProgress?.Invoke(doorProgress);
 
         SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -64,6 +61,15 @@ public class Door : MonoBehaviour
                 onDoorProgress?.Invoke(doorProgress);
                 break;
         }
+    }
+
+    public Room GetAccessibleRoom(Room caller)
+    {
+        if(state == DoorState.OPEN)
+        {
+            return roomDict[caller];
+        }
+        return null;
     }
 
     private void Room_onChangeState(RoomState newState)

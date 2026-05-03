@@ -2,13 +2,8 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    SpriteRenderer sprite;
+    [SerializeField] SpriteRenderer sprite;
     ScanningState scanState;
-
-    private void Start()
-    {
-        sprite = GetComponent<SpriteRenderer>();
-    }
 
     public void SpriteVisible(bool isEnabled)
     {

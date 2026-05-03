@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 3865904348572268762}
   - component: {fileID: 4877387730788444866}
   - component: {fileID: 3693547299944328297}
+  - component: {fileID: 6748051686337398446}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -140,6 +141,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   visionRange: 6
+  chaseSpeed: 7
+  chaseSlowdownDistance: 0
+  chaseEndReachedDistance: 0
+  wanderSpeed: 3
+  wanderSlowdownDistance: 0.5
+  wanderEndReachedDistance: 0.2
 --- !u!114 &3865904348572268762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,3 +253,30 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.3
+--- !u!50 &6748051686337398446
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765230528870520813}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -13,7 +13,7 @@ public enum ScanningState
 
 public class Room : MonoBehaviour
 {
-    public List<Room> adjacentRooms;
+    public List<Door> doors;
     public List<Enemy> enemies;
     [SerializeField] Transform wallsParent;
     List<Wall> walls = new List<Wall>();
@@ -23,9 +23,12 @@ public class Room : MonoBehaviour
     [System.NonSerialized] public List<Resource> resources = new List<Resource>();
     [SerializeField] bool alwaysPowered;
     public bool powered;
+    BoxCollider2D boxCollider;
 
     private void Start()
     {
+        boxCollider = GetComponent<BoxCollider2D>();
+
         foreach(Transform child in wallsParent)
         {
             walls.Add(child.GetComponent<Wall>());
@@ -42,6 +45,20 @@ public class Room : MonoBehaviour
         if (state != RoomState.EXPLORED && collision.CompareTag("Player"))
         {
             SetState(RoomState.EXPLORED);
+            return;
+        }
+
+        if(collision.TryGetComponent<Enemy>(out Enemy enteringEnemy))
+        {
+            enemies.Add(enteringEnemy);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.TryGetComponent<Enemy>(out Enemy leavingEnemy))
+        {
+            enemies.Remove(leavingEnemy);
         }
     }
 
@@ -68,11 +85,31 @@ public class Room : MonoBehaviour
         }
     }
 
+    public List<Room> GetAccessibleRooms()
+    {
+        List<Room> accessibleRooms = new List<Room> { this };
+        foreach(Door door in doors)
+        {
+            Room otherRoom = door.GetAccessibleRoom(this);
+            if (otherRoom != null) accessibleRooms.Add(otherRoom);
+        }
+        return accessibleRooms;
+    }
+
+    public Vector3 GetRandomPointInRoom()
+    {
+        float halfWidth = boxCollider.size.x / 2;
+        float halfHeight = boxCollider.size.y / 2;
+        float xOffset = Random.Range(-halfWidth, halfWidth);
+        float yOffset = Random.Range(-halfHeight, halfHeight);
+        return transform.position + new Vector3(xOffset, yOffset, 0);
+    }
+
     public void ScanAdjacentRooms(PlayerUnit scanningUnit)
     {
-        foreach(Room room in adjacentRooms)
+        foreach(Door door in doors)
         {
-            room.GetScanned(scanningUnit);
+            door.roomDict[this].GetScanned(scanningUnit);
         }
     }
 
