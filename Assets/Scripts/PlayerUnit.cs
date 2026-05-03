@@ -57,7 +57,7 @@ public class PlayerUnit : MonoBehaviour
         }
         else
         {
-            outline.color = Color.black;
+            outline.color = Color.white;
         }
     }
 
