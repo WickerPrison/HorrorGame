@@ -22,7 +22,7 @@ public class Room : MonoBehaviour
     public event System.Action<RoomState> onChangeState;
     List<PlayerUnit> scanningUnits = new List<PlayerUnit>();
     [System.NonSerialized] public List<Resource> resources = new List<Resource>();
-    [System.NonSerialized] public List<Terminal> terminals = new List<Terminal>();
+    [System.NonSerialized] public Terminal terminal;
     List<IPowerRooms> powerSources = new List<IPowerRooms>();
     BoxCollider2D boxCollider;
     [SerializeField] bool unscannable;

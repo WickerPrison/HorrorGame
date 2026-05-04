@@ -1015,7 +1015,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Scan",
+                    "name": "Ability1",
                     "type": "Button",
                     "id": "9916e9d3-8f5f-45af-9e0d-394ebe106d50",
                     "expectedControlType": "",
@@ -1024,7 +1024,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Collect",
+                    "name": "Ability2",
                     "type": "Button",
                     "id": "e97bb517-2e4a-4c55-9ef5-b83c3f20249f",
                     "expectedControlType": "",
@@ -1033,9 +1033,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hack",
+                    "name": "Ability3",
                     "type": "Button",
                     "id": "737af0ac-0277-410f-89eb-e65fe588974f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability4",
+                    "type": "Button",
+                    "id": "26fb539d-17ee-4ad4-85d4-80c9b21d326b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1072,7 +1081,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Scan",
+                    "action": "Ability1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1083,7 +1092,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Scan",
+                    "action": "Ability1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1094,7 +1103,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Collect",
+                    "action": "Ability2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1105,7 +1114,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Hack",
+                    "action": "Ability3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84b2cd42-e9ef-4400-a185-1623525ef163",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,4 +1,5 @@
 using Pathfinding;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,16 +12,18 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] SpriteRenderer outline;
     public float visionRange;
     SpriteMask visionMask;
-    float interactRange = 0.3f;
-    Resource collectResource = null;
-    Room scanningFromRoom = null;
     Terminal interactTerminal = null;
     bool goingToTerminal = false;
+    UnitAbilities unitAbilities;
+    Action destinationCallback;
+    bool atDestination = false;
+    [SerializeField] Ability[] abilities;
 
     void Start()
     {
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
+        unitAbilities = GetComponent<UnitAbilities>();
         PlayerEvents.i.UnitExists(this);
         visionMask = GetComponentInChildren<SpriteMask>();
         visionMask.transform.localScale = visionRange * 2 * Vector3.one;
@@ -28,36 +31,25 @@ public class PlayerUnit : MonoBehaviour
 
     private void Update()
     {
-        if(collectResource != null)
+        if (!atDestination && aiPath.reachedDestination)
         {
-            if(Vector2.Distance(transform.position, collectResource.transform.position) <= interactRange)
+            atDestination = true;
+            if(destinationCallback != null)
             {
-                collectResource.GetCollected();
-                collectResource = null;
+                destinationCallback();
+                destinationCallback = null;
             }
         }
+
 
         if(interactTerminal != null && goingToTerminal)
         {
             if (Vector2.Distance(transform.position, interactTerminal.transform.position) <= 1f)
             {
                 goingToTerminal = false;
-                interactTerminal.StartHacking();
+                interactTerminal.StartPowering();
             }
         }
-
-        if (scanningFromRoom != null)
-        {
-            scanningFromRoom.ScanAdjacentRooms(this);
-        }
-    }
-
-    public void SetDestination(Vector3 destination)
-    {
-        seeker.StartPath(transform.position, destination);
-        aiPath.destination = destination;
-        StopScanning();
-        StopHacking();
     }
 
     public void SetSelected(bool isSelected)
@@ -73,61 +65,27 @@ public class PlayerUnit : MonoBehaviour
         }
     }
 
-    public void Scan()
+    public void PerformAbility(int abilityIndex)
     {
-        StopHacking();
-        scanningFromRoom = Utils.GetRoom(transform.position);
+        if (abilities[abilityIndex] == Ability.NONE) return;
+        unitAbilities.PerformAbility(abilities[abilityIndex]);
     }
 
-    void StopScanning()
+    public void SetDestination(Vector3 destination, Action callback = null)
     {
-        scanningFromRoom = null;
-        GlobalEvents.i.UnitStopScanning(this);
+        aiPath.isStopped = false;
+        unitAbilities.InterruptAbilities(); //TODO: consider moving this somewhere else
+        destinationCallback = callback;
+        atDestination = false;
+        seeker.StartPath(transform.position, destination);
+        aiPath.destination = destination;
     }
 
-    public void Collect()
+    public void Stop()
     {
-        StopScanning();
-        StopHacking();
-        Room room = Utils.GetRoom(transform.position, 0.1f);
-        Resource closestResource = null;
-        float closestDistance = 1000f;
-        foreach(Resource resource in room.resources)
-        {
-            float currentDist = Vector3.Distance(transform.position, resource.transform.position);
-            if (currentDist < closestDistance)
-            {
-                closestDistance = currentDist;
-                closestResource = resource;
-            }
-        }
-        if(closestResource != null)
-        {
-            collectResource = closestResource;
-            seeker.StartPath(transform.position, closestResource.transform.position);
-            aiPath.destination = closestResource.transform.position;
-        }
-
-    }
-
-    public void Hack()
-    {
-        StopScanning();
-        Room room = Utils.GetRoom(transform.position);
-        if(room.terminals.Count > 0)
-        {
-            interactTerminal = room.terminals[0];
-            goingToTerminal = true;
-            seeker.StartPath(transform.position, room.terminals[0].transform.position);
-            aiPath.destination = room.terminals[0].transform.position;
-        }
-    }
-
-    void StopHacking()
-    {
-        if (interactTerminal == null) return;
-        interactTerminal.EndHacking();
-        interactTerminal = null;
+        seeker.CancelCurrentPathRequest();
+        aiPath.SetPath(null);
+        aiPath.isStopped = true;
     }
 
     public void Death()

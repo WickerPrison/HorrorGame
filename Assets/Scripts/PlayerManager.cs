@@ -28,28 +28,10 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void Scan()
+    private void Ability(int index)
     {
-        foreach(PlayerUnit unit in selectedUnits)
-        {
-            unit.Scan();
-        }
-    }
-
-    private void Collect()
-    {
-        foreach(PlayerUnit unit in selectedUnits)
-        {
-            unit.Collect();
-        }
-    }
-
-    private void Hack()
-    {
-        foreach(PlayerUnit unit in selectedUnits)
-        {
-            unit.Hack();
-        }
+        if (selectedUnits.Count != 1) return;
+        selectedUnits[0].PerformAbility(index);
     }
 
     void SelectUnit(PlayerUnit unit)
@@ -86,9 +68,7 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.SetControlUnits();
         InputManager.i.onLeftClick += LeftClick;
         InputManager.i.onRightClick += RightClick;
-        InputManager.i.onScan += Scan;
-        InputManager.i.onCollect += Collect; 
-        InputManager.i.onHack += Hack;
+        InputManager.i.onAbility += Ability;
         PlayerEvents.i.onUnitExists += PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath += PlayerEvents_onUnitDeath;
     }
@@ -98,9 +78,7 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.DisableControlUnits();
         InputManager.i.onLeftClick -= LeftClick;
         InputManager.i.onRightClick -= RightClick;
-        InputManager.i.onScan -= Scan;
-        InputManager.i.onCollect -= Collect;
-        InputManager.i.onHack -= Hack;
+        InputManager.i.onAbility -= Ability;
         PlayerEvents.i.onUnitExists -= PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath -= PlayerEvents_onUnitDeath;
     }

@@ -6,11 +6,12 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms
     SpriteRenderer[] sprites;
     Room room;
     public List<Room> roomsToPower = new List<Room>();
+    [SerializeField] Transform interactPoint;
 
     void Start()
     {
         room = Utils.GetRoom(transform.position);
-        room.terminals.Add(this);
+        room.terminal = this;
         sprites = GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in sprites)
         {
@@ -26,7 +27,12 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms
         }
     }
 
-    public void StartHacking()
+    public Vector3 GetInteractPoint()
+    {
+        return interactPoint.position;
+    }
+
+    public void StartPowering()
     {
         foreach(Room room in roomsToPower)
         {
@@ -34,9 +40,9 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms
         }
     }
 
-    public void EndHacking()
+    public void EndPowering()
     {
-        Debug.Log("end hacking");
+        Debug.Log("end power");
         foreach (Room room in roomsToPower)
         {
             room.LosePower(this);

@@ -8,9 +8,7 @@ public class InputManager : MonoBehaviour
 
     public event System.Action<Vector3> onLeftClick;
     public event System.Action<Vector3> onRightClick;
-    public event System.Action onScan;
-    public event System.Action onCollect;
-    public event System.Action onHack;
+    public event System.Action<int> onAbility;
 
     void Awake()
     {
@@ -24,9 +22,10 @@ public class InputManager : MonoBehaviour
         inputSystem = new InputSystem_Actions();
         inputSystem.ControlUnits.LeftClick.performed += LeftClick;
         inputSystem.ControlUnits.RightClick.performed += RightClick;
-        inputSystem.ControlUnits.Scan.performed += Scan;
-        inputSystem.ControlUnits.Collect.performed += Collect;
-        inputSystem.ControlUnits.Hack.performed += Hack;
+        inputSystem.ControlUnits.Ability1.performed += Ability1;
+        inputSystem.ControlUnits.Ability2.performed += Ability2;
+        inputSystem.ControlUnits.Ability3.performed += Ability3;
+        inputSystem.ControlUnits.Ability4.performed += Ability4;
     }
 
     void LeftClick(InputAction.CallbackContext ctx)
@@ -54,20 +53,26 @@ public class InputManager : MonoBehaviour
         onRightClick?.Invoke(mouseWorldPos);
     }
 
-    private void Scan(InputAction.CallbackContext obj)
+    void Ability1(InputAction.CallbackContext ctx)
     {
-        onScan?.Invoke();
+        onAbility?.Invoke(0);
     }
 
-    private void Collect(InputAction.CallbackContext obj)
+    void Ability2(InputAction.CallbackContext ctx)
     {
-        onCollect?.Invoke();
+        onAbility?.Invoke(1);
     }
 
-    private void Hack(InputAction.CallbackContext obj)
+    void Ability3(InputAction.CallbackContext ctx)
     {
-        onHack?.Invoke();
+        onAbility?.Invoke(2);
     }
+
+    void Ability4(InputAction.CallbackContext ctx)
+    {
+        onAbility?.Invoke(3);
+    }
+
 
     public void SetControlUnits()
     {

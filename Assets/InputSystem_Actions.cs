@@ -1101,7 +1101,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Scan"",
+                    ""name"": ""Ability1"",
                     ""type"": ""Button"",
                     ""id"": ""9916e9d3-8f5f-45af-9e0d-394ebe106d50"",
                     ""expectedControlType"": """",
@@ -1110,7 +1110,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Collect"",
+                    ""name"": ""Ability2"",
                     ""type"": ""Button"",
                     ""id"": ""e97bb517-2e4a-4c55-9ef5-b83c3f20249f"",
                     ""expectedControlType"": """",
@@ -1119,9 +1119,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Hack"",
+                    ""name"": ""Ability3"",
                     ""type"": ""Button"",
                     ""id"": ""737af0ac-0277-410f-89eb-e65fe588974f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability4"",
+                    ""type"": ""Button"",
+                    ""id"": ""26fb539d-17ee-4ad4-85d4-80c9b21d326b"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1158,7 +1167,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Scan"",
+                    ""action"": ""Ability1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1169,7 +1178,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Scan"",
+                    ""action"": ""Ability1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1180,7 +1189,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Collect"",
+                    ""action"": ""Ability2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1191,7 +1200,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Hack"",
+                    ""action"": ""Ability3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84b2cd42-e9ef-4400-a185-1623525ef163"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1288,9 +1308,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_ControlUnits = asset.FindActionMap("ControlUnits", throwIfNotFound: true);
         m_ControlUnits_LeftClick = m_ControlUnits.FindAction("LeftClick", throwIfNotFound: true);
         m_ControlUnits_RightClick = m_ControlUnits.FindAction("RightClick", throwIfNotFound: true);
-        m_ControlUnits_Scan = m_ControlUnits.FindAction("Scan", throwIfNotFound: true);
-        m_ControlUnits_Collect = m_ControlUnits.FindAction("Collect", throwIfNotFound: true);
-        m_ControlUnits_Hack = m_ControlUnits.FindAction("Hack", throwIfNotFound: true);
+        m_ControlUnits_Ability1 = m_ControlUnits.FindAction("Ability1", throwIfNotFound: true);
+        m_ControlUnits_Ability2 = m_ControlUnits.FindAction("Ability2", throwIfNotFound: true);
+        m_ControlUnits_Ability3 = m_ControlUnits.FindAction("Ability3", throwIfNotFound: true);
+        m_ControlUnits_Ability4 = m_ControlUnits.FindAction("Ability4", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1754,9 +1775,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IControlUnitsActions> m_ControlUnitsActionsCallbackInterfaces = new List<IControlUnitsActions>();
     private readonly InputAction m_ControlUnits_LeftClick;
     private readonly InputAction m_ControlUnits_RightClick;
-    private readonly InputAction m_ControlUnits_Scan;
-    private readonly InputAction m_ControlUnits_Collect;
-    private readonly InputAction m_ControlUnits_Hack;
+    private readonly InputAction m_ControlUnits_Ability1;
+    private readonly InputAction m_ControlUnits_Ability2;
+    private readonly InputAction m_ControlUnits_Ability3;
+    private readonly InputAction m_ControlUnits_Ability4;
     /// <summary>
     /// Provides access to input actions defined in input action map "ControlUnits".
     /// </summary>
@@ -1777,17 +1799,21 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @RightClick => m_Wrapper.m_ControlUnits_RightClick;
         /// <summary>
-        /// Provides access to the underlying input action "ControlUnits/Scan".
+        /// Provides access to the underlying input action "ControlUnits/Ability1".
         /// </summary>
-        public InputAction @Scan => m_Wrapper.m_ControlUnits_Scan;
+        public InputAction @Ability1 => m_Wrapper.m_ControlUnits_Ability1;
         /// <summary>
-        /// Provides access to the underlying input action "ControlUnits/Collect".
+        /// Provides access to the underlying input action "ControlUnits/Ability2".
         /// </summary>
-        public InputAction @Collect => m_Wrapper.m_ControlUnits_Collect;
+        public InputAction @Ability2 => m_Wrapper.m_ControlUnits_Ability2;
         /// <summary>
-        /// Provides access to the underlying input action "ControlUnits/Hack".
+        /// Provides access to the underlying input action "ControlUnits/Ability3".
         /// </summary>
-        public InputAction @Hack => m_Wrapper.m_ControlUnits_Hack;
+        public InputAction @Ability3 => m_Wrapper.m_ControlUnits_Ability3;
+        /// <summary>
+        /// Provides access to the underlying input action "ControlUnits/Ability4".
+        /// </summary>
+        public InputAction @Ability4 => m_Wrapper.m_ControlUnits_Ability4;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1820,15 +1846,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @RightClick.started += instance.OnRightClick;
             @RightClick.performed += instance.OnRightClick;
             @RightClick.canceled += instance.OnRightClick;
-            @Scan.started += instance.OnScan;
-            @Scan.performed += instance.OnScan;
-            @Scan.canceled += instance.OnScan;
-            @Collect.started += instance.OnCollect;
-            @Collect.performed += instance.OnCollect;
-            @Collect.canceled += instance.OnCollect;
-            @Hack.started += instance.OnHack;
-            @Hack.performed += instance.OnHack;
-            @Hack.canceled += instance.OnHack;
+            @Ability1.started += instance.OnAbility1;
+            @Ability1.performed += instance.OnAbility1;
+            @Ability1.canceled += instance.OnAbility1;
+            @Ability2.started += instance.OnAbility2;
+            @Ability2.performed += instance.OnAbility2;
+            @Ability2.canceled += instance.OnAbility2;
+            @Ability3.started += instance.OnAbility3;
+            @Ability3.performed += instance.OnAbility3;
+            @Ability3.canceled += instance.OnAbility3;
+            @Ability4.started += instance.OnAbility4;
+            @Ability4.performed += instance.OnAbility4;
+            @Ability4.canceled += instance.OnAbility4;
         }
 
         /// <summary>
@@ -1846,15 +1875,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @RightClick.started -= instance.OnRightClick;
             @RightClick.performed -= instance.OnRightClick;
             @RightClick.canceled -= instance.OnRightClick;
-            @Scan.started -= instance.OnScan;
-            @Scan.performed -= instance.OnScan;
-            @Scan.canceled -= instance.OnScan;
-            @Collect.started -= instance.OnCollect;
-            @Collect.performed -= instance.OnCollect;
-            @Collect.canceled -= instance.OnCollect;
-            @Hack.started -= instance.OnHack;
-            @Hack.performed -= instance.OnHack;
-            @Hack.canceled -= instance.OnHack;
+            @Ability1.started -= instance.OnAbility1;
+            @Ability1.performed -= instance.OnAbility1;
+            @Ability1.canceled -= instance.OnAbility1;
+            @Ability2.started -= instance.OnAbility2;
+            @Ability2.performed -= instance.OnAbility2;
+            @Ability2.canceled -= instance.OnAbility2;
+            @Ability3.started -= instance.OnAbility3;
+            @Ability3.performed -= instance.OnAbility3;
+            @Ability3.canceled -= instance.OnAbility3;
+            @Ability4.started -= instance.OnAbility4;
+            @Ability4.performed -= instance.OnAbility4;
+            @Ability4.canceled -= instance.OnAbility4;
         }
 
         /// <summary>
@@ -2124,25 +2156,32 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRightClick(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Scan" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Ability1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnScan(InputAction.CallbackContext context);
+        void OnAbility1(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Collect" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Ability2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnCollect(InputAction.CallbackContext context);
+        void OnAbility2(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Hack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Ability3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnHack(InputAction.CallbackContext context);
+        void OnAbility3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Ability4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAbility4(InputAction.CallbackContext context);
     }
 }
