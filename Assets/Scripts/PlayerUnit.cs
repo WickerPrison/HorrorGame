@@ -11,9 +11,11 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] SpriteRenderer outline;
     public float visionRange;
     SpriteMask visionMask;
-    float collectRange = 0.3f;
+    float interactRange = 0.3f;
     Resource collectResource = null;
     Room scanningFromRoom = null;
+    Terminal interactTerminal = null;
+    bool goingToTerminal = false;
 
     void Start()
     {
@@ -28,10 +30,19 @@ public class PlayerUnit : MonoBehaviour
     {
         if(collectResource != null)
         {
-            if(Vector2.Distance(transform.position, collectResource.transform.position) <= collectRange)
+            if(Vector2.Distance(transform.position, collectResource.transform.position) <= interactRange)
             {
                 collectResource.GetCollected();
                 collectResource = null;
+            }
+        }
+
+        if(interactTerminal != null && goingToTerminal)
+        {
+            if (Vector2.Distance(transform.position, interactTerminal.transform.position) <= 1f)
+            {
+                goingToTerminal = false;
+                interactTerminal.StartHacking();
             }
         }
 
@@ -46,6 +57,7 @@ public class PlayerUnit : MonoBehaviour
         seeker.StartPath(transform.position, destination);
         aiPath.destination = destination;
         StopScanning();
+        StopHacking();
     }
 
     public void SetSelected(bool isSelected)
@@ -63,6 +75,7 @@ public class PlayerUnit : MonoBehaviour
 
     public void Scan()
     {
+        StopHacking();
         scanningFromRoom = Utils.GetRoom(transform.position);
     }
 
@@ -74,6 +87,8 @@ public class PlayerUnit : MonoBehaviour
 
     public void Collect()
     {
+        StopScanning();
+        StopHacking();
         Room room = Utils.GetRoom(transform.position, 0.1f);
         Resource closestResource = null;
         float closestDistance = 1000f;
@@ -97,12 +112,22 @@ public class PlayerUnit : MonoBehaviour
 
     public void Hack()
     {
+        StopScanning();
         Room room = Utils.GetRoom(transform.position);
         if(room.terminals.Count > 0)
         {
+            interactTerminal = room.terminals[0];
+            goingToTerminal = true;
             seeker.StartPath(transform.position, room.terminals[0].transform.position);
             aiPath.destination = room.terminals[0].transform.position;
         }
+    }
+
+    void StopHacking()
+    {
+        if (interactTerminal == null) return;
+        interactTerminal.EndHacking();
+        interactTerminal = null;
     }
 
     public void Death()

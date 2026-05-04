@@ -30,4 +30,17 @@ public class Wall : MonoBehaviour
                 break;
         }
     }
+
+    public void PowerChange(bool powered)
+    {
+        if (scanState != ScanningState.UNSCANNED) return;
+        if (powered)
+        {
+            sprite.color = colorData.powered;
+        }
+        else
+        {
+            sprite.color = colorData.unpowered;
+        }
+    }
 }

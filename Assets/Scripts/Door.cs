@@ -20,6 +20,8 @@ public class Door : MonoBehaviour
     float doorSpeed = 5;
     bool powered;
 
+    [SerializeField] SpriteRenderer[] spriteRenderers;
+
     private void Start()
     {
         rooms = Utils.GetRooms(transform.position);
@@ -32,12 +34,10 @@ public class Door : MonoBehaviour
         roomDict.Add(rooms[1], rooms[0]);
         onDoorProgress?.Invoke(doorProgress);
 
-        powered = rooms[0].powered || rooms[1].powered;
-        Color color = powered ? colorData.powered : colorData.unpowered;
-        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        UpdatePowerState();
         foreach (SpriteRenderer sprite in spriteRenderers)
         {
-            sprite.color = color;
             sprite.enabled = false;
         }
     }
@@ -75,6 +75,17 @@ public class Door : MonoBehaviour
             return roomDict[caller];
         }
         return null;
+    }
+
+    public void UpdatePowerState()
+    {
+        powered = rooms[0].HasPower() || rooms[1].HasPower();
+        Color color = powered ? colorData.powered : colorData.unpowered;
+
+        foreach (SpriteRenderer sprite in spriteRenderers)
+        {
+            sprite.color = color;
+        }
     }
 
     private void Room_onChangeState(RoomState newState)
