@@ -8,7 +8,7 @@ public enum RoomState
 
 public enum ScanningState
 {
-    UNSCANNED, DANGER, SAFE
+    UNSCANNED, DANGER, SAFE, UNSCANNABLE
 }
 
 public class Room : MonoBehaviour
@@ -25,6 +25,7 @@ public class Room : MonoBehaviour
     [System.NonSerialized] public List<Terminal> terminals = new List<Terminal>();
     List<IPowerRooms> powerSources = new List<IPowerRooms>();
     BoxCollider2D boxCollider;
+    [SerializeField] bool unscannable;
 
     private void Start()
     {
@@ -97,10 +98,10 @@ public class Room : MonoBehaviour
         return accessibleRooms;
     }
 
-    public Vector3 GetRandomPointInRoom()
+    public Vector3 GetRandomPointInRoom(float edgeBuffer = 0.3f)
     {
-        float halfWidth = boxCollider.size.x / 2;
-        float halfHeight = boxCollider.size.y / 2;
+        float halfWidth = boxCollider.size.x / 2 - edgeBuffer;
+        float halfHeight = boxCollider.size.y / 2 - edgeBuffer;
         float xOffset = Random.Range(-halfWidth, halfWidth);
         float yOffset = Random.Range(-halfHeight, halfHeight);
         return transform.position + new Vector3(xOffset, yOffset, 0);
@@ -159,7 +160,12 @@ public class Room : MonoBehaviour
         {
             scanningUnits.Add(scanningUnit);
         }
-        if(enemies.Count == 0)
+
+        if (unscannable)
+        {
+            SetWallScanState(ScanningState.UNSCANNABLE);
+        }
+        else if(enemies.Count == 0)
         {
             SetWallScanState(ScanningState.SAFE);
         }
