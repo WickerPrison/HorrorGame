@@ -28,6 +28,9 @@ public class Wall : MonoBehaviour
             case (ScanningState.SAFE, _):
                 sprite.color = colorData.safe;
                 break;
+            case (ScanningState.UNSCANNABLE, _):
+                sprite.color = colorData.unscannable;
+                break;
         }
     }
 

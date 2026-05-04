@@ -7,4 +7,5 @@ public class ColorData : ScriptableObject
     public Color unpowered;
     public Color safe;
     public Color danger;
+    public Color unscannable;
 }

@@ -2268,6 +2268,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6750142811414181099, guid: 945d8773f2faf6b41beb005476daf8f4, type: 3}
+      propertyPath: unscannable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8040911609945426189, guid: 945d8773f2faf6b41beb005476daf8f4, type: 3}
       propertyPath: m_Name
       value: Room (2)
@@ -2388,6 +2392,10 @@ PrefabInstance:
     - target: {fileID: 6332131163914502207, guid: 945d8773f2faf6b41beb005476daf8f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6750142811414181099, guid: 945d8773f2faf6b41beb005476daf8f4, type: 3}
+      propertyPath: unscannable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8040911609945426189, guid: 945d8773f2faf6b41beb005476daf8f4, type: 3}
       propertyPath: m_Name
