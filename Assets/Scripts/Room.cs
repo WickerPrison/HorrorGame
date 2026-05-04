@@ -126,7 +126,6 @@ public class Room : MonoBehaviour
     public void LosePower(IPowerRooms powerRooms)
     {
         powerSources.Remove(powerRooms);
-        Debug.Log(powerSources.Count);
         if(powerSources.Count == 0)
         {
             foreach (Wall wall in walls)

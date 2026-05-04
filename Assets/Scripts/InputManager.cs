@@ -44,6 +44,13 @@ public class InputManager : MonoBehaviour
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         mouseWorldPos.z = 0f;
 
+        Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos, Layers.clickableMask);
+        if(hit != null && hit.gameObject.TryGetComponent<Door>(out Door door))
+        {
+            door.RightClick();
+            return;
+        }
+
         onRightClick?.Invoke(mouseWorldPos);
     }
 

@@ -100,34 +100,25 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        InputManager.i.onRightClick += RightClick;
-    }
-
     private void OnDisable()
     {
-        InputManager.i.onRightClick -= RightClick;
         foreach (Room room in rooms)
         {
             room.onChangeState -= Room_onChangeState;
         }
     }
 
-    void RightClick(Vector3 worldPos)
+    public void RightClick()
     {
         if (!powered) return;
-        Collider2D hit = Physics2D.OverlapPoint(worldPos, Layers.clickableMask);
-        if (hit != null && hit.gameObject == gameObject)
+
+        if(state == DoorState.OPEN || state == DoorState.OPENING)
         {
-            if(state == DoorState.OPEN || state == DoorState.OPENING)
-            {
-                state = DoorState.CLOSING;
-            }
-            else
-            {
-                state = DoorState.OPENING;
-            }
+            state = DoorState.CLOSING;
+        }
+        else
+        {
+            state = DoorState.OPENING;
         }
     }
 }
