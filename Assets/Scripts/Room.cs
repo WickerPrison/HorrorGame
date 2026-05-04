@@ -13,6 +13,7 @@ public enum ScanningState
 
 public class Room : MonoBehaviour
 {
+    [SerializeField] ColorData colorData;
     public List<Door> doors;
     public List<Enemy> enemies;
     [SerializeField] Transform wallsParent;
@@ -21,8 +22,8 @@ public class Room : MonoBehaviour
     public event System.Action<RoomState> onChangeState;
     List<PlayerUnit> scanningUnits = new List<PlayerUnit>();
     [System.NonSerialized] public List<Resource> resources = new List<Resource>();
-    [SerializeField] bool alwaysPowered;
-    public bool powered;
+    [System.NonSerialized] public List<Terminal> terminals = new List<Terminal>();
+    List<IPowerRooms> powerSources = new List<IPowerRooms>();
     BoxCollider2D boxCollider;
 
     private void Start()
@@ -105,6 +106,45 @@ public class Room : MonoBehaviour
         return transform.position + new Vector3(xOffset, yOffset, 0);
     }
 
+    public void AddPower(IPowerRooms powerRooms)
+    {
+        if(state == RoomState.HIDDEN)
+        {
+            SetState(RoomState.DISCOVERED);
+        }
+        powerSources.Add(powerRooms);
+        foreach(Wall wall in walls)
+        {
+            wall.PowerChange(true);
+        }
+        foreach(Door door in doors)
+        {
+            door.UpdatePowerState();
+        }
+    }
+
+    public void LosePower(IPowerRooms powerRooms)
+    {
+        powerSources.Remove(powerRooms);
+        Debug.Log(powerSources.Count);
+        if(powerSources.Count == 0)
+        {
+            foreach (Wall wall in walls)
+            {
+                wall.PowerChange(false);
+            }
+        }
+        foreach (Door door in doors)
+        {
+            door.UpdatePowerState();
+        }
+    }
+
+    public bool HasPower()
+    {
+        return powerSources.Count > 0;
+    }
+
     public void ScanAdjacentRooms(PlayerUnit scanningUnit)
     {
         foreach(Door door in doors)
@@ -139,7 +179,7 @@ public class Room : MonoBehaviour
     {
         foreach(Wall wall in walls)
         {
-            wall.SetScanState(setState);
+            wall.SetScanState(setState, powerSources.Count > 0);
         }
     }
 

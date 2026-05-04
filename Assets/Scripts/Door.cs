@@ -10,6 +10,7 @@ public enum DoorState
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] ColorData colorData;
     DoorState state = DoorState.CLOSED;
     List<Room> rooms;
     public Dictionary<Room, Room> roomDict = new Dictionary<Room, Room>();
@@ -17,6 +18,9 @@ public class Door : MonoBehaviour
     public event System.Action<float> onDoorProgress;
     float doorProgress = 0;
     float doorSpeed = 5;
+    bool powered;
+
+    [SerializeField] SpriteRenderer[] spriteRenderers;
 
     private void Start()
     {
@@ -30,7 +34,8 @@ public class Door : MonoBehaviour
         roomDict.Add(rooms[1], rooms[0]);
         onDoorProgress?.Invoke(doorProgress);
 
-        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        UpdatePowerState();
         foreach (SpriteRenderer sprite in spriteRenderers)
         {
             sprite.enabled = false;
@@ -72,6 +77,17 @@ public class Door : MonoBehaviour
         return null;
     }
 
+    public void UpdatePowerState()
+    {
+        powered = rooms[0].HasPower() || rooms[1].HasPower();
+        Color color = powered ? colorData.powered : colorData.unpowered;
+
+        foreach (SpriteRenderer sprite in spriteRenderers)
+        {
+            sprite.color = color;
+        }
+    }
+
     private void Room_onChangeState(RoomState newState)
     {
         if (newState != RoomState.HIDDEN)
@@ -100,6 +116,7 @@ public class Door : MonoBehaviour
 
     void RightClick(Vector3 worldPos)
     {
+        if (!powered) return;
         Collider2D hit = Physics2D.OverlapPoint(worldPos, Layers.clickableMask);
         if (hit != null && hit.gameObject == gameObject)
         {

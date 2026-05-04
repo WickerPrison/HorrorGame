@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     public event System.Action<Vector3> onRightClick;
     public event System.Action onScan;
     public event System.Action onCollect;
+    public event System.Action onHack;
 
     void Awake()
     {
@@ -25,6 +26,7 @@ public class InputManager : MonoBehaviour
         inputSystem.ControlUnits.RightClick.performed += RightClick;
         inputSystem.ControlUnits.Scan.performed += Scan;
         inputSystem.ControlUnits.Collect.performed += Collect;
+        inputSystem.ControlUnits.Hack.performed += Hack;
     }
 
     void LeftClick(InputAction.CallbackContext ctx)
@@ -53,6 +55,11 @@ public class InputManager : MonoBehaviour
     private void Collect(InputAction.CallbackContext obj)
     {
         onCollect?.Invoke();
+    }
+
+    private void Hack(InputAction.CallbackContext obj)
+    {
+        onHack?.Invoke();
     }
 
     public void SetControlUnits()

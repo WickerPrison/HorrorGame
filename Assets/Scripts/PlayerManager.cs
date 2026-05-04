@@ -44,6 +44,14 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    private void Hack()
+    {
+        foreach(PlayerUnit unit in selectedUnits)
+        {
+            unit.Hack();
+        }
+    }
+
     void SelectUnit(PlayerUnit unit)
     {
         selectedUnits.Add(unit);
@@ -79,7 +87,8 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.onLeftClick += LeftClick;
         InputManager.i.onRightClick += RightClick;
         InputManager.i.onScan += Scan;
-        InputManager.i.onCollect += Collect;
+        InputManager.i.onCollect += Collect; 
+        InputManager.i.onHack += Hack;
         PlayerEvents.i.onUnitExists += PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath += PlayerEvents_onUnitDeath;
     }
@@ -89,6 +98,9 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.DisableControlUnits();
         InputManager.i.onLeftClick -= LeftClick;
         InputManager.i.onRightClick -= RightClick;
+        InputManager.i.onScan -= Scan;
+        InputManager.i.onCollect -= Collect;
+        InputManager.i.onHack -= Hack;
         PlayerEvents.i.onUnitExists -= PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath -= PlayerEvents_onUnitDeath;
     }

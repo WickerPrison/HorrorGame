@@ -3,6 +3,7 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     [SerializeField] SpriteRenderer sprite;
+    [SerializeField] ColorData colorData;
     ScanningState scanState;
 
     public void SpriteVisible(bool isEnabled)
@@ -10,20 +11,36 @@ public class Wall : MonoBehaviour
         sprite.enabled = isEnabled;
     }
 
-    public void SetScanState(ScanningState state)
+    public void SetScanState(ScanningState state, bool powered)
     {
         scanState = state;
-        switch (scanState)
+        switch (scanState, powered)
         {
-            case ScanningState.UNSCANNED:
-                sprite.color = Color.white;
+            case (ScanningState.UNSCANNED, true):
+                sprite.color = colorData.powered;
                 break;
-            case ScanningState.DANGER:
-                sprite.color = Color.red;
+            case (ScanningState.UNSCANNED, false):
+                sprite.color = colorData.unpowered;
                 break;
-            case ScanningState.SAFE:
-                sprite.color = Color.green;
+            case (ScanningState.DANGER, _):
+                sprite.color = colorData.danger;
                 break;
+            case (ScanningState.SAFE, _):
+                sprite.color = colorData.safe;
+                break;
+        }
+    }
+
+    public void PowerChange(bool powered)
+    {
+        if (scanState != ScanningState.UNSCANNED) return;
+        if (powered)
+        {
+            sprite.color = colorData.powered;
+        }
+        else
+        {
+            sprite.color = colorData.unpowered;
         }
     }
 }
