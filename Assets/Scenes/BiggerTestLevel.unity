@@ -2664,6 +2664,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4262494611123742679, guid: ba0eb1a0c2aff2d4b8beffcbadc41bbc, type: 3}
+      propertyPath: testData
+      value: 
+      objectReference: {fileID: 11400000, guid: 660b451681eb40b4b8b2955e3bd48425, type: 2}
+    - target: {fileID: 4262494611123742679, guid: ba0eb1a0c2aff2d4b8beffcbadc41bbc, type: 3}
+      propertyPath: 'abilities.Array.data[2]'
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4537,6 +4545,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4044516852033184450, guid: 9fc23e3927cb02d46a83ad87fcd27c02, type: 3}
   m_PrefabInstance: {fileID: 1103712300}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1103778989 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3611118843447881130, guid: 909d64cbd05dd974abe4acd96549724d, type: 3}
+  m_PrefabInstance: {fileID: 985174189}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1106763958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5120,6 +5133,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3766498092237727388, guid: ba0eb1a0c2aff2d4b8beffcbadc41bbc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262494611123742679, guid: ba0eb1a0c2aff2d4b8beffcbadc41bbc, type: 3}
+      propertyPath: testData
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f9eb6f4647a21f4bbf63c3ffa9c699f, type: 2}
+    - target: {fileID: 4262494611123742679, guid: ba0eb1a0c2aff2d4b8beffcbadc41bbc, type: 3}
+      propertyPath: 'abilities.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262494611123742679, guid: ba0eb1a0c2aff2d4b8beffcbadc41bbc, type: 3}
+      propertyPath: 'abilities.Array.data[1]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262494611123742679, guid: ba0eb1a0c2aff2d4b8beffcbadc41bbc, type: 3}
+      propertyPath: 'abilities.Array.data[2]'
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7585,6 +7614,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 412072271193976859, guid: 2fd7dc72dd04c5146bde6ba6c849554f, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1103778989}
+    - target: {fileID: 412072271193976859, guid: 2fd7dc72dd04c5146bde6ba6c849554f, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5329287068593889897, guid: 2fd7dc72dd04c5146bde6ba6c849554f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -7668,6 +7705,10 @@ PrefabInstance:
     - target: {fileID: 8246749841848514470, guid: 2fd7dc72dd04c5146bde6ba6c849554f, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598854844630776481, guid: 2fd7dc72dd04c5146bde6ba6c849554f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

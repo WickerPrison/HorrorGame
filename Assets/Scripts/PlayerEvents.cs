@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerEvents : MonoBehaviour
 {
     public static PlayerEvents i;
-    public event EventHandler onDeselectAll;
+
     public event System.Action<PlayerUnit> onUnitExists;
     public event Action<PlayerUnit> onUnitDeath;
 
@@ -16,11 +16,6 @@ public class PlayerEvents : MonoBehaviour
             return;
         }
         i = this;
-    }
-
-    public void DeselectAll()
-    {
-        onDeselectAll?.Invoke(this, EventArgs.Empty);
     }
 
     public void UnitExists(PlayerUnit unit)

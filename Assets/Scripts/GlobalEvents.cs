@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobalEvents : MonoBehaviour
@@ -7,6 +8,8 @@ public class GlobalEvents : MonoBehaviour
 
     public event Action<PlayerUnit> onUnitStopScanning;
     public event Action<int> onUpdateResources;
+    public event Action<List<PlayerUnit>> onSelectUnits;
+    public event EventHandler onDeselectAll;
 
     private void Awake()
     {
@@ -26,5 +29,15 @@ public class GlobalEvents : MonoBehaviour
     public void UpdateResources(int amount)
     {
         onUpdateResources?.Invoke(amount);
+    }
+
+    public void SelectUnits(List<PlayerUnit> selectedUnits)
+    {
+        onSelectUnits?.Invoke(selectedUnits);
+    }
+
+    public void DeselectAll()
+    {
+        onDeselectAll?.Invoke(this, EventArgs.Empty);
     }
 }

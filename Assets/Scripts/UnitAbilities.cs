@@ -95,7 +95,6 @@ public class UnitAbilities : MonoBehaviour
 
     void StopPowering()
     {
-        Debug.Log(poweringTerminal);
         if(poweringTerminal != null)
         {
             poweringTerminal.EndPowering();

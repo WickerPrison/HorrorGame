@@ -17,10 +17,12 @@ public class PlayerUnit : MonoBehaviour
     UnitAbilities unitAbilities;
     Action destinationCallback;
     bool atDestination = false;
-    [SerializeField] Ability[] abilities;
+    public PlayerUnitData data;
+    [SerializeField] TestPlayerUnitData testData;
 
     void Start()
     {
+        LoadTestData();
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
         unitAbilities = GetComponent<UnitAbilities>();
@@ -67,8 +69,8 @@ public class PlayerUnit : MonoBehaviour
 
     public void PerformAbility(int abilityIndex)
     {
-        if (abilities[abilityIndex] == Ability.NONE) return;
-        unitAbilities.PerformAbility(abilities[abilityIndex]);
+        if (data.abilities[abilityIndex] == Ability.NONE) return;
+        unitAbilities.PerformAbility(data.abilities[abilityIndex]);
     }
 
     public void SetDestination(Vector3 destination, Action callback = null)
@@ -96,16 +98,29 @@ public class PlayerUnit : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerEvents.i.onDeselectAll += PlayerEvents_onDeselectAll;
+        GlobalEvents.i.onDeselectAll += PlayerEvents_onDeselectAll;
     }
 
     private void OnDisable()
     {
-        PlayerEvents.i.onDeselectAll -= PlayerEvents_onDeselectAll;
+        GlobalEvents.i.onDeselectAll -= PlayerEvents_onDeselectAll;
     }
 
     private void PlayerEvents_onDeselectAll(object sender, System.EventArgs e)
     {
         SetSelected(false);
+    }
+
+    void LoadTestData()
+    {
+        if (testData != null)
+        {
+            data = new PlayerUnitData();
+            data.name = testData.unitName;
+            data.morality = testData.morality;
+            data.health = testData.health;
+            data.maxHealth = testData.maxHealth;
+            data.abilities = testData.abilities;
+        }
     }
 }

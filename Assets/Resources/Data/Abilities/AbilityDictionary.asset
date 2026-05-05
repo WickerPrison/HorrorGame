@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28cb98f5c9143b84b931cf332f3f352e, type: 3}
+  m_Name: AbilityDictionary
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityDictionary
+  collect: {fileID: 11400000, guid: 7567f52c10ea8604394b343360da31d7, type: 2}
+  power: {fileID: 11400000, guid: 8086e0602fd02434b8c55fafb9e487c6, type: 2}
+  scan: {fileID: 11400000, guid: 18a34a28d2ef2a54daab9b913f2c8b3e, type: 2}

@@ -38,12 +38,13 @@ public class PlayerManager : MonoBehaviour
     {
         selectedUnits.Add(unit);
         unit.SetSelected(true);
+        GlobalEvents.i.SelectUnits(selectedUnits);
     }
 
     void DeselectAll()
     {
         selectedUnits.Clear();
-        PlayerEvents.i.DeselectAll();
+        GlobalEvents.i.DeselectAll();
     }
 
     private void PlayerEvents_onUnitExists(PlayerUnit unit)
