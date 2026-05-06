@@ -62,6 +62,7 @@ public class PlayerManager : MonoBehaviour
     {
         selectedUnits.Remove(deadUnit);
         allUnits.Remove(deadUnit);
+        PlayerEvents.i.UnitStatChange(deadUnit);
     }
 
     void OnEnable()

@@ -2,7 +2,7 @@ using Pathfinding;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerUnit : MonoBehaviour
 {
@@ -19,14 +19,18 @@ public class PlayerUnit : MonoBehaviour
     bool atDestination = false;
     public PlayerUnitData data;
     [SerializeField] TestPlayerUnitData testData;
+    [SerializeField] ColorData colorData;
+    [SerializeField] TextMeshProUGUI unitName;
 
     void Start()
     {
         LoadTestData();
+        unitName.text = data.name;
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
         unitAbilities = GetComponent<UnitAbilities>();
         PlayerEvents.i.UnitExists(this);
+        PlayerEvents.i.UnitStatChange(this);
         visionMask = GetComponentInChildren<SpriteMask>();
         visionMask.transform.localScale = visionRange * 2 * Vector3.one;
     }
@@ -59,11 +63,13 @@ public class PlayerUnit : MonoBehaviour
         selected = isSelected;
         if (selected)
         {
-            outline.color = Color.blue;
+            outline.color = colorData.player;
+            unitName.color = colorData.player;
         }
         else
         {
-            outline.color = Color.white;
+            outline.color = colorData.powered;
+            unitName.color = colorData.powered;
         }
     }
 
@@ -88,6 +94,16 @@ public class PlayerUnit : MonoBehaviour
         seeker.CancelCurrentPathRequest();
         aiPath.SetPath(null);
         aiPath.isStopped = true;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        data.health -= amount;
+        PlayerEvents.i.UnitStatChange(this);
+        if(data.health <= 0)
+        {
+            Death();
+        }
     }
 
     public void Death()

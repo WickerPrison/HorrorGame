@@ -8,4 +8,5 @@ public class ColorData : ScriptableObject
     public Color safe;
     public Color danger;
     public Color unscannable;
+    public Color player;
 }
