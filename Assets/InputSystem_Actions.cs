@@ -1135,6 +1135,42 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select1"",
+                    ""type"": ""Button"",
+                    ""id"": ""7cb51acb-a223-442e-9d13-dd5e51372663"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select2"",
+                    ""type"": ""Button"",
+                    ""id"": ""fcef2347-b228-4d8b-9fae-e63f22de445f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select3"",
+                    ""type"": ""Button"",
+                    ""id"": ""f884e198-6455-4ee5-95a9-008ac7c4f823"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select4"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3e4060a-0167-458a-8e9e-cc848154ccbe"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1212,6 +1248,50 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Ability4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""980b1cd5-1c4c-44b1-9326-09292ad307a9"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41c35316-a759-4a18-82fa-fb69c8910d73"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24a0ed37-7cf1-478d-b0b6-21679c009297"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa4b9523-3835-4134-aa16-fe0c793188cd"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1312,6 +1392,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_ControlUnits_Ability2 = m_ControlUnits.FindAction("Ability2", throwIfNotFound: true);
         m_ControlUnits_Ability3 = m_ControlUnits.FindAction("Ability3", throwIfNotFound: true);
         m_ControlUnits_Ability4 = m_ControlUnits.FindAction("Ability4", throwIfNotFound: true);
+        m_ControlUnits_Select1 = m_ControlUnits.FindAction("Select1", throwIfNotFound: true);
+        m_ControlUnits_Select2 = m_ControlUnits.FindAction("Select2", throwIfNotFound: true);
+        m_ControlUnits_Select3 = m_ControlUnits.FindAction("Select3", throwIfNotFound: true);
+        m_ControlUnits_Select4 = m_ControlUnits.FindAction("Select4", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1779,6 +1863,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ControlUnits_Ability2;
     private readonly InputAction m_ControlUnits_Ability3;
     private readonly InputAction m_ControlUnits_Ability4;
+    private readonly InputAction m_ControlUnits_Select1;
+    private readonly InputAction m_ControlUnits_Select2;
+    private readonly InputAction m_ControlUnits_Select3;
+    private readonly InputAction m_ControlUnits_Select4;
     /// <summary>
     /// Provides access to input actions defined in input action map "ControlUnits".
     /// </summary>
@@ -1814,6 +1902,22 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "ControlUnits/Ability4".
         /// </summary>
         public InputAction @Ability4 => m_Wrapper.m_ControlUnits_Ability4;
+        /// <summary>
+        /// Provides access to the underlying input action "ControlUnits/Select1".
+        /// </summary>
+        public InputAction @Select1 => m_Wrapper.m_ControlUnits_Select1;
+        /// <summary>
+        /// Provides access to the underlying input action "ControlUnits/Select2".
+        /// </summary>
+        public InputAction @Select2 => m_Wrapper.m_ControlUnits_Select2;
+        /// <summary>
+        /// Provides access to the underlying input action "ControlUnits/Select3".
+        /// </summary>
+        public InputAction @Select3 => m_Wrapper.m_ControlUnits_Select3;
+        /// <summary>
+        /// Provides access to the underlying input action "ControlUnits/Select4".
+        /// </summary>
+        public InputAction @Select4 => m_Wrapper.m_ControlUnits_Select4;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1858,6 +1962,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Ability4.started += instance.OnAbility4;
             @Ability4.performed += instance.OnAbility4;
             @Ability4.canceled += instance.OnAbility4;
+            @Select1.started += instance.OnSelect1;
+            @Select1.performed += instance.OnSelect1;
+            @Select1.canceled += instance.OnSelect1;
+            @Select2.started += instance.OnSelect2;
+            @Select2.performed += instance.OnSelect2;
+            @Select2.canceled += instance.OnSelect2;
+            @Select3.started += instance.OnSelect3;
+            @Select3.performed += instance.OnSelect3;
+            @Select3.canceled += instance.OnSelect3;
+            @Select4.started += instance.OnSelect4;
+            @Select4.performed += instance.OnSelect4;
+            @Select4.canceled += instance.OnSelect4;
         }
 
         /// <summary>
@@ -1887,6 +2003,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Ability4.started -= instance.OnAbility4;
             @Ability4.performed -= instance.OnAbility4;
             @Ability4.canceled -= instance.OnAbility4;
+            @Select1.started -= instance.OnSelect1;
+            @Select1.performed -= instance.OnSelect1;
+            @Select1.canceled -= instance.OnSelect1;
+            @Select2.started -= instance.OnSelect2;
+            @Select2.performed -= instance.OnSelect2;
+            @Select2.canceled -= instance.OnSelect2;
+            @Select3.started -= instance.OnSelect3;
+            @Select3.performed -= instance.OnSelect3;
+            @Select3.canceled -= instance.OnSelect3;
+            @Select4.started -= instance.OnSelect4;
+            @Select4.performed -= instance.OnSelect4;
+            @Select4.canceled -= instance.OnSelect4;
         }
 
         /// <summary>
@@ -2183,5 +2311,33 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAbility4(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Select1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Select2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Select3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Select4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect4(InputAction.CallbackContext context);
     }
 }

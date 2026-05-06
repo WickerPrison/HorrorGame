@@ -34,6 +34,15 @@ public class PlayerManager : MonoBehaviour
         selectedUnits[0].PerformAbility(index);
     }
 
+    private void SelectButton(int unitIndex)
+    {
+        DeselectAll();
+        if(unitIndex < allUnits.Count)
+        {
+            SelectUnit(allUnits[unitIndex]);
+        }
+    }
+
     void SelectUnit(PlayerUnit unit)
     {
         selectedUnits.Add(unit);
@@ -71,6 +80,7 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.onLeftClick += LeftClick;
         InputManager.i.onRightClick += RightClick;
         InputManager.i.onAbility += Ability;
+        InputManager.i.onSelectButton += SelectButton;
         PlayerEvents.i.onUnitExists += PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath += PlayerEvents_onUnitDeath;
     }
@@ -81,6 +91,7 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.onLeftClick -= LeftClick;
         InputManager.i.onRightClick -= RightClick;
         InputManager.i.onAbility -= Ability;
+        InputManager.i.onSelectButton -= SelectButton;
         PlayerEvents.i.onUnitExists -= PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath -= PlayerEvents_onUnitDeath;
     }
