@@ -28,27 +28,18 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void Scan()
+    private void Ability(int index)
     {
-        foreach(PlayerUnit unit in selectedUnits)
-        {
-            unit.Scan();
-        }
+        if (selectedUnits.Count != 1) return;
+        selectedUnits[0].PerformAbility(index);
     }
 
-    private void Collect()
+    private void SelectButton(int unitIndex)
     {
-        foreach(PlayerUnit unit in selectedUnits)
+        DeselectAll();
+        if(unitIndex < allUnits.Count)
         {
-            unit.Collect();
-        }
-    }
-
-    private void Hack()
-    {
-        foreach(PlayerUnit unit in selectedUnits)
-        {
-            unit.Hack();
+            SelectUnit(allUnits[unitIndex]);
         }
     }
 
@@ -56,12 +47,13 @@ public class PlayerManager : MonoBehaviour
     {
         selectedUnits.Add(unit);
         unit.SetSelected(true);
+        GlobalEvents.i.SelectUnits(selectedUnits);
     }
 
     void DeselectAll()
     {
         selectedUnits.Clear();
-        PlayerEvents.i.DeselectAll();
+        GlobalEvents.i.DeselectAll();
     }
 
     private void PlayerEvents_onUnitExists(PlayerUnit unit)
@@ -79,6 +71,7 @@ public class PlayerManager : MonoBehaviour
     {
         selectedUnits.Remove(deadUnit);
         allUnits.Remove(deadUnit);
+        PlayerEvents.i.UnitStatChange(deadUnit);
     }
 
     void OnEnable()
@@ -86,9 +79,8 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.SetControlUnits();
         InputManager.i.onLeftClick += LeftClick;
         InputManager.i.onRightClick += RightClick;
-        InputManager.i.onScan += Scan;
-        InputManager.i.onCollect += Collect; 
-        InputManager.i.onHack += Hack;
+        InputManager.i.onAbility += Ability;
+        InputManager.i.onSelectButton += SelectButton;
         PlayerEvents.i.onUnitExists += PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath += PlayerEvents_onUnitDeath;
     }
@@ -98,9 +90,8 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.DisableControlUnits();
         InputManager.i.onLeftClick -= LeftClick;
         InputManager.i.onRightClick -= RightClick;
-        InputManager.i.onScan -= Scan;
-        InputManager.i.onCollect -= Collect;
-        InputManager.i.onHack -= Hack;
+        InputManager.i.onAbility -= Ability;
+        InputManager.i.onSelectButton -= SelectButton;
         PlayerEvents.i.onUnitExists -= PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath -= PlayerEvents_onUnitDeath;
     }
