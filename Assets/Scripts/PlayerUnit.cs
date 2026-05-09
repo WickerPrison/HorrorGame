@@ -18,14 +18,13 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
     Action destinationCallback;
     bool atDestination = false;
     public PlayerUnitData data;
-    [SerializeField] TestPlayerUnitData testData;
+    public TestPlayerUnitData testData;
     [SerializeField] ColorData colorData;
     [SerializeField] TextMeshProUGUI unitName;
 
     private void Awake()
     {
         LoadTestData();
-        unitName.text = data.name;
     }
 
     void Start()
@@ -37,6 +36,8 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
         PlayerEvents.i.UnitStatChange(this);
         visionMask = GetComponentInChildren<SpriteMask>();
         visionMask.transform.localScale = visionRange * 2 * Vector3.one;
+        Debug.Log(data);
+        unitName.text = data.name;
     }
 
     private void Update()
@@ -135,11 +136,8 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
     {
         if (testData != null)
         {
-            data = new PlayerUnitData();
-            data.name = testData.unitName;
+            data = new PlayerUnitData(testData.unitName, testData.maxHealth);
             data.morality = testData.morality;
-            data.health = testData.health;
-            data.maxHealth = testData.maxHealth;
             data.abilities = testData.abilities;
         }
     }

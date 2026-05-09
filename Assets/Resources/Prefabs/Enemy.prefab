@@ -148,7 +148,7 @@ MonoBehaviour:
   wanderSlowdownDistance: 0.5
   wanderEndReachedDistance: 0.2
   damage: 2
-  maxHealth: 0
+  maxHealth: 10
   deadEnemyPrefab: {fileID: 3496150811859105474, guid: 09ac83dd2876d3d46b03048ae144e8c9, type: 3}
 --- !u!114 &3865904348572268762
 MonoBehaviour:

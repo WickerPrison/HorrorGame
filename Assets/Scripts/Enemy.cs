@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum EnemyState
 {
-    IDLE, WANDERING, CHASING
+    IDLE, WANDERING, CHASING, TESTING
 }
 
 public class Enemy : MonoBehaviour, ITakeDamage
@@ -27,8 +27,8 @@ public class Enemy : MonoBehaviour, ITakeDamage
     [SerializeField] float wanderEndReachedDistance;
     float timeInCurrentRoom;
     [SerializeField] int damage;
-    [SerializeField] int maxHealth;
-    int health;
+    public int maxHealth;
+    [System.NonSerialized] public int health;
     [SerializeField] GameObject deadEnemyPrefab;
 
     void Start()
@@ -48,9 +48,11 @@ public class Enemy : MonoBehaviour, ITakeDamage
 
     private void Update()
     {
-        timeInCurrentRoom += Time.deltaTime;
-
         Vision();
+
+        if (state == EnemyState.TESTING) return;
+
+        timeInCurrentRoom += Time.deltaTime;
 
         switch (state)
         {
@@ -137,9 +139,14 @@ public class Enemy : MonoBehaviour, ITakeDamage
         {
             timeInCurrentRoom = 0;
         }
+        GoTo(destination);
+        state = EnemyState.WANDERING;
+    }
+
+    public void GoTo(Vector3 destination)
+    {
         seeker.StartPath(transform.position, destination);
         aiPath.destination = destination;
-        state = EnemyState.WANDERING;
     }
 
     void ChasePlayerUnits()
@@ -185,5 +192,10 @@ public class Enemy : MonoBehaviour, ITakeDamage
         {
             playerUnit.TakeDamage(damage);
         }
+    }
+
+    public void SetTestingState()
+    {
+        state = EnemyState.TESTING;
     }
 }
