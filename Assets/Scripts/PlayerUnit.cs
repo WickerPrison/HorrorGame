@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerUnit : MonoBehaviour
+public class PlayerUnit : MonoBehaviour, ITakeDamage
 {
     private Seeker seeker;
     private AIPath aiPath;
@@ -22,10 +22,14 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] ColorData colorData;
     [SerializeField] TextMeshProUGUI unitName;
 
-    void Start()
+    private void Awake()
     {
         LoadTestData();
         unitName.text = data.name;
+    }
+
+    void Start()
+    {
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
         unitAbilities = GetComponent<UnitAbilities>();

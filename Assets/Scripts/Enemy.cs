@@ -7,7 +7,7 @@ public enum EnemyState
     IDLE, WANDERING, CHASING
 }
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, ITakeDamage
 {
     [SerializeField] float visionRange;
     SpriteRenderer sprite;
@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] int maxHealth;
     int health;
+    [SerializeField] GameObject deadEnemyPrefab;
 
     void Start()
     {
@@ -85,6 +86,7 @@ public class Enemy : MonoBehaviour
         health -= amount;
         if(health <= 0)
         {
+            Instantiate(deadEnemyPrefab).transform.position = transform.position;
             Destroy(gameObject);
         }
     }
@@ -179,7 +181,6 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
         if(collision.gameObject.TryGetComponent<PlayerUnit>(out PlayerUnit playerUnit))
         {
             playerUnit.TakeDamage(damage);

@@ -12,7 +12,7 @@ public class AbilityIcon : MonoBehaviour
         Hide();
     }
 
-    public void SetAbility(Ability ability)
+    public void SetAbility(Ability ability, PlayerUnitData playerData)
     {
         if (ability == Ability.NONE)
         {
@@ -21,7 +21,7 @@ public class AbilityIcon : MonoBehaviour
         else
         {
             AbilityData data = abilityDictionary.abilityDict[ability];
-            nameText.text = data.abilityName;
+            nameText.text = Utils.AppendUses(ability, data.abilityName, playerData);
             icon.SetActive(true);
             nameText.gameObject.SetActive(true);
         }

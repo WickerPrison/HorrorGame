@@ -7,6 +7,7 @@ public class AbilityDictionary : ScriptableObject
     [SerializeField] AbilityData collect;
     [SerializeField] AbilityData power;
     [SerializeField] AbilityData scan;
+    [SerializeField] AbilityData mine;
 
 
     Dictionary<Ability, AbilityData> _abilityDict;
@@ -28,7 +29,8 @@ public class AbilityDictionary : ScriptableObject
         {
             { Ability.COLLECT, collect },
             { Ability.POWER, power },
-            { Ability.SCAN, scan }
+            { Ability.SCAN, scan },
+            { Ability.MINE, mine },
         };
     }
 }

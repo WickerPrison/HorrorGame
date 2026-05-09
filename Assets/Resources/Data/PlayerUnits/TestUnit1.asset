@@ -16,4 +16,4 @@ MonoBehaviour:
   morality: 5
   health: 10
   maxHealth: 10
-  abilities: 01000000020000000000000000000000
+  abilities: 01000000020000000400000000000000

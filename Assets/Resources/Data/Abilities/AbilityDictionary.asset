@@ -15,3 +15,4 @@ MonoBehaviour:
   collect: {fileID: 11400000, guid: 7567f52c10ea8604394b343360da31d7, type: 2}
   power: {fileID: 11400000, guid: 8086e0602fd02434b8c55fafb9e487c6, type: 2}
   scan: {fileID: 11400000, guid: 18a34a28d2ef2a54daab9b913f2c8b3e, type: 2}
+  mine: {fileID: 11400000, guid: a3c94a482c44a764cb32ad077781b839, type: 2}

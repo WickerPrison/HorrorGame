@@ -26,6 +26,7 @@ public class Room : MonoBehaviour
     List<IPowerRooms> powerSources = new List<IPowerRooms>();
     BoxCollider2D boxCollider;
     [SerializeField] bool unscannable;
+    List<ITakeDamage> damageTakers = new List<ITakeDamage>();
 
     private void Start()
     {
@@ -47,20 +48,29 @@ public class Room : MonoBehaviour
         if (state != RoomState.EXPLORED && collision.CompareTag("Player"))
         {
             SetState(RoomState.EXPLORED);
-            return;
         }
 
-        if(collision.TryGetComponent<Enemy>(out Enemy enteringEnemy))
+        if(collision.TryGetComponent(out Enemy enteringEnemy))
         {
             enemies.Add(enteringEnemy);
+        }
+
+        if(collision.TryGetComponent(out ITakeDamage damageTaker))
+        {
+            damageTakers.Add(damageTaker);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<Enemy>(out Enemy leavingEnemy))
+        if(collision.TryGetComponent(out Enemy leavingEnemy))
         {
             enemies.Remove(leavingEnemy);
+        }
+
+        if(collision.TryGetComponent(out ITakeDamage damageTaker))
+        {
+            damageTakers.Remove(damageTaker);
         }
     }
 
@@ -195,6 +205,24 @@ public class Room : MonoBehaviour
         {
             StopGettingScanned();
         }
+    }
+
+    public void DamageRoom(int amount)
+    {
+        for(int i = damageTakers.Count -1; i >= 0; i--)
+        {
+            damageTakers[i].TakeDamage(amount);
+        }
+    }
+
+    public void AddDamageTaker(ITakeDamage damageTaker)
+    {
+        damageTakers.Add(damageTaker);
+    }
+
+    public void RemoveDamageTaker(ITakeDamage damageTaker)
+    {
+        damageTakers.Remove(damageTaker);
     }
 
     private void OnEnable()
