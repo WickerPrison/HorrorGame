@@ -10,6 +10,7 @@ public class GlobalEvents : MonoBehaviour
     public event Action<int> onUpdateResources;
     public event Action<List<PlayerUnit>> onSelectUnits;
     public event EventHandler onDeselectAll;
+    public event Action<Enemy> onEnemyDeath;
 
     private void Awake()
     {

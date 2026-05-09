@@ -25,6 +25,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] float wanderSpeed;
     [SerializeField] float wanderSlowdownDistance;
     [SerializeField] float wanderEndReachedDistance;
+    float timeInCurrentRoom;
+    [SerializeField] int damage;
+    [SerializeField] int maxHealth;
+    int health;
 
     void Start()
     {
@@ -38,12 +42,14 @@ public class Enemy : MonoBehaviour
         aiPath.maxSpeed = wanderSpeed;
         aiPath.slowdownDistance = wanderSlowdownDistance;
         aiPath.endReachedDistance = wanderEndReachedDistance;
+        health = maxHealth;
     }
 
     private void Update()
     {
-        Vision();
+        timeInCurrentRoom += Time.deltaTime;
 
+        Vision();
 
         switch (state)
         {
@@ -71,6 +77,15 @@ public class Enemy : MonoBehaviour
                     idleTimer = idleMaxTime;
                 }
                 break;
+        }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        if(health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -106,8 +121,20 @@ public class Enemy : MonoBehaviour
     {
         Room room = Utils.GetRoom(transform.position);
         List<Room> accessibleRooms = room.GetAccessibleRooms();
-        Room destinationRoom = accessibleRooms[Random.Range(0, accessibleRooms.Count)];
+        Room destinationRoom;
+        if (timeInCurrentRoom > 15 && accessibleRooms.Count > 1)
+        {
+            destinationRoom = accessibleRooms[Random.Range(1, accessibleRooms.Count)];
+        }
+        else
+        {
+            destinationRoom = accessibleRooms[Random.Range(0, accessibleRooms.Count)];
+        }
         Vector3 destination = destinationRoom.GetRandomPointInRoom();
+        if(room != destinationRoom)
+        {
+            timeInCurrentRoom = 0;
+        }
         seeker.StartPath(transform.position, destination);
         aiPath.destination = destination;
         state = EnemyState.WANDERING;
@@ -143,6 +170,7 @@ public class Enemy : MonoBehaviour
     void EndChasing()
     {
         state = EnemyState.IDLE;
+        timeInCurrentRoom = 0;
         idleTimer = idleMaxTime;
         aiPath.maxSpeed = wanderSpeed;
         aiPath.slowdownDistance = wanderSlowdownDistance;
@@ -154,7 +182,7 @@ public class Enemy : MonoBehaviour
         
         if(collision.gameObject.TryGetComponent<PlayerUnit>(out PlayerUnit playerUnit))
         {
-            playerUnit.Death();
+            playerUnit.TakeDamage(damage);
         }
     }
 }
