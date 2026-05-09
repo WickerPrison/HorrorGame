@@ -14,6 +14,7 @@ public class UnitsUi : MonoBehaviour
 
     void UpdateUi()
     {
+        if (playerManager == null) return;
         for(int i = 0; i < 4; i++)
         {
             if(i < playerManager.allUnits.Count)
