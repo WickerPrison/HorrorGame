@@ -1,0 +1,21 @@
+{
+    "name": "Scripts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:b93f844d45cfcc44fa2b0eed5c9ec6bb",
+        "GUID:efa45043feb7e4147a305b73b5cea642",
+        "GUID:6d007951f1a937e4393d99b06aadb7a4",
+        "GUID:8706ebd38207ae54a83ee527fcc0d3c6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
