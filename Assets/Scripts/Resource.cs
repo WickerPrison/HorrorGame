@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Resource : MonoBehaviour, IUnhideWhenSeen
+public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage
 {
     Room room;
     int value;
@@ -27,6 +27,12 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen
     public void GetCollected()
     {
         playerManager.GainResources(value);
+        room.resources.Remove(this);
+        Destroy(gameObject);
+    }
+
+    public void TakeDamage(int _)
+    {
         room.resources.Remove(this);
         Destroy(gameObject);
     }

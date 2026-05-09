@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerUnit : MonoBehaviour
+public class PlayerUnit : MonoBehaviour, ITakeDamage
 {
     private Seeker seeker;
     private AIPath aiPath;

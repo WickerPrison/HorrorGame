@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum Ability
 {
-    NONE, COLLECT, SCAN, POWER
+    NONE, COLLECT, SCAN, POWER, MINE
 }
 
 public class UnitAbilities : MonoBehaviour

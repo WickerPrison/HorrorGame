@@ -7,7 +7,7 @@ public enum EnemyState
     IDLE, WANDERING, CHASING
 }
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, ITakeDamage
 {
     [SerializeField] float visionRange;
     SpriteRenderer sprite;

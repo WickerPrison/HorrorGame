@@ -26,6 +26,7 @@ public class Room : MonoBehaviour
     List<IPowerRooms> powerSources = new List<IPowerRooms>();
     BoxCollider2D boxCollider;
     [SerializeField] bool unscannable;
+    List<ITakeDamage> damageTakers = new List<ITakeDamage>();
 
     private void Start()
     {
@@ -47,20 +48,29 @@ public class Room : MonoBehaviour
         if (state != RoomState.EXPLORED && collision.CompareTag("Player"))
         {
             SetState(RoomState.EXPLORED);
-            return;
         }
 
-        if(collision.TryGetComponent<Enemy>(out Enemy enteringEnemy))
+        if(collision.TryGetComponent(out Enemy enteringEnemy))
         {
             enemies.Add(enteringEnemy);
+        }
+
+        if(collision.TryGetComponent(out ITakeDamage damageTaker))
+        {
+            damageTakers.Add(damageTaker);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<Enemy>(out Enemy leavingEnemy))
+        if(collision.TryGetComponent(out Enemy leavingEnemy))
         {
             enemies.Remove(leavingEnemy);
+        }
+
+        if(collision.TryGetComponent(out ITakeDamage damageTaker))
+        {
+            damageTakers.Remove(damageTaker);
         }
     }
 
@@ -194,6 +204,14 @@ public class Room : MonoBehaviour
         if(scanningUnits.Count == 0)
         {
             StopGettingScanned();
+        }
+    }
+
+    public void DamageRoom(int amount)
+    {
+        foreach(ITakeDamage damageTaker in damageTakers)
+        {
+            damageTaker.TakeDamage(amount);
         }
     }
 
