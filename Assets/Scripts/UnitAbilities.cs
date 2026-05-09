@@ -1,5 +1,6 @@
 using Pathfinding;
 using UnityEngine;
+using System.Linq;
 
 public enum Ability
 {
@@ -11,6 +12,7 @@ public class UnitAbilities : MonoBehaviour
     Room scanningFromRoom = null;
     PlayerUnit playerUnit;
     Terminal poweringTerminal = null;
+    [SerializeField] GameObject minePrefab;
 
     private void Start()
     {
@@ -37,6 +39,9 @@ public class UnitAbilities : MonoBehaviour
                 break;
             case Ability.POWER:
                 Power();
+                break;
+            case Ability.MINE:
+                PlaceMine();
                 break;
         }
     }
@@ -99,6 +104,16 @@ public class UnitAbilities : MonoBehaviour
         {
             poweringTerminal.EndPowering();
             poweringTerminal = null;
+        }
+    }
+
+    void PlaceMine()
+    {
+        if(playerUnit.data.mineUses > 0)
+        {
+            playerUnit.data.mineUses--;
+            Instantiate(minePrefab).transform.position = transform.position;
+            PlayerEvents.i.UnitStatChange(playerUnit);
         }
     }
 }

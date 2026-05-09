@@ -22,10 +22,14 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
     [SerializeField] ColorData colorData;
     [SerializeField] TextMeshProUGUI unitName;
 
-    void Start()
+    private void Awake()
     {
         LoadTestData();
         unitName.text = data.name;
+    }
+
+    void Start()
+    {
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
         unitAbilities = GetComponent<UnitAbilities>();

@@ -18,4 +18,15 @@ public static class Utils
     {
         return GetRooms(position, radius)[0];
     }
+
+    public static string AppendUses(Ability ability, string text, PlayerUnitData data)
+    {
+        switch (ability)
+        {
+            case Ability.MINE:
+                text += $" ({data.mineUses}/2)";
+                break;
+        }
+        return text;
+    }
 }

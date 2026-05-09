@@ -27,7 +27,8 @@ public class UnitStatUi : MonoBehaviour
             {
                 if(data.abilities[i] != Ability.NONE)
                 {
-                    abilityNames[i].text = abilityDict.abilityDict[data.abilities[i]].abilityName;
+                    string text = abilityDict.abilityDict[data.abilities[i]].abilityName;
+                    abilityNames[i].text = Utils.AppendUses(data.abilities[i], text, data);
                 }
                 else
                 {

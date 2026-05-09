@@ -7,4 +7,6 @@ public class PlayerUnitData
     public int health;
     public int maxHealth;
     public Ability[] abilities;
+
+    public int mineUses = 2;
 }
