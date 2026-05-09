@@ -209,10 +209,20 @@ public class Room : MonoBehaviour
 
     public void DamageRoom(int amount)
     {
-        foreach(ITakeDamage damageTaker in damageTakers)
+        for(int i = damageTakers.Count -1; i >= 0; i--)
         {
-            damageTaker.TakeDamage(amount);
+            damageTakers[i].TakeDamage(amount);
         }
+    }
+
+    public void AddDamageTaker(ITakeDamage damageTaker)
+    {
+        damageTakers.Add(damageTaker);
+    }
+
+    public void RemoveDamageTaker(ITakeDamage damageTaker)
+    {
+        damageTakers.Remove(damageTaker);
     }
 
     private void OnEnable()

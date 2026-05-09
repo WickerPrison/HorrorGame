@@ -15,6 +15,7 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage
         sprite.enabled = false;
         room = Utils.GetRoom(transform.position);
         room.resources.Add(this);
+        room.AddDamageTaker(this);
 
         value = Random.Range(1, 5);
     }
@@ -28,12 +29,14 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage
     {
         playerManager.GainResources(value);
         room.resources.Remove(this);
+        room.RemoveDamageTaker(this);
         Destroy(gameObject);
     }
 
     public void TakeDamage(int _)
     {
         room.resources.Remove(this);
+        room.RemoveDamageTaker(this);
         Destroy(gameObject);
     }
 }
