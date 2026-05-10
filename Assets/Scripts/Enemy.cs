@@ -9,14 +9,14 @@ public enum EnemyState
 
 public class Enemy : MonoBehaviour, ITakeDamage
 {
-    [SerializeField] float visionRange;
+    public float visionRange;
     SpriteRenderer sprite;
     PlayerManager playerManager;
     LayerMask layerMask;
     List<PlayerUnit> unitsInSight = new List<PlayerUnit>();
     Seeker seeker;
     AIPath aiPath;
-    EnemyState state = EnemyState.IDLE;
+    [System.NonSerialized] public EnemyState state = EnemyState.IDLE;
     float idleMaxTime = 5f;
     float idleTimer;
     [SerializeField] float chaseSpeed;
@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour, ITakeDamage
 
         if (state == EnemyState.TESTING) return;
 
-        Vision();
+        Aggro();
 
         timeInCurrentRoom += Time.deltaTime;
 
@@ -97,7 +97,7 @@ public class Enemy : MonoBehaviour, ITakeDamage
 
 
 
-    void Vision()
+    void Aggro()
     {
         unitsInSight.Clear();
         foreach (PlayerUnit unit in playerManager.allUnits)

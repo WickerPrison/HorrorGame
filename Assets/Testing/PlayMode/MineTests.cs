@@ -32,10 +32,7 @@ public class MineTests
         SceneManager.LoadScene("BasicTest");
         yield return null;
         room = Utils.GetRoom(Vector3.zero);
-        playerUnit = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
-        playerUnit.data = testDummyData;
-        playerUnit.transform.position = new Vector3(-5f, 5f);
-        playerUnit.visionRange = 100f;
+        TestingUtils.GiveRoomsVisionNodes();
         yield return null;
     }
 
@@ -43,11 +40,7 @@ public class MineTests
     {
         SceneManager.LoadScene("TwoRooms");
         yield return null;
-        room = Utils.GetRoom(Vector3.zero);
-        playerUnit = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
-        playerUnit.data = testDummyData;
-        playerUnit.transform.position = new Vector3(-5f, 5f);
-        playerUnit.visionRange = 100f;
+        TestingUtils.GiveRoomsVisionNodes();
         yield return null;
     }
 
@@ -67,7 +60,6 @@ public class MineTests
         enemy.GoTo(mine.transform.position);
         yield return new WaitForSeconds(3);
 
-        Debug.Log(enemy.health);
         Assert.Less(enemy.health, enemy.maxHealth);
     }
 
@@ -80,6 +72,10 @@ public class MineTests
         Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
         enemy.transform.position = new Vector3(-3f, -3f);
         enemy.SetTestingState();
+
+        playerUnit = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
+        playerUnit.data = testDummyData;
+        playerUnit.transform.position = new Vector3(-5f, 5f);
 
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(playerUnit.data.health, playerUnit.data.maxHealth);
@@ -117,17 +113,14 @@ public class MineTests
     {
         yield return LoadTwoRoomScene();
         Mine mine = GameObject.Instantiate(minePrefab).GetComponent<Mine>();
-        mine.transform.position = new Vector3(3f, 3f);
+        mine.transform.position = new Vector3(0.5f, 3f);
         Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
-        enemy.transform.position = new Vector3(-3f, -3f);
+        enemy.transform.position = new Vector3(-1f, -3f);
         enemy.SetTestingState();
 
         yield return new WaitForSeconds(0.5f);
 
-
         enemy.GoTo(mine.transform.position);
         yield return new WaitForSeconds(3);
-
-
     }
 }
