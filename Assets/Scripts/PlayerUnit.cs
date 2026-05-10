@@ -15,7 +15,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
     SpriteMask visionMask;
     Terminal interactTerminal = null;
     bool goingToTerminal = false;
-    UnitAbilities unitAbilities;
+    [NonSerialized] public UnitAbilities unitAbilities;
     Action destinationCallback;
     bool atDestination = false;
     public PlayerUnitData data;
@@ -39,7 +39,6 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
         visionRange = setVisionRange;
         visionMask = GetComponentInChildren<SpriteMask>();
         visionMask.transform.localScale = visionRange * 2 * Vector3.one;
-        Debug.Log(data);
         unitName.text = data.name;
     }
 

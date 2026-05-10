@@ -1,6 +1,7 @@
+using System.Linq;
 using UnityEngine;
 
-public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage
+public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage, IInterceptRightClick
 {
     Room room;
     int value;
@@ -38,5 +39,16 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage
         room.resources.Remove(this);
         room.RemoveDamageTaker(this);
         Destroy(gameObject);
+    }
+
+    public bool RightClick()
+    {
+        if(playerManager.selectedUnits.Count != 1 || !playerManager.selectedUnits[0].data.abilities.Contains(Ability.COLLECT))
+        {
+            return true;
+        }
+
+        playerManager.selectedUnits[0].unitAbilities.Collect(this);
+        return false;
     }
 }

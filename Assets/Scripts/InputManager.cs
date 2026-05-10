@@ -49,10 +49,10 @@ public class InputManager : MonoBehaviour
         mouseWorldPos.z = 0f;
 
         Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos, Layers.clickableMask);
-        if(hit != null && hit.gameObject.TryGetComponent<Door>(out Door door))
+        if(hit != null && hit.gameObject.TryGetComponent(out IInterceptRightClick rightClickInterceptor))
         {
-            door.RightClick();
-            return;
+            bool shouldContinue = rightClickInterceptor.RightClick();
+            if (!shouldContinue) return;
         }
 
         onRightClick?.Invoke(mouseWorldPos);
