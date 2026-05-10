@@ -2,11 +2,6 @@ using Pathfinding;
 using UnityEngine;
 using System.Linq;
 
-public enum Ability
-{
-    NONE, COLLECT, SCAN, POWER, MINE
-}
-
 public class UnitAbilities : MonoBehaviour
 {
     Room scanningFromRoom = null;

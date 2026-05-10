@@ -1,6 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Ability
+{
+    NONE, COLLECT, SCAN, POWER, MINE
+}
+
 [CreateAssetMenu(fileName = "AbilityDictionary", menuName = "Scriptable Objects/AbilityDictionary")]
 public class AbilityDictionary : ScriptableObject
 {

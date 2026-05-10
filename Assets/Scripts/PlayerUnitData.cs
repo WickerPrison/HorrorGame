@@ -9,4 +9,11 @@ public class PlayerUnitData
     public Ability[] abilities;
 
     public int mineUses = 2;
+
+    public PlayerUnitData(string unitName, int unitMaxHealth)
+    {
+        name = unitName;
+        maxHealth = unitMaxHealth;
+        health = maxHealth;
+    }
 }

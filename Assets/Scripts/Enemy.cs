@@ -4,19 +4,19 @@ using UnityEngine;
 
 public enum EnemyState
 {
-    IDLE, WANDERING, CHASING
+    IDLE, WANDERING, CHASING, TESTING
 }
 
 public class Enemy : MonoBehaviour, ITakeDamage
 {
-    [SerializeField] float visionRange;
+    public float visionRange;
     SpriteRenderer sprite;
     PlayerManager playerManager;
     LayerMask layerMask;
     List<PlayerUnit> unitsInSight = new List<PlayerUnit>();
     Seeker seeker;
     AIPath aiPath;
-    EnemyState state = EnemyState.IDLE;
+    [System.NonSerialized] public EnemyState state = EnemyState.IDLE;
     float idleMaxTime = 5f;
     float idleTimer;
     [SerializeField] float chaseSpeed;
@@ -27,8 +27,8 @@ public class Enemy : MonoBehaviour, ITakeDamage
     [SerializeField] float wanderEndReachedDistance;
     float timeInCurrentRoom;
     [SerializeField] int damage;
-    [SerializeField] int maxHealth;
-    int health;
+    public int maxHealth;
+    [System.NonSerialized] public int health;
     [SerializeField] GameObject deadEnemyPrefab;
 
     void Start()
@@ -48,9 +48,13 @@ public class Enemy : MonoBehaviour, ITakeDamage
 
     private void Update()
     {
-        timeInCurrentRoom += Time.deltaTime;
+        sprite.enabled = VisionManager.i.FindIsVisible(transform.position);
 
-        Vision();
+        if (state == EnemyState.TESTING) return;
+
+        Aggro();
+
+        timeInCurrentRoom += Time.deltaTime;
 
         switch (state)
         {
@@ -91,32 +95,25 @@ public class Enemy : MonoBehaviour, ITakeDamage
         }
     }
 
-    void Vision()
+
+
+    void Aggro()
     {
-        bool showSprite = false;
         unitsInSight.Clear();
         foreach (PlayerUnit unit in playerManager.allUnits)
         {
             float distance = Vector2.Distance(transform.position, unit.transform.position);
-            if (distance <= visionRange || (distance <= unit.visionRange && !showSprite))
+            if (distance <= visionRange)
             {
                 Vector3 direction = unit.transform.position - transform.position;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, unit.visionRange, layerMask);
                 if (hit.transform != null && hit.transform.GetComponent<PlayerUnit>())
                 {
-                    if(distance <= unit.visionRange)
-                    {
-                        showSprite = true;
-                    }
-                    if(distance <= visionRange)
-                    {
-                        unitsInSight.Add(unit);
-                        state = EnemyState.CHASING;
-                    }
+                    unitsInSight.Add(unit);
+                    state = EnemyState.CHASING;
                 }
             }
         }
-        sprite.enabled = showSprite;
     }
 
     void GetWanderDestination()
@@ -137,9 +134,14 @@ public class Enemy : MonoBehaviour, ITakeDamage
         {
             timeInCurrentRoom = 0;
         }
+        GoTo(destination);
+        state = EnemyState.WANDERING;
+    }
+
+    public void GoTo(Vector3 destination)
+    {
         seeker.StartPath(transform.position, destination);
         aiPath.destination = destination;
-        state = EnemyState.WANDERING;
     }
 
     void ChasePlayerUnits()
@@ -185,5 +187,10 @@ public class Enemy : MonoBehaviour, ITakeDamage
         {
             playerUnit.TakeDamage(damage);
         }
+    }
+
+    public void SetTestingState()
+    {
+        state = EnemyState.TESTING;
     }
 }

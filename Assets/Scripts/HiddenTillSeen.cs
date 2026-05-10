@@ -18,19 +18,11 @@ public class HiddenTillSeen : MonoBehaviour
     void Update()
     {
         if (!hidden) return;
-        foreach(PlayerUnit unit in playerManager.allUnits)
+
+        if (VisionManager.i.FindIsVisible(transform.position))
         {
-            if(Vector3.Distance(transform.position, unit.transform.position) <= unit.visionRange)
-            {
-                Vector3 direction = unit.transform.position - transform.position;
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, unit.visionRange, layerMask);
-                if (hit.transform != null && hit.transform.GetComponent<PlayerUnit>())
-                {
-                    unhideWhenSeen.Unhide();
-                    hidden = false;
-                    return;
-                }
-            }
+            unhideWhenSeen.Unhide();
+            hidden = false;
         }
     }
 }

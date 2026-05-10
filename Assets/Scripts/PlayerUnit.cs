@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerUnit : MonoBehaviour, ITakeDamage
+public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
 {
     private Seeker seeker;
     private AIPath aiPath;
     bool selected = false;
     [SerializeField] SpriteRenderer outline;
-    public float visionRange;
+    [SerializeField] float setVisionRange;
+    public float visionRange { get; set; }
     SpriteMask visionMask;
     Terminal interactTerminal = null;
     bool goingToTerminal = false;
@@ -18,14 +19,13 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
     Action destinationCallback;
     bool atDestination = false;
     public PlayerUnitData data;
-    [SerializeField] TestPlayerUnitData testData;
+    public TestPlayerUnitData testData;
     [SerializeField] ColorData colorData;
     [SerializeField] TextMeshProUGUI unitName;
 
     private void Awake()
     {
         LoadTestData();
-        unitName.text = data.name;
     }
 
     void Start()
@@ -35,8 +35,12 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
         unitAbilities = GetComponent<UnitAbilities>();
         PlayerEvents.i.UnitExists(this);
         PlayerEvents.i.UnitStatChange(this);
+        AddToVisionManager();
+        visionRange = setVisionRange;
         visionMask = GetComponentInChildren<SpriteMask>();
         visionMask.transform.localScale = visionRange * 2 * Vector3.one;
+        Debug.Log(data);
+        unitName.text = data.name;
     }
 
     private void Update()
@@ -112,6 +116,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
 
     public void Death()
     {
+        VisionManager.i.RemoveVision(this);
         PlayerEvents.i.UnitDeath(this);
         Destroy(gameObject);
     }
@@ -135,12 +140,19 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
     {
         if (testData != null)
         {
-            data = new PlayerUnitData();
-            data.name = testData.unitName;
+            data = new PlayerUnitData(testData.unitName, testData.maxHealth);
             data.morality = testData.morality;
-            data.health = testData.health;
-            data.maxHealth = testData.maxHealth;
             data.abilities = testData.abilities;
         }
+    }
+
+    public void AddToVisionManager()
+    {
+        VisionManager.i.AddVision(this);
+    }
+
+    public void RemoveFromVisionManager()
+    {
+        VisionManager.i.RemoveVision(this);
     }
 }
