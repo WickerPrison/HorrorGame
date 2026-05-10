@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerUnit : MonoBehaviour, ITakeDamage
+public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
 {
     private Seeker seeker;
     private AIPath aiPath;
     bool selected = false;
     [SerializeField] SpriteRenderer outline;
-    public float visionRange;
+    [SerializeField] float setVisionRange;
+    public float visionRange { get; set; }
     SpriteMask visionMask;
     Terminal interactTerminal = null;
     bool goingToTerminal = false;
@@ -34,6 +35,8 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
         unitAbilities = GetComponent<UnitAbilities>();
         PlayerEvents.i.UnitExists(this);
         PlayerEvents.i.UnitStatChange(this);
+        AddToVisionManager();
+        visionRange = setVisionRange;
         visionMask = GetComponentInChildren<SpriteMask>();
         visionMask.transform.localScale = visionRange * 2 * Vector3.one;
         Debug.Log(data);
@@ -113,6 +116,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
 
     public void Death()
     {
+        VisionManager.i.RemoveVision(this);
         PlayerEvents.i.UnitDeath(this);
         Destroy(gameObject);
     }
@@ -140,5 +144,15 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage
             data.morality = testData.morality;
             data.abilities = testData.abilities;
         }
+    }
+
+    public void AddToVisionManager()
+    {
+        VisionManager.i.AddVision(this);
+    }
+
+    public void RemoveFromVisionManager()
+    {
+        VisionManager.i.RemoveVision(this);
     }
 }

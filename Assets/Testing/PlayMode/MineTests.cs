@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-public class MineTest
+public class MineTests
 {
     TestingData testData;
     GameObject minePrefab;
@@ -15,10 +15,9 @@ public class MineTest
     PlayerUnitData testDummyData;
     Room room;
 
-    [UnitySetUp]
-    public IEnumerator Setup()
+    [SetUp]
+    public void Setup()
     {
-        SceneManager.LoadScene("BasicTest");
         minePrefab = Resources.Load<GameObject>("Prefabs/Mine");
         enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy");
         playerUnitPrefab = Resources.Load<GameObject>("Prefabs/PlayerUnit");
@@ -26,7 +25,23 @@ public class MineTest
         testDummyData = new PlayerUnitData("Test Dummy", 100);
         resourcePrefab = Resources.Load<GameObject>("Prefabs/Resource");
         Time.timeScale = testData.timeScale;
+    }
 
+    public IEnumerator LoadBasicScene()
+    {
+        SceneManager.LoadScene("BasicTest");
+        yield return null;
+        room = Utils.GetRoom(Vector3.zero);
+        playerUnit = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
+        playerUnit.data = testDummyData;
+        playerUnit.transform.position = new Vector3(-5f, 5f);
+        playerUnit.visionRange = 100f;
+        yield return null;
+    }
+
+    public IEnumerator LoadTwoRoomScene()
+    {
+        SceneManager.LoadScene("TwoRooms");
         yield return null;
         room = Utils.GetRoom(Vector3.zero);
         playerUnit = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
@@ -39,6 +54,7 @@ public class MineTest
     [UnityTest]
     public IEnumerator MineDamagesEnemy()
     {
+        yield return LoadBasicScene();
         Mine mine = GameObject.Instantiate(minePrefab).GetComponent<Mine>();
         mine.transform.position = new Vector3(3f, 3f);
         Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
@@ -58,6 +74,7 @@ public class MineTest
     [UnityTest]
     public IEnumerator MineDamagesPlayer()
     {
+        yield return LoadBasicScene();
         Mine mine = GameObject.Instantiate(minePrefab).GetComponent<Mine>();
         mine.transform.position = new Vector3(3f, 3f);
         Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
@@ -76,6 +93,7 @@ public class MineTest
     [UnityTest]
     public IEnumerator MineDestroysResources()
     {
+        yield return LoadBasicScene();
         Mine mine = GameObject.Instantiate(minePrefab).GetComponent<Mine>();
         mine.transform.position = new Vector3(3f, 3f);
         Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
@@ -92,5 +110,24 @@ public class MineTest
         yield return new WaitForSeconds(3);
 
         Assert.AreEqual(room.resources.Count, 0);
+    }
+
+    [UnityTest]
+    public IEnumerator DoesntTriggerThroughWalls()
+    {
+        yield return LoadTwoRoomScene();
+        Mine mine = GameObject.Instantiate(minePrefab).GetComponent<Mine>();
+        mine.transform.position = new Vector3(3f, 3f);
+        Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        enemy.transform.position = new Vector3(-3f, -3f);
+        enemy.SetTestingState();
+
+        yield return new WaitForSeconds(0.5f);
+
+
+        enemy.GoTo(mine.transform.position);
+        yield return new WaitForSeconds(3);
+
+
     }
 }

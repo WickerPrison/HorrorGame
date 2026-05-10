@@ -48,9 +48,11 @@ public class Enemy : MonoBehaviour, ITakeDamage
 
     private void Update()
     {
-        Vision();
+        sprite.enabled = VisionManager.i.FindIsVisible(transform.position);
 
         if (state == EnemyState.TESTING) return;
+
+        Vision();
 
         timeInCurrentRoom += Time.deltaTime;
 
@@ -93,32 +95,25 @@ public class Enemy : MonoBehaviour, ITakeDamage
         }
     }
 
+
+
     void Vision()
     {
-        bool showSprite = false;
         unitsInSight.Clear();
         foreach (PlayerUnit unit in playerManager.allUnits)
         {
             float distance = Vector2.Distance(transform.position, unit.transform.position);
-            if (distance <= visionRange || (distance <= unit.visionRange && !showSprite))
+            if (distance <= visionRange)
             {
                 Vector3 direction = unit.transform.position - transform.position;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, unit.visionRange, layerMask);
                 if (hit.transform != null && hit.transform.GetComponent<PlayerUnit>())
                 {
-                    if(distance <= unit.visionRange)
-                    {
-                        showSprite = true;
-                    }
-                    if(distance <= visionRange)
-                    {
-                        unitsInSight.Add(unit);
-                        state = EnemyState.CHASING;
-                    }
+                    unitsInSight.Add(unit);
+                    state = EnemyState.CHASING;
                 }
             }
         }
-        sprite.enabled = showSprite;
     }
 
     void GetWanderDestination()
