@@ -8,7 +8,7 @@ public enum DoorState
     OPEN, CLOSED, OPENING, CLOSING
 }
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IInterceptRightClick
 {
     [SerializeField] ColorData colorData;
     DoorState state = DoorState.CLOSED;
@@ -108,9 +108,9 @@ public class Door : MonoBehaviour
         }
     }
 
-    public void RightClick()
+    public bool RightClick()
     {
-        if (!powered) return;
+        if (!powered) return true;
 
         if(state == DoorState.OPEN || state == DoorState.OPENING)
         {
@@ -120,5 +120,6 @@ public class Door : MonoBehaviour
         {
             state = DoorState.OPENING;
         }
+        return false;
     }
 }

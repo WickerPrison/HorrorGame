@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     [System.NonSerialized] public List<PlayerUnit> allUnits = new List<PlayerUnit>();
-    List<PlayerUnit> selectedUnits = new List<PlayerUnit>();
+    [System.NonSerialized] public List<PlayerUnit> selectedUnits = new List<PlayerUnit>();
     int resources = 0;
 
     void LeftClick(Vector3 worldPos)

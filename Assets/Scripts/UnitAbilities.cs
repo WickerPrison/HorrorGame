@@ -77,9 +77,14 @@ public class UnitAbilities : MonoBehaviour
         }
         if (closestResource != null)
         {
-            playerUnit.SetDestination(closestResource.transform.position, () => closestResource.GetCollected());
+            Collect(closestResource);
         }
 
+    }
+
+    public void Collect(Resource resource)
+    {
+        playerUnit.SetDestination(resource.transform.position, () => resource.GetCollected());
     }
 
     void Power()
@@ -87,10 +92,15 @@ public class UnitAbilities : MonoBehaviour
         Room room = Utils.GetRoom(transform.position);
         if (room.terminal != null)
         {
-            InterruptAbilities();
-            playerUnit.SetDestination(room.terminal.GetInteractPoint(), room.terminal.StartPowering);
-            poweringTerminal = room.terminal;
+            Power(room.terminal);
         }
+    }
+
+    public void Power(Terminal terminal)
+    {
+        InterruptAbilities();
+        playerUnit.SetDestination(terminal.GetInteractPoint(), terminal.StartPowering);
+        poweringTerminal = terminal;
     }
 
     void StopPowering()
