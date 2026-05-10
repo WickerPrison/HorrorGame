@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6750142811414181099}
   - component: {fileID: 797117722920883751}
   - component: {fileID: 8238182995842293232}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,8 +51,7 @@ MonoBehaviour:
   doors: []
   enemies: []
   wallsParent: {fileID: 3315981120404886954}
-  alwaysPowered: 0
-  powered: 0
+  unscannable: 0
 --- !u!114 &797117722920883751
 MonoBehaviour:
   m_ObjectHideFlags: 0

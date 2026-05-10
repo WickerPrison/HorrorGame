@@ -73,6 +73,17 @@ public class PlayerManager : MonoBehaviour
         allUnits.Remove(deadUnit);
         PlayerEvents.i.UnitStatChange(deadUnit);
     }
+    private void Player_onUnitStatChange(PlayerUnit playerUnit)
+    {
+        GlobalEvents.i.UnitStatChange(playerUnit, selectedUnits.Count == 1 && selectedUnits[0] == playerUnit);
+
+    }
+
+    private void Player_onPortalRoomChange(PlayerUnit playerUnit, bool inPortalRoom)
+    {
+        if (selectedUnits.Count != 1 || selectedUnits[0] != playerUnit) return;
+        GlobalEvents.i.PortalRoomChange(playerUnit, inPortalRoom);
+    }
 
     void OnEnable()
     {
@@ -83,6 +94,8 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.onSelectButton += SelectButton;
         PlayerEvents.i.onUnitExists += PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath += PlayerEvents_onUnitDeath;
+        PlayerEvents.i.onUnitStatChange += Player_onUnitStatChange;
+        PlayerEvents.i.onPortalRoomChange += Player_onPortalRoomChange;
     }
 
     private void OnDisable()
@@ -94,5 +107,7 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.onSelectButton -= SelectButton;
         PlayerEvents.i.onUnitExists -= PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath -= PlayerEvents_onUnitDeath;
+        PlayerEvents.i.onUnitStatChange -= Player_onUnitStatChange;
+        PlayerEvents.i.onPortalRoomChange -= Player_onPortalRoomChange;
     }
 }

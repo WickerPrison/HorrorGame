@@ -9,14 +9,14 @@ public class AbilityIcon : MonoBehaviour
     
     void Start()
     {
-        Hide();
+        Show(false);
     }
 
     public void SetAbility(Ability ability, PlayerUnitData playerData)
     {
         if (ability == Ability.NONE)
         {
-            Hide();
+            Show(false);
         }
         else
         {
@@ -27,9 +27,9 @@ public class AbilityIcon : MonoBehaviour
         }
     }
 
-    void Hide()
+    public void Show(bool show)
     {
-        icon.SetActive(false);
-        nameText.gameObject.SetActive(false);
+        icon.SetActive(show);
+        nameText.gameObject.SetActive(show);
     }
 }

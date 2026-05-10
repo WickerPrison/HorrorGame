@@ -103,6 +103,11 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
         aiPath.isStopped = true;
     }
 
+    public void UpdatePortalUi(bool inPortalRoom)
+    {
+        PlayerEvents.i.PortalRoomChange(this, inPortalRoom);
+    }
+
     public void TakeDamage(int amount)
     {
         data.health -= amount;
@@ -122,15 +127,15 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
 
     private void OnEnable()
     {
-        GlobalEvents.i.onDeselectAll += PlayerEvents_onDeselectAll;
+        GlobalEvents.i.onDeselectAll += GlobalEvents_onDeselectAll;
     }
 
     private void OnDisable()
     {
-        GlobalEvents.i.onDeselectAll -= PlayerEvents_onDeselectAll;
+        GlobalEvents.i.onDeselectAll -= GlobalEvents_onDeselectAll;
     }
 
-    private void PlayerEvents_onDeselectAll(object sender, System.EventArgs e)
+    private void GlobalEvents_onDeselectAll(object sender, System.EventArgs e)
     {
         SetSelected(false);
     }
