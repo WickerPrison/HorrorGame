@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
+public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleported
 {
     private Seeker seeker;
     private AIPath aiPath;
@@ -106,6 +106,11 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
     public void UpdatePortalUi(bool inPortalRoom)
     {
         PlayerEvents.i.PortalRoomChange(this, inPortalRoom);
+    }
+
+    public void GotTeleported()
+    {
+        Stop();
     }
 
     public void TakeDamage(int amount)

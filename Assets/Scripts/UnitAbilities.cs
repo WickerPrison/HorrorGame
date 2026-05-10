@@ -6,6 +6,7 @@ public class UnitAbilities : MonoBehaviour
 {
     Room scanningFromRoom = null;
     PlayerUnit playerUnit;
+    Portal activatingPortal = null;
     Terminal poweringTerminal = null;
     [SerializeField] GameObject minePrefab;
 
@@ -45,6 +46,37 @@ public class UnitAbilities : MonoBehaviour
     {
         StopScanning();
         StopPowering();
+        StopPortalActivation();
+    }
+
+    public void InteractWithPortal()
+    {
+        Room room = Utils.GetRoom(transform.position);
+        if (room.portal != null)
+        {
+            InteractWithPortal(room.portal);
+        }
+    }
+
+    public void InteractWithPortal(Portal portal)
+    {
+        if(PortalManager.i.activator == playerUnit)
+        {
+            Debug.Log("Leaving Hell");
+            return;
+        }
+        InterruptAbilities();
+        playerUnit.SetDestination(portal.transform.position, () => portal.Activate(playerUnit));
+        activatingPortal = portal;
+    }
+
+    void StopPortalActivation()
+    {
+        if(activatingPortal != null)
+        {
+            activatingPortal.Deactivate();
+            activatingPortal = null;
+        }
     }
 
     void Scan()

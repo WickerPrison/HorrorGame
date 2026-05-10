@@ -34,6 +34,12 @@ public class PlayerManager : MonoBehaviour
         selectedUnits[0].PerformAbility(index);
     }
 
+    private void Portal()
+    {
+        if (selectedUnits.Count != 1) return;
+        selectedUnits[0].unitAbilities.InteractWithPortal();
+    }
+
     private void SelectButton(int unitIndex)
     {
         DeselectAll();
@@ -91,6 +97,7 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.onLeftClick += LeftClick;
         InputManager.i.onRightClick += RightClick;
         InputManager.i.onAbility += Ability;
+        InputManager.i.onPortal += Portal;
         InputManager.i.onSelectButton += SelectButton;
         PlayerEvents.i.onUnitExists += PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath += PlayerEvents_onUnitDeath;
@@ -104,6 +111,7 @@ public class PlayerManager : MonoBehaviour
         InputManager.i.onLeftClick -= LeftClick;
         InputManager.i.onRightClick -= RightClick;
         InputManager.i.onAbility -= Ability;
+        InputManager.i.onPortal -= Portal;
         InputManager.i.onSelectButton -= SelectButton;
         PlayerEvents.i.onUnitExists -= PlayerEvents_onUnitExists;
         PlayerEvents.i.onUnitDeath -= PlayerEvents_onUnitDeath;
