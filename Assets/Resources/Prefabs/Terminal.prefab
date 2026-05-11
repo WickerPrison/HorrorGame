@@ -140,12 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b45490d6e9e4e4b9b29a8ae289227a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  roomsToPower:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  roomsToPower: []
   interactPoint: {fileID: 6988484683564477102}
 --- !u!61 &7807383712343623652
 BoxCollider2D:

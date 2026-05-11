@@ -6,14 +6,19 @@ public class Portal : MonoBehaviour, IPowerRooms, IInterceptRightClick, IHaveVis
 {
     [SerializeField] ColorData colorData;
     [SerializeField] SpriteRenderer pentagram;
+    [SerializeField] bool providesPower = true;
     PlayerManager playerManager;
     public float visionRange { get; set; } = 5;
+    Room room;
 
     private void Start()
     {
-        Room room = Utils.GetRoom(transform.position);
+        pentagram.enabled = false;
         room.portal = this;
-        room.AddPower(this);
+        if (providesPower)
+        {
+            room.AddPower(this);
+        }
 
         PortalManager.i.portals.Add(this);
         AddToVisionManager();
@@ -104,5 +109,24 @@ public class Portal : MonoBehaviour, IPowerRooms, IInterceptRightClick, IHaveVis
     public void RemoveFromVisionManager()
     {
         VisionManager.i.RemoveVision(this);
+    }
+
+    private void OnEnable()
+    {
+        room = Utils.GetRoom(transform.position);
+        room.onChangeState += Room_onChangeState;
+    }
+
+    private void OnDisable()
+    {
+        room.onChangeState -= Room_onChangeState;
+    }
+
+    private void Room_onChangeState(RoomState state)
+    {
+        if(state != RoomState.HIDDEN)
+        {
+            pentagram.enabled = true;
+        }
     }
 }

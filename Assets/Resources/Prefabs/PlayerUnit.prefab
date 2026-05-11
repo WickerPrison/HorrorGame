@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   outline: {fileID: 7095682566779586416}
-  setVisionRange: 10
+  setVisionRange: 3
   testData: {fileID: 0}
   colorData: {fileID: 11400000, guid: f1181f3012833e64a8674a5c89468206, type: 2}
   unitName: {fileID: 1444338045383260900}
