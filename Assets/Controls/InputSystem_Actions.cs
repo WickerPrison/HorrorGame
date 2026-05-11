@@ -1180,6 +1180,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeaveMission"",
+                    ""type"": ""Button"",
+                    ""id"": ""1cee3a54-a60c-4a8f-86bd-084bc1df1a49"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1314,6 +1323,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Portal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46807c66-8563-461e-b0e8-689b55a32be9"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeaveMission"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1417,6 +1437,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_ControlUnits_Select3 = m_ControlUnits.FindAction("Select3", throwIfNotFound: true);
         m_ControlUnits_Select4 = m_ControlUnits.FindAction("Select4", throwIfNotFound: true);
         m_ControlUnits_Portal = m_ControlUnits.FindAction("Portal", throwIfNotFound: true);
+        m_ControlUnits_LeaveMission = m_ControlUnits.FindAction("LeaveMission", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1889,6 +1910,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ControlUnits_Select3;
     private readonly InputAction m_ControlUnits_Select4;
     private readonly InputAction m_ControlUnits_Portal;
+    private readonly InputAction m_ControlUnits_LeaveMission;
     /// <summary>
     /// Provides access to input actions defined in input action map "ControlUnits".
     /// </summary>
@@ -1944,6 +1966,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "ControlUnits/Portal".
         /// </summary>
         public InputAction @Portal => m_Wrapper.m_ControlUnits_Portal;
+        /// <summary>
+        /// Provides access to the underlying input action "ControlUnits/LeaveMission".
+        /// </summary>
+        public InputAction @LeaveMission => m_Wrapper.m_ControlUnits_LeaveMission;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2003,6 +2029,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Portal.started += instance.OnPortal;
             @Portal.performed += instance.OnPortal;
             @Portal.canceled += instance.OnPortal;
+            @LeaveMission.started += instance.OnLeaveMission;
+            @LeaveMission.performed += instance.OnLeaveMission;
+            @LeaveMission.canceled += instance.OnLeaveMission;
         }
 
         /// <summary>
@@ -2047,6 +2076,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Portal.started -= instance.OnPortal;
             @Portal.performed -= instance.OnPortal;
             @Portal.canceled -= instance.OnPortal;
+            @LeaveMission.started -= instance.OnLeaveMission;
+            @LeaveMission.performed -= instance.OnLeaveMission;
+            @LeaveMission.canceled -= instance.OnLeaveMission;
         }
 
         /// <summary>
@@ -2378,5 +2410,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPortal(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LeaveMission" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeaveMission(InputAction.CallbackContext context);
     }
 }

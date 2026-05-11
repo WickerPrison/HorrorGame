@@ -54,12 +54,25 @@ public class AbilitiesUi : MonoBehaviour
         portalIcon.Show(inPortalRoom);
     }
 
+    private void Global_onPortalActivation(bool activated)
+    {
+        if (activated)
+        {
+            portalIcon.SetTexts("Exit", "X");
+        }
+        else
+        {
+            portalIcon.SetTexts("Portal", "F");
+        }
+    }
+
     private void OnEnable()
     {
         GlobalEvents.i.onSelectUnits += Global_onSelectUnits;
         GlobalEvents.i.onDeselectAll += Global_onDeselectAll;
         GlobalEvents.i.onUnitStatChange += Global_onUnitStatChange;
         GlobalEvents.i.onPortalRoomChange += Global_onPortalRoomChange;
+        GlobalEvents.i.onPortalActivation += Global_onPortalActivation;
     }
 
     private void OnDisable()
@@ -68,5 +81,6 @@ public class AbilitiesUi : MonoBehaviour
         GlobalEvents.i.onDeselectAll -= Global_onDeselectAll;
         GlobalEvents.i.onUnitStatChange -= Global_onUnitStatChange;
         GlobalEvents.i.onPortalRoomChange -= Global_onPortalRoomChange;
+        GlobalEvents.i.onPortalActivation -= Global_onPortalActivation;
     }
 }

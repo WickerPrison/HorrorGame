@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Portal : MonoBehaviour, IPowerRooms, IInterceptRightClick
+public class Portal : MonoBehaviour, IPowerRooms, IInterceptRightClick, IHaveVision
 {
     [SerializeField] ColorData colorData;
     [SerializeField] SpriteRenderer pentagram;
     PlayerManager playerManager;
+    public float visionRange { get; set; } = 5;
 
     private void Start()
     {
@@ -15,6 +16,7 @@ public class Portal : MonoBehaviour, IPowerRooms, IInterceptRightClick
         room.AddPower(this);
 
         PortalManager.i.portals.Add(this);
+        AddToVisionManager();
 
         playerManager = PlayerEvents.i.GetComponent<PlayerManager>();
     }
@@ -83,5 +85,24 @@ public class Portal : MonoBehaviour, IPowerRooms, IInterceptRightClick
             teleportee.GotTeleported();
         }
         PortalManager.i.DeactivatePortal();
+    }
+
+    public void LeaveMission()
+    {
+        List<IGetTeleported> teleportees = GetTeleportees();
+        foreach(IGetTeleported teleportee in teleportees)
+        {
+            teleportee.LeaveMission();
+        }
+    }
+
+    public void AddToVisionManager()
+    {
+        VisionManager.i.AddVision(this);
+    }
+
+    public void RemoveFromVisionManager()
+    {
+        VisionManager.i.RemoveVision(this);
     }
 }

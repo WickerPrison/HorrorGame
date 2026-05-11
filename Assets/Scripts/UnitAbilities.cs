@@ -51,6 +51,8 @@ public class UnitAbilities : MonoBehaviour
 
     public void InteractWithPortal()
     {
+        if (PortalManager.i.activator != null) return;
+
         Room room = Utils.GetRoom(transform.position);
         if (room.portal != null)
         {
@@ -60,11 +62,6 @@ public class UnitAbilities : MonoBehaviour
 
     public void InteractWithPortal(Portal portal)
     {
-        if(PortalManager.i.activator == playerUnit)
-        {
-            Debug.Log("Leaving Hell");
-            return;
-        }
         InterruptAbilities();
         playerUnit.SetDestination(portal.transform.position, () => portal.Activate(playerUnit));
         activatingPortal = portal;

@@ -13,6 +13,8 @@ public class GlobalEvents : MonoBehaviour
     public event Action<Enemy> onEnemyDeath;
     public event Action<PlayerUnit, bool> onUnitStatChange;
     public event Action<PlayerUnit, bool> onPortalRoomChange;
+    public event Action<bool> onPortalActivation;
+    public event Action<PlayerUnit> onUnitLeaveMission;
 
     private void Awake()
     {
@@ -52,5 +54,15 @@ public class GlobalEvents : MonoBehaviour
     public void PortalRoomChange(PlayerUnit playerUnit, bool inPortalRoom)
     {
         onPortalRoomChange?.Invoke(playerUnit, inPortalRoom);
+    }
+
+    public void PortalActivation(bool activated)
+    {
+        onPortalActivation?.Invoke(activated);
+    }
+
+    public void UnitLeaveMission(PlayerUnit unit)
+    {
+        onUnitLeaveMission?.Invoke(unit);
     }
 }

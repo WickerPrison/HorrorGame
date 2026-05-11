@@ -202,6 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   abilityDictionary: {fileID: 11400000, guid: 81c11530401376c46b5d805972119e3c, type: 2}
   nameText: {fileID: 1105955580425208118}
+  buttonPrompt: {fileID: 6480192484987912874}
   icon: {fileID: 8787030205653668373}
 --- !u!1 &7202692210445359948
 GameObject:

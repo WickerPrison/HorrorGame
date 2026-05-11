@@ -5,6 +5,7 @@ public class AbilityIcon : MonoBehaviour
 {
     [SerializeField] AbilityDictionary abilityDictionary;
     [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] TextMeshProUGUI buttonPrompt;
     [SerializeField] GameObject icon;
     
     void Start()
@@ -31,5 +32,11 @@ public class AbilityIcon : MonoBehaviour
     {
         icon.SetActive(show);
         nameText.gameObject.SetActive(show);
+    }
+
+    public void SetTexts(string abilityName, string button)
+    {
+        nameText.text = abilityName;
+        buttonPrompt.text = button;
     }
 }

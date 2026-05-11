@@ -5,9 +5,9 @@ public class PortalManager : MonoBehaviour
 {
     public static PortalManager i;
 
-    public List<Portal> portals = new List<Portal>();
-    public Portal activePortal = null;
-    public PlayerUnit activator = null;
+    [System.NonSerialized] public List<Portal> portals = new List<Portal>();
+    [System.NonSerialized] public Portal activePortal = null;
+    [System.NonSerialized] public PlayerUnit activator = null;
 
     private void Awake()
     {
@@ -27,6 +27,7 @@ public class PortalManager : MonoBehaviour
         {
             portal.SetVisualsActive(true);
         }
+        GlobalEvents.i.PortalActivation(true);
     }
 
     public void DeactivatePortal()
@@ -37,5 +38,26 @@ public class PortalManager : MonoBehaviour
         {
             portal.SetVisualsActive(false);
         }
+        GlobalEvents.i.PortalActivation(false);
+    }
+
+    public void LeaveMission()
+    {
+        if (activePortal == null) return;
+        foreach(Portal portal in portals)
+        {
+            portal.LeaveMission();
+        }
+        DeactivatePortal();
+    }
+
+    private void OnEnable()
+    {
+        InputManager.i.onLeaveMission += LeaveMission;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.i.onLeaveMission -= LeaveMission;
     }
 }

@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    void RightClick(Vector3 worldPos)
+    public void RightClick(Vector3 worldPos)
     {
         foreach (PlayerUnit unit in selectedUnits)
         {
@@ -34,13 +34,13 @@ public class PlayerManager : MonoBehaviour
         selectedUnits[0].PerformAbility(index);
     }
 
-    private void Portal()
+    public void Portal()
     {
         if (selectedUnits.Count != 1) return;
         selectedUnits[0].unitAbilities.InteractWithPortal();
     }
 
-    private void SelectButton(int unitIndex)
+    public void SelectButton(int unitIndex)
     {
         DeselectAll();
         if(unitIndex < allUnits.Count)
@@ -73,12 +73,20 @@ public class PlayerManager : MonoBehaviour
         GlobalEvents.i.UpdateResources(resources);
     }
 
+    private void Global_onUnitLeaveMission(PlayerUnit leftUnit)
+    {
+        selectedUnits.Remove(leftUnit);
+        allUnits.Remove(leftUnit);
+        PlayerEvents.i.UnitStatChange(leftUnit);
+    }
+
     private void PlayerEvents_onUnitDeath(PlayerUnit deadUnit)
     {
         selectedUnits.Remove(deadUnit);
         allUnits.Remove(deadUnit);
         PlayerEvents.i.UnitStatChange(deadUnit);
     }
+
     private void Player_onUnitStatChange(PlayerUnit playerUnit)
     {
         GlobalEvents.i.UnitStatChange(playerUnit, selectedUnits.Count == 1 && selectedUnits[0] == playerUnit);
@@ -103,6 +111,7 @@ public class PlayerManager : MonoBehaviour
         PlayerEvents.i.onUnitDeath += PlayerEvents_onUnitDeath;
         PlayerEvents.i.onUnitStatChange += Player_onUnitStatChange;
         PlayerEvents.i.onPortalRoomChange += Player_onPortalRoomChange;
+        GlobalEvents.i.onUnitLeaveMission += Global_onUnitLeaveMission;
     }
 
     private void OnDisable()
@@ -117,5 +126,6 @@ public class PlayerManager : MonoBehaviour
         PlayerEvents.i.onUnitDeath -= PlayerEvents_onUnitDeath;
         PlayerEvents.i.onUnitStatChange -= Player_onUnitStatChange;
         PlayerEvents.i.onPortalRoomChange -= Player_onPortalRoomChange;
+        GlobalEvents.i.onUnitLeaveMission -= Global_onUnitLeaveMission;
     }
 }

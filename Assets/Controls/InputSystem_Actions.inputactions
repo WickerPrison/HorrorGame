@@ -1094,6 +1094,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LeaveMission",
+                    "type": "Button",
+                    "id": "1cee3a54-a60c-4a8f-86bd-084bc1df1a49",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1226,6 +1235,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Portal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46807c66-8563-461e-b0e8-689b55a32be9",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeaveMission",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

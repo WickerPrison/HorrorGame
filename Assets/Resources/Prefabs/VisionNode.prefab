@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9032751473681138165}
   - component: {fileID: 4346765345902507726}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 723989799076420287}
   - component: {fileID: 6511762091191585610}
   - component: {fileID: 4984712794449318860}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: VisionNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}

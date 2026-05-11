@@ -113,6 +113,13 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
         Stop();
     }
 
+    public void LeaveMission()
+    {
+        VisionManager.i.RemoveVision(this);
+        GlobalEvents.i.UnitLeaveMission(this);
+        Destroy(gameObject);
+    }
+
     public void TakeDamage(int amount)
     {
         data.health -= amount;
