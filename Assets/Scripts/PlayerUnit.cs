@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
+public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleported
 {
     private Seeker seeker;
     private AIPath aiPath;
@@ -103,6 +103,23 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
         aiPath.isStopped = true;
     }
 
+    public void UpdatePortalUi(bool inPortalRoom)
+    {
+        PlayerEvents.i.PortalRoomChange(this, inPortalRoom);
+    }
+
+    public void GotTeleported()
+    {
+        Stop();
+    }
+
+    public void LeaveMission()
+    {
+        VisionManager.i.RemoveVision(this);
+        GlobalEvents.i.UnitLeaveMission(this);
+        Destroy(gameObject);
+    }
+
     public void TakeDamage(int amount)
     {
         data.health -= amount;
@@ -122,15 +139,15 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision
 
     private void OnEnable()
     {
-        GlobalEvents.i.onDeselectAll += PlayerEvents_onDeselectAll;
+        GlobalEvents.i.onDeselectAll += GlobalEvents_onDeselectAll;
     }
 
     private void OnDisable()
     {
-        GlobalEvents.i.onDeselectAll -= PlayerEvents_onDeselectAll;
+        GlobalEvents.i.onDeselectAll -= GlobalEvents_onDeselectAll;
     }
 
-    private void PlayerEvents_onDeselectAll(object sender, System.EventArgs e)
+    private void GlobalEvents_onDeselectAll(object sender, System.EventArgs e)
     {
         SetSelected(false);
     }

@@ -5,18 +5,19 @@ public class AbilityIcon : MonoBehaviour
 {
     [SerializeField] AbilityDictionary abilityDictionary;
     [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] TextMeshProUGUI buttonPrompt;
     [SerializeField] GameObject icon;
     
     void Start()
     {
-        Hide();
+        Show(false);
     }
 
     public void SetAbility(Ability ability, PlayerUnitData playerData)
     {
         if (ability == Ability.NONE)
         {
-            Hide();
+            Show(false);
         }
         else
         {
@@ -27,9 +28,15 @@ public class AbilityIcon : MonoBehaviour
         }
     }
 
-    void Hide()
+    public void Show(bool show)
     {
-        icon.SetActive(false);
-        nameText.gameObject.SetActive(false);
+        icon.SetActive(show);
+        nameText.gameObject.SetActive(show);
+    }
+
+    public void SetTexts(string abilityName, string button)
+    {
+        nameText.text = abilityName;
+        buttonPrompt.text = button;
     }
 }

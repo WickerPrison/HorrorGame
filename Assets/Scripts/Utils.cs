@@ -14,9 +14,10 @@ public static class Utils
         return rooms;
     }
 
-    public static Room GetRoom(Vector3 position, float radius = 0.5f)
+    public static Room GetRoom(Vector3 position, float radius = 0.2f)
     {
-        return GetRooms(position, radius)[0];
+        List<Room> rooms = GetRooms(position, radius);
+        return rooms.Count > 0 ? rooms[0] : null;
     }
 
     public static string AppendUses(Ability ability, string text, PlayerUnitData data)

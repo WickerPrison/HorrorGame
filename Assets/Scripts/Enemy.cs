@@ -7,7 +7,7 @@ public enum EnemyState
     IDLE, WANDERING, CHASING, TESTING
 }
 
-public class Enemy : MonoBehaviour, ITakeDamage
+public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
 {
     public float visionRange;
     SpriteRenderer sprite;
@@ -94,8 +94,6 @@ public class Enemy : MonoBehaviour, ITakeDamage
             Destroy(gameObject);
         }
     }
-
-
 
     void Aggro()
     {
@@ -187,6 +185,17 @@ public class Enemy : MonoBehaviour, ITakeDamage
         {
             playerUnit.TakeDamage(damage);
         }
+    }
+
+    public void GotTeleported()
+    {
+        //this is just to make the interface happy.
+    }
+
+    public void LeaveMission()
+    {
+        Destroy(gameObject);
+        //TODO: let players kidnap demons
     }
 
     public void SetTestingState()

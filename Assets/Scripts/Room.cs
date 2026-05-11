@@ -27,6 +27,8 @@ public class Room : MonoBehaviour
     BoxCollider2D boxCollider;
     [SerializeField] bool unscannable;
     List<ITakeDamage> damageTakers = new List<ITakeDamage>();
+    [System.NonSerialized] public Portal portal = null;
+    List<PlayerUnit> unitsInRoom = new List<PlayerUnit>();
 
     private void Start()
     {
@@ -59,6 +61,12 @@ public class Room : MonoBehaviour
         {
             damageTakers.Add(damageTaker);
         }
+
+        if(collision.TryGetComponent(out PlayerUnit playerUnit))
+        {
+            unitsInRoom.Add(playerUnit);
+            if(portal != null) playerUnit.UpdatePortalUi(true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -71,6 +79,12 @@ public class Room : MonoBehaviour
         if(collision.TryGetComponent(out ITakeDamage damageTaker))
         {
             damageTakers.Remove(damageTaker);
+        }
+
+        if (collision.TryGetComponent(out PlayerUnit playerUnit))
+        {
+            unitsInRoom.Remove(playerUnit);
+            if(portal != null) playerUnit.UpdatePortalUi(false);
         }
     }
 

@@ -20,7 +20,7 @@ public class VisionManager : MonoBehaviour
 
     private void Start()
     {
-        defaultLayerMask = LayerMask.GetMask("Default", "Obstacle", "Player");
+        defaultLayerMask = LayerMask.GetMask("Default", "Obstacle", "Player", "Vision");
     }
 
     public void AddVision(IHaveVision vision)
@@ -37,14 +37,14 @@ public class VisionManager : MonoBehaviour
     {
         foreach (IHaveVision vision in visionList)
         {
-            float distance = Vector2.Distance(transform.position, vision.transform.position);
+            float distance = Vector2.Distance(position, vision.transform.position);
 
             if(distance < vision.visionRange)
             {
                 Vector3 direction = vision.transform.position - position;
                 RaycastHit2D hit = Physics2D.Raycast(position, direction.normalized, vision.visionRange, defaultLayerMask);
                 //Debug.DrawRay(position, direction.normalized * Vector2.Distance(hit.centroid, position), Color.red, 100);
-                if(hit.transform != null && hit.transform.TryGetComponent(out IHaveVision sighted))
+                if (hit.transform != null && hit.transform.TryGetComponent(out IHaveVision sighted) || distance < 0.01f)
                 {
                     return true;
                 }

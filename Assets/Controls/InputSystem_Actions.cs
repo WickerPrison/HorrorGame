@@ -1171,6 +1171,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Portal"",
+                    ""type"": ""Button"",
+                    ""id"": ""05b85b99-5810-45dd-bdc0-7daae30ef7f5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeaveMission"",
+                    ""type"": ""Button"",
+                    ""id"": ""1cee3a54-a60c-4a8f-86bd-084bc1df1a49"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1294,6 +1312,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Select4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""757ee41c-1c5a-412b-9bfc-28878bc57429"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Portal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46807c66-8563-461e-b0e8-689b55a32be9"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeaveMission"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1396,6 +1436,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_ControlUnits_Select2 = m_ControlUnits.FindAction("Select2", throwIfNotFound: true);
         m_ControlUnits_Select3 = m_ControlUnits.FindAction("Select3", throwIfNotFound: true);
         m_ControlUnits_Select4 = m_ControlUnits.FindAction("Select4", throwIfNotFound: true);
+        m_ControlUnits_Portal = m_ControlUnits.FindAction("Portal", throwIfNotFound: true);
+        m_ControlUnits_LeaveMission = m_ControlUnits.FindAction("LeaveMission", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1867,6 +1909,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ControlUnits_Select2;
     private readonly InputAction m_ControlUnits_Select3;
     private readonly InputAction m_ControlUnits_Select4;
+    private readonly InputAction m_ControlUnits_Portal;
+    private readonly InputAction m_ControlUnits_LeaveMission;
     /// <summary>
     /// Provides access to input actions defined in input action map "ControlUnits".
     /// </summary>
@@ -1918,6 +1962,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "ControlUnits/Select4".
         /// </summary>
         public InputAction @Select4 => m_Wrapper.m_ControlUnits_Select4;
+        /// <summary>
+        /// Provides access to the underlying input action "ControlUnits/Portal".
+        /// </summary>
+        public InputAction @Portal => m_Wrapper.m_ControlUnits_Portal;
+        /// <summary>
+        /// Provides access to the underlying input action "ControlUnits/LeaveMission".
+        /// </summary>
+        public InputAction @LeaveMission => m_Wrapper.m_ControlUnits_LeaveMission;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1974,6 +2026,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Select4.started += instance.OnSelect4;
             @Select4.performed += instance.OnSelect4;
             @Select4.canceled += instance.OnSelect4;
+            @Portal.started += instance.OnPortal;
+            @Portal.performed += instance.OnPortal;
+            @Portal.canceled += instance.OnPortal;
+            @LeaveMission.started += instance.OnLeaveMission;
+            @LeaveMission.performed += instance.OnLeaveMission;
+            @LeaveMission.canceled += instance.OnLeaveMission;
         }
 
         /// <summary>
@@ -2015,6 +2073,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Select4.started -= instance.OnSelect4;
             @Select4.performed -= instance.OnSelect4;
             @Select4.canceled -= instance.OnSelect4;
+            @Portal.started -= instance.OnPortal;
+            @Portal.performed -= instance.OnPortal;
+            @Portal.canceled -= instance.OnPortal;
+            @LeaveMission.started -= instance.OnLeaveMission;
+            @LeaveMission.performed -= instance.OnLeaveMission;
+            @LeaveMission.canceled -= instance.OnLeaveMission;
         }
 
         /// <summary>
@@ -2339,5 +2403,19 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSelect4(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Portal" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPortal(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LeaveMission" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeaveMission(InputAction.CallbackContext context);
     }
 }
