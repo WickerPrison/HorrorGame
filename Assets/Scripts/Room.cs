@@ -19,7 +19,6 @@ public class Room : MonoBehaviour
     [SerializeField] Transform wallsParent;
     List<Wall> walls = new List<Wall>();
     RoomState state = RoomState.HIDDEN;
-    public event System.Action<RoomState> onChangeState;
     List<PlayerUnit> scanningUnits = new List<PlayerUnit>();
     [System.NonSerialized] public List<Resource> resources = new List<Resource>();
     [System.NonSerialized] public Terminal terminal;
@@ -29,6 +28,8 @@ public class Room : MonoBehaviour
     List<ITakeDamage> damageTakers = new List<ITakeDamage>();
     [System.NonSerialized] public Portal portal = null;
     List<PlayerUnit> unitsInRoom = new List<PlayerUnit>();
+
+    public event System.Action<RoomState> onChangeState;
 
     private void Start()
     {
