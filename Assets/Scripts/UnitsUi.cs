@@ -17,7 +17,7 @@ public class UnitsUi : MonoBehaviour
         if (playerManager == null) return;
         for(int i = 0; i < 4; i++)
         {
-            if(i < playerManager.allUnits.Count)
+            if(playerManager.allUnits[i] != null)
             {
                 unitUis[i].SetUnit(playerManager.allUnits[i].data);
             }

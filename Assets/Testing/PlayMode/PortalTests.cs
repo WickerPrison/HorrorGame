@@ -28,10 +28,10 @@ public class PortalTests
         portalRooms = Utils.GetRooms(Vector2.zero, 100).Where(r => r.portal != null).ToList();
     }
 
-    PlayerUnit SpawnUnit(Vector2 position, string name = "Test Dummy")
+    PlayerUnit SpawnUnit(Vector2 position, int index, string name = "Test Dummy")
     {
         PlayerUnit playerUnit = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
-        PlayerUnitData testDummyData = new PlayerUnitData(name, 100);
+        PlayerUnitData testDummyData = new PlayerUnitData(name, 100, index);
         playerUnit.data = testDummyData;
         playerUnit.transform.position = position;
         return playerUnit;
@@ -40,7 +40,7 @@ public class PortalTests
     [UnityTest]
     public IEnumerator UnitActivatesPortal()
     {
-        PlayerUnit playerUnit = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(1.3f, 1.3f));
+        PlayerUnit playerUnit = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(1.3f, 1.3f), 0);
         yield return null;
         Assert.IsNull(PortalManager.i.activePortal);
         playerManager.SelectButton(0);
@@ -53,8 +53,8 @@ public class PortalTests
     [UnityTest]
     public IEnumerator SecondUnitCannotActivateSamePortal()
     {
-        PlayerUnit playerUnit1 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(1.3f, 1.3f), "unit 1");
-        PlayerUnit playerUnit2 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(-1.3f, -1.3f), "unit 2");
+        PlayerUnit playerUnit1 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(1.3f, 1.3f), 0, "unit 1");
+        PlayerUnit playerUnit2 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(-1.3f, -1.3f), 1, "unit 2");
         yield return null;
         Assert.IsNull(PortalManager.i.activePortal);
         playerManager.SelectButton(0);
@@ -72,8 +72,8 @@ public class PortalTests
     [UnityTest]
     public IEnumerator SecondUnitCannotActivateDifferentPortal()
     {
-        PlayerUnit playerUnit1 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(1.3f, 1.3f), "unit 1");
-        PlayerUnit playerUnit2 = SpawnUnit((Vector2)portalRooms[1].portal.transform.position + new Vector2(-1.3f, -1.3f), "unit 2");
+        PlayerUnit playerUnit1 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(1.3f, 1.3f), 0, "unit 1");
+        PlayerUnit playerUnit2 = SpawnUnit((Vector2)portalRooms[1].portal.transform.position + new Vector2(-1.3f, -1.3f), 1, "unit 2");
         yield return null;
         Assert.IsNull(PortalManager.i.activePortal);
         playerManager.SelectButton(0);
@@ -91,8 +91,8 @@ public class PortalTests
     [UnityTest]
     public IEnumerator UnitsOnPortalsSwitchPlaces()
     {
-        PlayerUnit playerUnit1 = SpawnUnit(portalRooms[0].portal.transform.position, "unit 1");
-        PlayerUnit playerUnit2 = SpawnUnit(portalRooms[1].portal.transform.position, "unit 2");
+        PlayerUnit playerUnit1 = SpawnUnit(portalRooms[0].portal.transform.position, 0, "unit 1");
+        PlayerUnit playerUnit2 = SpawnUnit(portalRooms[1].portal.transform.position, 1, "unit 2");
         yield return null;
         playerManager.SelectButton(0);
         playerManager.Portal();
@@ -108,7 +108,7 @@ public class PortalTests
     [UnityTest]
     public IEnumerator CanTeleportEnemies()
     {
-        PlayerUnit playerUnit = SpawnUnit(portalRooms[0].portal.transform.position);
+        PlayerUnit playerUnit = SpawnUnit(portalRooms[0].portal.transform.position, 0);
         Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
         enemy.transform.position = portalRooms[1].portal.transform.position;
         enemy.SetTestingState();
@@ -127,8 +127,8 @@ public class PortalTests
     [UnityTest]
     public IEnumerator UnitCanLeaveMission()
     {
-        PlayerUnit playerUnit1 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(1.3f, 1.3f), "unit 1");
-        PlayerUnit playerUnit2 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(-1.3f, -1.3f), "unit 2");
+        PlayerUnit playerUnit1 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(1.3f, 1.3f), 0, "unit 1");
+        PlayerUnit playerUnit2 = SpawnUnit((Vector2)portalRooms[0].portal.transform.position + new Vector2(-1.3f, -1.3f), 1, "unit 2");
         yield return null;
         Assert.IsNull(PortalManager.i.activePortal);
         playerManager.SelectButton(0);
@@ -140,14 +140,14 @@ public class PortalTests
         yield return new WaitForSeconds(1f);
         Assert.IsNull(PortalManager.i.activePortal);
         Assert.IsNull(PortalManager.i.activator);
-        Assert.AreEqual(1, playerManager.allUnits.Count);
+        Assert.AreEqual(1, playerManager.allUnits.Where(u => u != null).ToList().Count);
         Assert.AreEqual(0, playerManager.selectedUnits.Count);
     }
 
     [UnityTest]
     public IEnumerator CanLeaveMissionWithEnemies()
     {
-        PlayerUnit playerUnit = SpawnUnit(portalRooms[0].portal.transform.position);
+        PlayerUnit playerUnit = SpawnUnit(portalRooms[0].portal.transform.position, 0);
         Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
         enemy.transform.position = portalRooms[1].portal.transform.position;
         enemy.SetTestingState();
@@ -159,5 +159,16 @@ public class PortalTests
         PortalManager.i.LeaveMission();
         yield return new WaitForSeconds(1f);
         Assert.IsTrue(enemy == null);
+    }
+
+    [UnityTest]
+    public IEnumerator CanSelectUnitOnPortal()
+    {
+        PlayerUnit playerUnit = SpawnUnit(portalRooms[0].portal.transform.position, 0);
+
+        yield return new WaitForFixedUpdate();
+        InputManager.i.LeftClick(playerUnit.transform.position);
+        yield return new WaitForSeconds(1f);
+        Assert.Greater(PlayerManager.i.selectedUnits.Count, 0);
     }
 }

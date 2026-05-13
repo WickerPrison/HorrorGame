@@ -100,6 +100,7 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
         unitsInSight.Clear();
         foreach (PlayerUnit unit in playerManager.allUnits)
         {
+            if (unit == null) continue;
             float distance = Vector2.Distance(transform.position, unit.transform.position);
             if (distance <= visionRange)
             {

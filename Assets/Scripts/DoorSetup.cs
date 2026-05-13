@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DoorSetup : MonoBehaviour
 {
+#if UNITY_EDITOR
     public Vector3 gridCenter;
     public float nodeSize = 0.25f;
 
@@ -16,4 +17,5 @@ public class DoorSetup : MonoBehaviour
         transform.position = new Vector3(xPos, yPos, 0);
         previousPosition = transform.position;
     }
+#endif
 }

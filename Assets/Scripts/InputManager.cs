@@ -44,11 +44,21 @@ public class InputManager : MonoBehaviour
 
     void LeftClick(InputAction.CallbackContext ctx)
     {
+        LeftClick();
+    }
+
+    public void LeftClick()
+    {
         Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         mouseWorldPos.z = 0f;
 
-        onLeftClick?.Invoke(mouseWorldPos);
+        LeftClick(mouseWorldPos);
+    }
+
+    public void LeftClick(Vector2 clickPos)
+    {
+        onLeftClick?.Invoke(clickPos);
     }
 
     void RightClick(InputAction.CallbackContext ctx)
