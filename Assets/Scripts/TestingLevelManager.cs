@@ -17,7 +17,7 @@ public class TestingLevelManager : MonoBehaviour
 
     private void Global_onUnitLeaveMission(PlayerUnit leavingUnit)
     {
-        if(PlayerManager.i.allUnits.Length == 0)
+        if(PlayerManager.i.AllUnitsCount() == 0)
         {
             SceneManager.LoadScene("PlaceholderMainMenu");
         }
@@ -25,7 +25,7 @@ public class TestingLevelManager : MonoBehaviour
 
     private void Player_onUnitDeath(PlayerUnit deadUnit)
     {
-        if(PlayerManager.i.allUnits.Length == 0)
+        if(PlayerManager.i.AllUnitsCount() == 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

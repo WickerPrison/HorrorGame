@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -41,6 +42,11 @@ public class PlayerManager : MonoBehaviour
         {
             unit.SetDestination(worldPos);
         }
+    }
+
+    public int AllUnitsCount()
+    {
+        return allUnits.Where(u => u != null).ToList().Count;
     }
 
     private void Ability(int index)

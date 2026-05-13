@@ -24,14 +24,6 @@ public class Door : MonoBehaviour, IInterceptRightClick
 
     private void Start()
     {
-        rooms = Utils.GetRooms(transform.position);
-        foreach(Room room in rooms)
-        {
-            room.onChangeState += Room_onChangeState;
-            room.doors.Add(this);
-        }
-        roomDict.Add(rooms[0], rooms[1]);
-        roomDict.Add(rooms[1], rooms[0]);
         onDoorProgress?.Invoke(doorProgress);
 
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -98,6 +90,18 @@ public class Door : MonoBehaviour, IInterceptRightClick
                 sprite.enabled = true;
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        rooms = Utils.GetRooms(transform.position);
+        foreach (Room room in rooms)
+        {
+            room.onChangeState += Room_onChangeState;
+            room.doors.Add(this);
+        }
+        roomDict.Add(rooms[0], rooms[1]);
+        roomDict.Add(rooms[1], rooms[0]);
     }
 
     private void OnDisable()
