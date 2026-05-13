@@ -25,7 +25,7 @@ public class VisionManagerTests
         enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy");
         playerUnitPrefab = Resources.Load<GameObject>("Prefabs/PlayerUnit");
         testData = Resources.Load<TestingData>("Data/TestingData");
-        testDummyData = new PlayerUnitData("Test Dummy", 100);
+        testDummyData = new PlayerUnitData("Test Dummy", 100, 0);
         resourcePrefab = Resources.Load<GameObject>("Prefabs/Resource");
         visionNodePrefab = Resources.Load<GameObject>("Prefabs/VisionNode");
         testTokenPrefab = Resources.Load<GameObject>("Prefabs/TestToken");

@@ -7,6 +7,7 @@ public class PlayerEvents : MonoBehaviour
 
     public event System.Action<PlayerUnit> onUnitExists;
     public event Action<PlayerUnit> onUnitDeath;
+    public event Action<PlayerUnit> onUnitLeaveMission;
     public event Action<PlayerUnit> onUnitStatChange;
     public event Action<PlayerUnit, bool> onPortalRoomChange;
 
@@ -28,6 +29,11 @@ public class PlayerEvents : MonoBehaviour
     public void UnitDeath(PlayerUnit unit)
     {
         onUnitDeath?.Invoke(unit);
+    }
+
+    public void UnitLeaveMission(PlayerUnit unit)
+    {
+        onUnitLeaveMission?.Invoke(unit);
     }
 
     public void UnitStatChange(PlayerUnit changedUnit)

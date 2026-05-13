@@ -29,6 +29,12 @@ public class TutorialManager : MonoBehaviour
             case TutorialLevel.ONE:
                 SceneManager.LoadScene("Tutorial2");
                 break;
+            case TutorialLevel.TWO:
+                SceneManager.LoadScene("Tutorial3");
+                break;
+            case TutorialLevel.THREE:
+                SceneManager.LoadScene("PlaceholderMainMenu");
+                break;
         }
     }
 

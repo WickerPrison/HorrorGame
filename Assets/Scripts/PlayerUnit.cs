@@ -116,7 +116,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
     public void LeaveMission()
     {
         VisionManager.i.RemoveVision(this);
-        GlobalEvents.i.UnitLeaveMission(this);
+        PlayerEvents.i.UnitLeaveMission(this);
         Destroy(gameObject);
     }
 
@@ -156,7 +156,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
     {
         if (testData != null)
         {
-            data = new PlayerUnitData(testData.unitName, testData.maxHealth);
+            data = new PlayerUnitData(testData.unitName, testData.maxHealth, testData.index);
             data.morality = testData.morality;
             data.abilities = testData.abilities;
         }

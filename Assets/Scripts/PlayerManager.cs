@@ -4,19 +4,34 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    [System.NonSerialized] public List<PlayerUnit> allUnits = new List<PlayerUnit>();
+    public static PlayerManager i;
+
+    [System.NonSerialized] public PlayerUnit[] allUnits = new PlayerUnit[4];
     [System.NonSerialized] public List<PlayerUnit> selectedUnits = new List<PlayerUnit>();
     int resources = 0;
+
+    private void Awake()
+    {
+        if (i != null && i != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        i = this;
+    }
 
     void LeftClick(Vector3 worldPos)
     {
         DeselectAll();
 
-        Collider2D hit = Physics2D.OverlapPoint(worldPos, Layers.clickableMask);
-        if (hit != null && hit.CompareTag("Player"))
+        Collider2D[] hits = Physics2D.OverlapPointAll(worldPos, Layers.clickableMask);
+        foreach(Collider2D hit in hits)
         {
-            PlayerUnit playerUnit = hit.GetComponentInParent<PlayerUnit>();
-            SelectUnit(playerUnit);
+            if (hit != null && hit.CompareTag("Player"))
+            {
+                PlayerUnit playerUnit = hit.GetComponentInParent<PlayerUnit>();
+                SelectUnit(playerUnit);
+            }
         }
     }
 
@@ -43,7 +58,7 @@ public class PlayerManager : MonoBehaviour
     public void SelectButton(int unitIndex)
     {
         DeselectAll();
-        if(unitIndex < allUnits.Count)
+        if(unitIndex < allUnits.Length)
         {
             SelectUnit(allUnits[unitIndex]);
         }
@@ -64,7 +79,7 @@ public class PlayerManager : MonoBehaviour
 
     private void PlayerEvents_onUnitExists(PlayerUnit unit)
     {
-        allUnits.Add(unit);
+        allUnits[unit.data.index] = unit;
     }
 
     public void GainResources(int amount)
@@ -73,17 +88,18 @@ public class PlayerManager : MonoBehaviour
         GlobalEvents.i.UpdateResources(resources);
     }
 
-    private void Global_onUnitLeaveMission(PlayerUnit leftUnit)
+    private void Player_onUnitLeaveMission(PlayerUnit leftUnit)
     {
         selectedUnits.Remove(leftUnit);
-        allUnits.Remove(leftUnit);
+        allUnits[leftUnit.data.index] = null;
         PlayerEvents.i.UnitStatChange(leftUnit);
+        GlobalEvents.i.UnitLeaveMission(leftUnit);
     }
 
     private void PlayerEvents_onUnitDeath(PlayerUnit deadUnit)
     {
         selectedUnits.Remove(deadUnit);
-        allUnits.Remove(deadUnit);
+        allUnits[deadUnit.data.index] = null;
         PlayerEvents.i.UnitStatChange(deadUnit);
     }
 
@@ -111,7 +127,7 @@ public class PlayerManager : MonoBehaviour
         PlayerEvents.i.onUnitDeath += PlayerEvents_onUnitDeath;
         PlayerEvents.i.onUnitStatChange += Player_onUnitStatChange;
         PlayerEvents.i.onPortalRoomChange += Player_onPortalRoomChange;
-        GlobalEvents.i.onUnitLeaveMission += Global_onUnitLeaveMission;
+        PlayerEvents.i.onUnitLeaveMission += Player_onUnitLeaveMission;
     }
 
     private void OnDisable()
@@ -126,6 +142,6 @@ public class PlayerManager : MonoBehaviour
         PlayerEvents.i.onUnitDeath -= PlayerEvents_onUnitDeath;
         PlayerEvents.i.onUnitStatChange -= Player_onUnitStatChange;
         PlayerEvents.i.onPortalRoomChange -= Player_onPortalRoomChange;
-        GlobalEvents.i.onUnitLeaveMission -= Global_onUnitLeaveMission;
+        PlayerEvents.i.onUnitLeaveMission -= Player_onUnitLeaveMission;
     }
 }
