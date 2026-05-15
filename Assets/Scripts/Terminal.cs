@@ -37,7 +37,6 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptR
 
     public void StartPowering()
     {
-        Debug.Log("Start Powering");
         foreach(Room room in roomsToPower)
         {
             room.AddPower(this);
