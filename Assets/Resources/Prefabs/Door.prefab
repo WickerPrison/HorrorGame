@@ -912,6 +912,7 @@ GameObject:
   - component: {fileID: 7887945981930873315}
   - component: {fileID: 2439710103372134200}
   - component: {fileID: 2881644640785719288}
+  - component: {fileID: 2130818436695668273}
   m_Layer: 7
   m_Name: Door
   m_TagString: Untagged
@@ -955,6 +956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   colorData: {fileID: 11400000, guid: f1181f3012833e64a8674a5c89468206, type: 2}
+  spriteRenderers: []
 --- !u!114 &2439710103372134200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1015,6 +1017,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2130818436695668273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7582500438196339331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288f9202568989d44899047e263ec2ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &8055146467901470733
 GameObject:
   m_ObjectHideFlags: 0

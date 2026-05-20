@@ -6,7 +6,7 @@ public class DoorSetup : MonoBehaviour
     public Vector3 gridCenter;
     public float nodeSize = 0.25f;
 
-    Vector3 previousPosition = Vector3.zero;
+    [System.NonSerialized] public Vector3 previousPosition = Vector3.zero;
 
     private void OnDrawGizmosSelected()
     {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+
 public class RoomSetup : MonoBehaviour
 {
     public Vector3 gridCenter;
@@ -21,6 +22,16 @@ public class RoomSetup : MonoBehaviour
     public LayerMask doorDetectionMask;
 
 #if UNITY_EDITOR
+    public void MoveRoom(Vector3 direciton)
+    {
+        Undo.RegisterCompleteObjectUndo(this, "Build Room");
+        for (int i = 0; i < 4; i++)
+        {
+            handles[i] += direciton;
+        }
+        BuildRooms();
+    }
+
     public void BuildRooms()
     {
         Undo.RegisterCompleteObjectUndo(this, "Build Room");
