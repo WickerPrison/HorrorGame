@@ -880,6 +880,10 @@ PrefabInstance:
       value: Terminal
       objectReference: {fileID: 0}
     - target: {fileID: 3504024058593617686, guid: 3d64950ecbb1ff3439f055d32e7b639c, type: 3}
+      propertyPath: interactPointDirection
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3504024058593617686, guid: 3d64950ecbb1ff3439f055d32e7b639c, type: 3}
       propertyPath: roomsToPower.Array.size
       value: 4
       objectReference: {fileID: 0}

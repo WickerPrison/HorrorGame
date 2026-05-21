@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 3504024058593617686}
   - component: {fileID: 7807383712343623652}
   - component: {fileID: 5270664098611292855}
+  - component: {fileID: 3984592175505463842}
   m_Layer: 6
   m_Name: Terminal
   m_TagString: Untagged
@@ -200,6 +201,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd91efb743c8c8049ae5828a6812cd6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HiddenTillSeen
+--- !u!114 &3984592175505463842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362939366075570093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288f9202568989d44899047e263ec2ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::LevelObjectSetup
+  gridCenter: {x: 0, y: 0, z: 0}
+  nodeSize: 0.25
 --- !u!1 &4030588881207980165
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,17 +14,6 @@ public class RoomSetupEditor : Editor
         if (GUILayout.Button("Build Room"))
         {
             roomSetup.BuildRooms();
-            //Undo.RegisterCompleteObjectUndo(roomSetup, "Build Room");
-            //Undo.RegisterCompleteObjectUndo(roomSetup.gameObject, "Build Room");
-            //BoxCollider2D collider = roomSetup.GetComponent<BoxCollider2D>();
-            //Undo.RegisterCompleteObjectUndo(collider, "Build Room");
-
-            //RoomSetup(roomSetup, collider);
-            //ClearWalls(roomSetup);
-            //BuildWalls(roomSetup, 0, 1);
-            //BuildWalls(roomSetup, 0, 2);
-            //BuildWalls(roomSetup, 1, 3);
-            //BuildWalls(roomSetup, 2, 3);
         }
 
         DrawDefaultInspector();
