@@ -16,6 +16,7 @@ public class Door : MonoBehaviour, IInterceptRightClick
     public Dictionary<Room, Room> roomDict = new Dictionary<Room, Room>();
 
     public event System.Action<float> onDoorProgress;
+    [SerializeField] bool startOpen;
     float doorProgress = 0;
     float doorSpeed = 5;
     bool powered;
@@ -24,6 +25,7 @@ public class Door : MonoBehaviour, IInterceptRightClick
 
     private void Start()
     {
+        if (startOpen) doorProgress = 1;
         onDoorProgress?.Invoke(doorProgress);
 
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();

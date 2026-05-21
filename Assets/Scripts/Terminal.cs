@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum Direction
+{
+    LEFT, RIGHT, UP, DOWN
+}
+
 public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptRightClick
 {
     SpriteRenderer[] sprites;
@@ -9,6 +14,8 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptR
     public List<Room> roomsToPower = new List<Room>();
     [SerializeField] Transform interactPoint;
     PlayerManager playerManager;
+    [SerializeField] Direction interactPointDirection;
+    float interactPointDistance = 0.5f;
 
     void Start()
     {
@@ -20,6 +27,15 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptR
         {
             sprite.enabled = false;
         }
+
+        Vector3 interactPointOffset = interactPointDirection switch
+        {
+            Direction.LEFT => Vector3.left * interactPointDistance,
+            Direction.RIGHT => Vector3.right * interactPointDistance,
+            Direction.UP => Vector3.up * interactPointDistance,
+            Direction.DOWN => Vector3.down * interactPointDistance
+        };
+        interactPoint.position = transform.position + interactPointOffset;
     }
 
     public void Unhide()
@@ -57,7 +73,6 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptR
         {
             return true;
         }
-
         playerManager.selectedUnits[0].unitAbilities.Power(this);
         return false;
     }
