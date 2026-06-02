@@ -127,6 +127,7 @@ Transform:
   - {fileID: 7207928394487959114}
   - {fileID: 2283452331315885515}
   - {fileID: 6988484683564477102}
+  - {fileID: 6745514524720944124}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3504024058593617686
@@ -143,6 +144,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   roomsToPower: []
   interactPoint: {fileID: 6988484683564477102}
+  interactPointDirection: 0
+  roomFinders: {fileID: 7123066929316068397}
 --- !u!61 &7807383712343623652
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -213,8 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288f9202568989d44899047e263ec2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Scripts::LevelObjectSetup
-  gridCenter: {x: 0, y: 0, z: 0}
-  nodeSize: 0.25
 --- !u!1 &4030588881207980165
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +367,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23e0e4c562168f4cbd1a4233f2d745e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!1 &7123066929316068397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6745514524720944124}
+  m_Layer: 6
+  m_Name: RoomFinders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6745514524720944124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123066929316068397}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4979617154683551550}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7201725170145457958
 GameObject:
   m_ObjectHideFlags: 0
