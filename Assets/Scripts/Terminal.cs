@@ -16,6 +16,7 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptR
     PlayerManager playerManager;
     [SerializeField] Direction interactPointDirection;
     float interactPointDistance = 0.5f;
+    [SerializeField] GameObject roomFinders;
 
     void Start()
     {
@@ -27,6 +28,8 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptR
         {
             sprite.enabled = false;
         }
+
+        GetPoweredRooms();
 
         Vector3 interactPointOffset = interactPointDirection switch
         {
@@ -75,5 +78,17 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptR
         }
         playerManager.selectedUnits[0].unitAbilities.Power(this);
         return false;
+    }
+
+    void GetPoweredRooms()
+    {
+        foreach(Transform roomFinder in roomFinders.GetComponentsInChildren<Transform>())
+        {
+            Room room = Utils.GetRoom(roomFinder.position);
+            if (!roomsToPower.Contains(room))
+            {
+                roomsToPower.Add(room);
+            }
+        }
     }
 }

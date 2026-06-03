@@ -6,7 +6,7 @@ public class Portal : MonoBehaviour, IPowerRooms, IInterceptRightClick, IHaveVis
 {
     [SerializeField] ColorData colorData;
     [SerializeField] SpriteRenderer pentagram;
-    [SerializeField] bool providesPower = true;
+    public bool providesPower = true;
     PlayerManager playerManager;
     public float visionRange { get; set; } = 5;
     Room room;
