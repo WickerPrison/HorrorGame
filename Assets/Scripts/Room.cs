@@ -24,7 +24,7 @@ public class Room : MonoBehaviour
     [System.NonSerialized] public Terminal terminal;
     List<IPowerRooms> powerSources = new List<IPowerRooms>();
     BoxCollider2D boxCollider;
-    [SerializeField] bool unscannable;
+    public bool unscannable;
     List<ITakeDamage> damageTakers = new List<ITakeDamage>();
     [System.NonSerialized] public Portal portal = null;
     List<PlayerUnit> unitsInRoom = new List<PlayerUnit>();
