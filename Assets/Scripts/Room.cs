@@ -28,6 +28,8 @@ public class Room : MonoBehaviour
     List<ITakeDamage> damageTakers = new List<ITakeDamage>();
     [System.NonSerialized] public Portal portal = null;
     List<PlayerUnit> unitsInRoom = new List<PlayerUnit>();
+    public float hellfire;
+    bool hellfireDecay = true;
 
     public event System.Action<RoomState> onChangeState;
 
@@ -87,6 +89,15 @@ public class Room : MonoBehaviour
             unitsInRoom.Remove(playerUnit);
             if(portal != null) playerUnit.UpdatePortalUi(false);
         }
+    }
+
+    private void Update()
+    {
+        if(hellfireDecay && hellfire > 0)
+        {
+            hellfire -= 0.1f * Time.deltaTime;
+        }
+        hellfireDecay = true;
     }
 
     void SetState(RoomState newState)
@@ -228,6 +239,16 @@ public class Room : MonoBehaviour
         {
             damageTakers[i].TakeDamage(amount);
         }
+    }
+
+    public void GainHellfire(int sourceLevel)
+    {
+        hellfireDecay = false;
+        int hellfireInt = Mathf.FloorToInt(hellfire);
+        if (sourceLevel <= hellfireInt) return;
+        int diff = sourceLevel - hellfireInt;
+        hellfire += diff * 0.1f * Time.deltaTime;
+        Debug.Log(hellfire);
     }
 
     public void AddDamageTaker(ITakeDamage damageTaker)

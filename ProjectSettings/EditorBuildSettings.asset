@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level1.unity
     guid: 49b93f0b88b844144bac78af2c61ba5d
+  - enabled: 1
+    path: Assets/Scenes/Testing/HellfireTests.unity
+    guid: d8fa1982295cc804bbcc89646e2c7ea8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
