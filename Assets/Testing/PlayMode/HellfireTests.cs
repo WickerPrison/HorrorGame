@@ -11,6 +11,7 @@ public class HellfireTests
     Altar altar;
     Room originRoom;
     Room otherRoom;
+    Door door;
 
     [UnitySetUp]
     public IEnumerator Setup()
@@ -22,6 +23,7 @@ public class HellfireTests
         altar = GameObject.FindAnyObjectByType<Altar>();
         originRoom = altar.room;
         otherRoom = GameObject.FindObjectsByType<Room>(FindObjectsSortMode.None).Where(r => r != originRoom).ToArray()[0];
+        door = originRoom.doors[0];
     }
 
 
@@ -32,6 +34,20 @@ public class HellfireTests
         Assert.Less(otherRoom.hellfire, 1);
         yield return new WaitForSeconds(19);
         Assert.GreaterOrEqual(originRoom.hellfire, 3);
+        Assert.Less(otherRoom.hellfire, 1);
+    }
+
+    [UnityTest]
+    public IEnumerator HellfireSpreadsThroughOpenDoor()
+    {
+        Assert.Less(otherRoom.hellfire, 1);
+        originRoom.hellfire = 3;
+        originRoom.GainHellfire(4);
+        door.OpenDoor();
+        yield return new WaitForSeconds(19);
+        Assert.Greater(otherRoom.hellfire, 2);
+        door.CloseDooor();
+        yield return new WaitForSeconds(15);
         Assert.Less(otherRoom.hellfire, 1);
     }
 }

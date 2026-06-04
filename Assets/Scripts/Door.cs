@@ -120,12 +120,22 @@ public class Door : MonoBehaviour, IInterceptRightClick
 
         if(state == DoorState.OPEN || state == DoorState.OPENING)
         {
-            state = DoorState.CLOSING;
+            CloseDooor();
         }
         else
         {
-            state = DoorState.OPENING;
+            OpenDoor();
         }
         return false;
+    }
+
+    public void OpenDoor()
+    {
+        state = DoorState.OPENING;
+    }
+
+    public void CloseDooor()
+    {
+        state = DoorState.CLOSING;
     }
 }

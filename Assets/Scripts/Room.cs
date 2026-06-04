@@ -30,6 +30,7 @@ public class Room : MonoBehaviour
     List<PlayerUnit> unitsInRoom = new List<PlayerUnit>();
     public float hellfire;
     bool hellfireDecay = true;
+    [SerializeField] SpriteRenderer[] hellfireIcons;
 
     public event System.Action<RoomState> onChangeState;
 
@@ -45,6 +46,12 @@ public class Room : MonoBehaviour
         foreach(Wall wall in walls)
         {
             wall.SpriteVisible(false);
+        }
+
+        UpdateHellfireIcons();
+        foreach(SpriteRenderer sprite in hellfireIcons)
+        {
+            sprite.color = colorData.danger;
         }
     }
 
@@ -95,9 +102,21 @@ public class Room : MonoBehaviour
     {
         if(hellfireDecay && hellfire > 0)
         {
-            hellfire -= 0.1f * Time.deltaTime;
+            hellfire -= 0.15f * Time.deltaTime;
+            UpdateHellfireIcons();
         }
         hellfireDecay = true;
+
+        if(hellfire > 1)
+        {
+            int hellfireInt = Mathf.FloorToInt(hellfire);
+            List<Room> roomsToSpread = GetAccessibleRooms();
+            roomsToSpread.Remove(this);
+            foreach(Room room in roomsToSpread)
+            {
+                room.GainHellfire(hellfireInt);
+            }
+        }
     }
 
     void SetState(RoomState newState)
@@ -245,10 +264,24 @@ public class Room : MonoBehaviour
     {
         hellfireDecay = false;
         int hellfireInt = Mathf.FloorToInt(hellfire);
+        if(sourceLevel == 3 && hellfireInt == 3 && hellfire < 3.5f)
+        {
+            hellfire += 0.2f * Time.deltaTime;
+            UpdateHellfireIcons();
+            return;
+        }
         if (sourceLevel <= hellfireInt) return;
         int diff = sourceLevel - hellfireInt;
         hellfire += diff * 0.1f * Time.deltaTime;
-        Debug.Log(hellfire);
+        UpdateHellfireIcons();
+    }
+
+    void UpdateHellfireIcons()
+    {
+        for(int i = 0; i < hellfireIcons.Length; i++)
+        {
+            hellfireIcons[i].enabled = i + 1 < hellfire;
+        }
     }
 
     public void AddDamageTaker(ITakeDamage damageTaker)
