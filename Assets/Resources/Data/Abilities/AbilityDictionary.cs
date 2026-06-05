@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum Ability
 {
-    NONE, COLLECT, SCAN, POWER, MINE
+    NONE, COLLECT, SCAN, POWER, MINE, SANCTIFY, DESECRATE
 }
 
 [CreateAssetMenu(fileName = "AbilityDictionary", menuName = "Scriptable Objects/AbilityDictionary")]

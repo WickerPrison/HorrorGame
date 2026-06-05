@@ -133,7 +133,26 @@ public class Room : MonoBehaviour
                 }
                 dotBuildup = 0;
             }
+        }
+        else if(dot > 1)
+        {
+            int holyAuraInt = Mathf.FloorToInt(dot);
+            List<Room> roomsToSpread = GetAccessibleRooms();
+            roomsToSpread.Remove(this);
+            foreach (Room room in roomsToSpread)
+            {
+                room.GainHolyAura(holyAuraInt);
+            }
 
+            dotBuildup += Time.deltaTime;
+            if (dotBuildup >= dotRate)
+            {
+                for (int i = unitsInRoom.Count - 1; i >= 0; i--)
+                {
+                    unitsInRoom[i].TakeHolyAuraDamage(holyAuraInt);
+                }
+                dotBuildup = 0;
+            }
         }
     }
 
@@ -290,6 +309,22 @@ public class Room : MonoBehaviour
         }
         if (sourceLevel >= hellfireInt) return;
         int diff = sourceLevel - hellfireInt;
+        dot += diff * 0.1f * Time.deltaTime;
+        UpdateDotIcons();
+    }
+
+    public void GainHolyAura(int sourceLevel)
+    {
+        dotDecay = false;
+        int auraInt = Mathf.FloorToInt(dot);
+        if(sourceLevel == 3 && auraInt == 3 && dot < 3.5f)
+        {
+            dot += 0.2f * Time.deltaTime;
+            UpdateDotIcons();
+            return;
+        }
+        if (sourceLevel <= auraInt) return;
+        int diff = sourceLevel - auraInt;
         dot += diff * 0.1f * Time.deltaTime;
         UpdateDotIcons();
     }

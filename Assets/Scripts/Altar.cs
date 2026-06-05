@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public enum AltarState
@@ -5,18 +6,20 @@ public enum AltarState
     DISABLED, DESECRATED, SANCTIFIED
 }
 
-public class Altar : MonoBehaviour, IUnhideWhenSeen
+public class Altar : MonoBehaviour, IUnhideWhenSeen, IInterceptRightClick
 {
     public AltarState altarState;
     [SerializeField] GameObject spritesHolder;
     [SerializeField] ColorData colorData;
     SpriteRenderer[] sprites;
     [System.NonSerialized] public Room room;
+    PlayerManager playerManager;
 
 
     void Start()
     {
         room = Utils.GetRoom(transform.position);
+        playerManager = PlayerManager.i;
         sprites = spritesHolder.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in sprites)
         {
@@ -27,7 +30,15 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen
 
     private void Update()
     {
-        room.GainHellfire(-3);
+        switch (altarState)
+        {
+            case AltarState.DESECRATED:
+                room.GainHellfire(-3);
+                break;
+            case AltarState.SANCTIFIED:
+                room.GainHolyAura(3);
+                break;
+        }
     }
 
     void SetVisuals()
@@ -42,6 +53,9 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen
                 case AltarState.DESECRATED:
                     sprite.color = colorData.danger;
                     break;
+                case AltarState.SANCTIFIED:
+                    sprite.color = colorData.holy;
+                    break;
             }
         }
     }
@@ -52,5 +66,49 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen
         {
             sprite.enabled = true;
         }
+    }
+
+    public bool RightClick()
+    {
+        return altarState switch
+        {
+            AltarState.DESECRATED => SanctifyAltar(),
+            AltarState.SANCTIFIED => DesecrateAltar(),
+            _ => true
+        };
+    }
+
+    bool SanctifyAltar()
+    {
+        if (playerManager.selectedUnits.Count != 1 || !playerManager.selectedUnits[0].data.abilities.Contains(Ability.SANCTIFY))
+        {
+            return true;
+        }
+
+        playerManager.selectedUnits[0].unitAbilities.Sanctify(this);
+        return false;
+    }
+
+    bool DesecrateAltar()
+    {
+        if (playerManager.selectedUnits.Count != 1 || !playerManager.selectedUnits[0].data.abilities.Contains(Ability.DESECRATE))
+        {
+            return true;
+        }
+
+        playerManager.selectedUnits[0].unitAbilities.Desecrate(this);
+        return false;
+    }
+
+    public void Sanctify()
+    {
+        altarState = AltarState.SANCTIFIED;
+        SetVisuals();
+    }
+
+    public void Desecrate()
+    {
+        altarState = AltarState.DESECRATED;
+        SetVisuals();
     }
 }

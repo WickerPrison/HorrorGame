@@ -150,4 +150,24 @@ public class UnitAbilities : MonoBehaviour
             PlayerEvents.i.UnitStatChange(playerUnit);
         }
     }
+
+    public void Sanctify()
+    {
+
+    }
+
+    public void Sanctify(Altar altar)
+    {
+        playerUnit.SetDestination(altar.transform.position, () => altar.Sanctify());
+    }
+
+    public void Desecrate()
+    {
+
+    }
+
+    public void Desecrate(Altar altar)
+    {
+        playerUnit.SetDestination(altar.transform.position, () => altar.Desecrate());
+    }
 }

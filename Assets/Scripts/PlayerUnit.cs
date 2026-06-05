@@ -137,6 +137,13 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
         TakeDamage(damage);
     }
 
+    public void TakeHolyAuraDamage(int holyAuraLevel)
+    {
+        int amount = holyAuraLevel * 3;
+        int damage = Math.Max(amount - data.morality, 0);
+        TakeDamage(damage);
+    }
+
     public void Death()
     {
         VisionManager.i.RemoveVision(this);
