@@ -28,9 +28,12 @@ public class Room : MonoBehaviour
     List<ITakeDamage> damageTakers = new List<ITakeDamage>();
     [System.NonSerialized] public Portal portal = null;
     List<PlayerUnit> unitsInRoom = new List<PlayerUnit>();
-    public float hellfire;
-    bool hellfireDecay = true;
+    public float dot;
+    bool dotDecay = true;
     [SerializeField] SpriteRenderer[] hellfireIcons;
+    [SerializeField] SpriteRenderer[] holyAuraIcons;
+    float dotRate = 0.5f;
+    float dotBuildup = 0;
 
     public event System.Action<RoomState> onChangeState;
 
@@ -48,10 +51,14 @@ public class Room : MonoBehaviour
             wall.SpriteVisible(false);
         }
 
-        UpdateHellfireIcons();
+        UpdateDotIcons();
         foreach(SpriteRenderer sprite in hellfireIcons)
         {
             sprite.color = colorData.danger;
+        }
+        foreach(SpriteRenderer sprite in holyAuraIcons)
+        {
+            sprite.color = colorData.holy;
         }
     }
 
@@ -100,22 +107,33 @@ public class Room : MonoBehaviour
 
     private void Update()
     {
-        if(hellfireDecay && hellfire > 0)
+        if(dotDecay && Mathf.Abs(dot) > 0.1f)
         {
-            hellfire -= 0.15f * Time.deltaTime;
-            UpdateHellfireIcons();
+            dot -= 0.3f * Mathf.Sign(dot) * Time.deltaTime;
+            UpdateDotIcons();
         }
-        hellfireDecay = true;
+        dotDecay = true;
 
-        if(hellfire > 1)
+        if(dot < -1)
         {
-            int hellfireInt = Mathf.FloorToInt(hellfire);
+            int hellfireInt = Mathf.CeilToInt(dot);
             List<Room> roomsToSpread = GetAccessibleRooms();
             roomsToSpread.Remove(this);
             foreach(Room room in roomsToSpread)
             {
                 room.GainHellfire(hellfireInt);
             }
+
+            dotBuildup += Time.deltaTime;
+            if(dotBuildup >= dotRate)
+            {
+                for(int i = unitsInRoom.Count - 1; i >= 0; i--)
+                {
+                    unitsInRoom[i].TakeHellfireDamage(hellfireInt);
+                }
+                dotBuildup = 0;
+            }
+
         }
     }
 
@@ -262,25 +280,29 @@ public class Room : MonoBehaviour
 
     public void GainHellfire(int sourceLevel)
     {
-        hellfireDecay = false;
-        int hellfireInt = Mathf.FloorToInt(hellfire);
-        if(sourceLevel == 3 && hellfireInt == 3 && hellfire < 3.5f)
+        dotDecay = false;
+        int hellfireInt = Mathf.CeilToInt(dot);
+        if(sourceLevel == -3 && hellfireInt == -3 && dot > -3.5f)
         {
-            hellfire += 0.2f * Time.deltaTime;
-            UpdateHellfireIcons();
+            dot -= 0.2f * Time.deltaTime;
+            UpdateDotIcons();
             return;
         }
-        if (sourceLevel <= hellfireInt) return;
+        if (sourceLevel >= hellfireInt) return;
         int diff = sourceLevel - hellfireInt;
-        hellfire += diff * 0.1f * Time.deltaTime;
-        UpdateHellfireIcons();
+        dot += diff * 0.1f * Time.deltaTime;
+        UpdateDotIcons();
     }
 
-    void UpdateHellfireIcons()
+    void UpdateDotIcons()
     {
         for(int i = 0; i < hellfireIcons.Length; i++)
         {
-            hellfireIcons[i].enabled = i + 1 < hellfire;
+            hellfireIcons[i].enabled = -i - 1 > dot;
+        }
+        for(int i = 0; i < holyAuraIcons.Length; i++)
+        {
+            holyAuraIcons[i].enabled = i + 1 < dot;
         }
     }
 

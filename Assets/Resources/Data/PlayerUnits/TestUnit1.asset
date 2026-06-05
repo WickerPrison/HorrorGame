@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: TestUnit1
   m_EditorClassIdentifier: Assembly-CSharp::TestPlayerUnitData
   unitName: Unit 1
-  morality: 5
-  health: 10
-  maxHealth: 10
+  morality: 2
+  health: 100
+  maxHealth: 100
+  index: 0
   abilities: 01000000020000000400000000000000

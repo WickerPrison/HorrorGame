@@ -19,8 +19,8 @@ public class RoomSetup : MonoBehaviour
     public int[] yLocks = { 1, 0, 3, 2 };
     public GameObject wallsParent;
     public GameObject wallPrefab;
-    public GameObject fireIcons;
-    public Vector3 fireIconsOffset;
+    public GameObject dotIcons;
+    public Vector3 dotIconsOffset;
     public LayerMask doorDetectionMask;
 
 #if UNITY_EDITOR
@@ -47,7 +47,7 @@ public class RoomSetup : MonoBehaviour
         BuildWalls(0, 2);
         BuildWalls(1, 3);
         BuildWalls(2, 3);
-        fireIcons.transform.position = handles[1] + fireIconsOffset;
+        dotIcons.transform.position = handles[1] + dotIconsOffset;
     }
 
     void Setup(BoxCollider2D collider)

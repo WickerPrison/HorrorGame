@@ -27,7 +27,7 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen
 
     private void Update()
     {
-        room.GainHellfire(3);
+        room.GainHellfire(-3);
     }
 
     void SetVisuals()
