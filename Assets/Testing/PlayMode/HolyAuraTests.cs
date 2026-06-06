@@ -13,11 +13,13 @@ public class HolyAuraTests
     Room otherRoom;
     Door door;
     GameObject playerUnitPrefab;
+    GameObject enemyPrefab;
 
     [UnitySetUp]
     public IEnumerator Setup()
     {
         playerUnitPrefab = Resources.Load<GameObject>("Prefabs/PlayerUnit");
+        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy");
         testData = Resources.Load<TestingData>("Data/TestingData");
         Time.timeScale = testData.timeScale;
         SceneManager.LoadScene("HellfireTests");
@@ -118,5 +120,14 @@ public class HolyAuraTests
         Assert.Less(good.data.health, maxHealth);
         Assert.Greater(good.data.health, neutral.data.health);
         Assert.AreEqual(maxHealth, superGood.data.health);
+    }
+
+    [UnityTest]
+    public IEnumerator HolyAuraKillsDemons()
+    {
+        Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        enemy.transform.position = originRoom.transform.position + new Vector3(-2f, 0);
+        yield return new WaitForSeconds(5);
+        Assert.Less(enemy.health, enemy.maxHealth);
     }
 }

@@ -117,43 +117,11 @@ public class Room : MonoBehaviour
 
         if(dot < -1)
         {
-            int hellfireInt = Mathf.CeilToInt(dot);
-            List<Room> roomsToSpread = GetAccessibleRooms();
-            roomsToSpread.Remove(this);
-            foreach(Room room in roomsToSpread)
-            {
-                room.GainHellfire(hellfireInt);
-            }
-
-            dotBuildup += Time.deltaTime;
-            if(dotBuildup >= dotRate)
-            {
-                for(int i = unitsInRoom.Count - 1; i >= 0; i--)
-                {
-                    unitsInRoom[i].TakeHellfireDamage(hellfireInt);
-                }
-                dotBuildup = 0;
-            }
+            HandleRoomDot(Mathf.CeilToInt(dot));
         }
         else if(dot > 1)
         {
-            int holyAuraInt = Mathf.FloorToInt(dot);
-            List<Room> roomsToSpread = GetAccessibleRooms();
-            roomsToSpread.Remove(this);
-            foreach (Room room in roomsToSpread)
-            {
-                room.GainHolyAura(holyAuraInt);
-            }
-
-            dotBuildup += Time.deltaTime;
-            if (dotBuildup >= dotRate)
-            {
-                for (int i = unitsInRoom.Count - 1; i >= 0; i--)
-                {
-                    unitsInRoom[i].TakeHolyAuraDamage(holyAuraInt);
-                }
-                dotBuildup = 0;
-            }
+            HandleRoomDot(Mathf.FloorToInt(dot));
         }
     }
 
@@ -337,12 +305,52 @@ public class Room : MonoBehaviour
         UpdateDotIcons();
     }
 
+    void HandleRoomDot(int dotInt)
+    {
+        List<Room> roomsToSpread = GetAccessibleRooms();
+        roomsToSpread.Remove(this);
+        foreach (Room room in roomsToSpread)
+        {
+            if(dotInt > 0)
+            {
+                room.GainHolyAura(dotInt);
+            }
+            else
+            {
+                room.GainHellfire(dotInt);
+            }
+        }
+
+        dotBuildup += Time.deltaTime;
+        if (dotBuildup >= dotRate)
+        {
+
+            if(dotInt > 0)
+            {
+                for (int i = unitsInRoom.Count - 1; i >= 0; i--)
+                {
+                    unitsInRoom[i].TakeHolyAuraDamage(dotInt);
+                }
+                for(int i = enemies.Count - 1; i >= 0; i--)
+                {
+                    enemies[i].TakeHolyAuraDamage(dotInt);
+                }
+            }
+            else
+            {
+                for (int i = unitsInRoom.Count - 1; i >= 0; i--)
+                {
+                    unitsInRoom[i].TakeHellfireDamage(dotInt);
+                }
+            }
+            dotBuildup = 0;
+        }
+    }
+
     public void ChangeDot(float amount)
     {
-        Debug.Log(dot);
         dot += amount;
         UpdateDotIcons();
-        Debug.Log(dot);
     }
 
     void UpdateDotIcons()

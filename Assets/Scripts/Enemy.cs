@@ -85,6 +85,11 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
         }
     }
 
+    public void TakeHolyAuraDamage(int holyAuraLevel)
+    {
+        TakeDamage(holyAuraLevel + 10);
+    }
+
     public void TakeDamage(int amount)
     {
         health -= amount;
