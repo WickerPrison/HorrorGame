@@ -18,7 +18,7 @@ public class Room : MonoBehaviour
     public List<Enemy> enemies;
     [SerializeField] Transform wallsParent;
     List<Wall> walls = new List<Wall>();
-    RoomState state = RoomState.HIDDEN;
+    [SerializeField] RoomState state = RoomState.HIDDEN;
     List<PlayerUnit> scanningUnits = new List<PlayerUnit>();
     [System.NonSerialized] public List<Resource> resources = new List<Resource>();
     [System.NonSerialized] public Terminal terminal;
@@ -32,7 +32,7 @@ public class Room : MonoBehaviour
     bool dotDecay = true;
     [SerializeField] SpriteRenderer[] hellfireIcons;
     [SerializeField] SpriteRenderer[] holyAuraIcons;
-    float dotRate = 0.5f;
+    float dotRate = 1f;
     float dotBuildup = 0;
     public Altar altar;
 
@@ -178,6 +178,7 @@ public class Room : MonoBehaviour
                 }
                 break;
         }
+        UpdateDotIcons();
     }
 
     public List<Room> GetAccessibleRooms()
@@ -298,6 +299,12 @@ public class Room : MonoBehaviour
         }
     }
 
+    public void SetDot(float dotLevel)
+    {
+        dot = dotLevel;
+        UpdateDotIcons();
+    }
+
     public void GainHellfire(int sourceLevel)
     {
         dotDecay = false;
@@ -330,8 +337,29 @@ public class Room : MonoBehaviour
         UpdateDotIcons();
     }
 
+    public void ChangeDot(float amount)
+    {
+        Debug.Log(dot);
+        dot += amount;
+        UpdateDotIcons();
+        Debug.Log(dot);
+    }
+
     void UpdateDotIcons()
     {
+        if(state == RoomState.HIDDEN)
+        {
+            foreach(SpriteRenderer sprite in hellfireIcons)
+            {
+                sprite.enabled = false;
+            }
+            foreach (SpriteRenderer sprite in holyAuraIcons)
+            {
+                sprite.enabled = false;
+            }
+            return;
+        }
+
         for(int i = 0; i < hellfireIcons.Length; i++)
         {
             hellfireIcons[i].enabled = -i - 1 > dot;

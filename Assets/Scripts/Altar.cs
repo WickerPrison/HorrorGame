@@ -22,6 +22,15 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen, IInterceptRightClick
     {
         room = Utils.GetRoom(transform.position);
         room.altar = this;
+        switch (altarState)
+        {
+            case AltarState.DESECRATED:
+                room.SetDot(-3);
+                break;
+            case AltarState.SANCTIFIED:
+                room.SetDot(3);
+                break;
+        }
         playerManager = PlayerManager.i;
         sprites = spritesHolder.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in sprites)
@@ -128,13 +137,17 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen, IInterceptRightClick
 
     public void Sanctify()
     {
+        if (altarState == AltarState.SANCTIFIED) return;
         altarState = AltarState.SANCTIFIED;
+        room.ChangeDot(1.5f);
         SetVisuals();
     }
 
     public void Desecrate()
     {
+        if (altarState == AltarState.DESECRATED) return;
         altarState = AltarState.DESECRATED;
+        room.ChangeDot(-1.5f);
         SetVisuals();
     }
 }

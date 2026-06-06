@@ -1743,10 +1743,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4304571814979724039, guid: 69afc9eb4d959e04dba615d42375f703, type: 3}
-      propertyPath: altarState
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8413081406233643768, guid: 69afc9eb4d959e04dba615d42375f703, type: 3}
       propertyPath: m_Name
       value: Altar

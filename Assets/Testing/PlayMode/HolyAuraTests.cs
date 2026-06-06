@@ -33,9 +33,9 @@ public class HolyAuraTests
     [UnityTest]
     public IEnumerator HolyAuraBuildsInAltarRoom()
     {
-        Assert.Less(originRoom.dot, 1);
+        Assert.Less(originRoom.dot, 2);
         Assert.Less(otherRoom.dot, 1);
-        yield return new WaitForSeconds(19);
+        yield return new WaitForSeconds(15);
         Assert.GreaterOrEqual(originRoom.dot, 3);
         Assert.Less(otherRoom.dot, 1);
     }

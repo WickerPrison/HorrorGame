@@ -25,7 +25,11 @@ public class Door : MonoBehaviour, IInterceptRightClick
 
     private void Start()
     {
-        if (startOpen) doorProgress = 1;
+        if (startOpen)
+        {
+            doorProgress = 1;
+            state = DoorState.OPEN;
+        }
         onDoorProgress?.Invoke(doorProgress);
 
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();

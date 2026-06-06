@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public enum TutorialLevel
 {
-    ONE, TWO, THREE
+    ONE, TWO, THREE, FOUR
 }
 
 public class TutorialManager : MonoBehaviour
@@ -33,6 +33,9 @@ public class TutorialManager : MonoBehaviour
                 SceneManager.LoadScene("Tutorial3");
                 break;
             case TutorialLevel.THREE:
+                SceneManager.LoadScene("Tutorial4");
+                break;
+            case TutorialLevel.FOUR:
                 SceneManager.LoadScene("PlaceholderMainMenu");
                 break;
         }
@@ -47,6 +50,9 @@ public class TutorialManager : MonoBehaviour
                 break;
             case TutorialLevel.THREE:
                 SceneManager.LoadScene("Tutorial3");
+                break;
+            case TutorialLevel.FOUR:
+                SceneManager.LoadScene("Tutorial4");
                 break;
         }
     }

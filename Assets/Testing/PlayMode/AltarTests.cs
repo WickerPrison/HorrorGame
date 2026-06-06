@@ -33,16 +33,16 @@ public class AltarTests
     public IEnumerator SanctifyAltar()
     {
         int maxHealth = 100;
-
+        altar.Desecrate();
         PlayerUnit good = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
         good.data = new PlayerUnitData("Good", maxHealth, 1, 5, new Ability[] { Ability.SANCTIFY, Ability.NONE, Ability.NONE, Ability.NONE });
         good.transform.position = originRoom.transform.position + new Vector3(2f, 2f);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
 
         Assert.Less(originRoom.dot, -1);
         good.PerformAbility(0);
         
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(7);
         Assert.Greater(originRoom.dot, 1);
     }
 
@@ -54,12 +54,12 @@ public class AltarTests
         PlayerUnit good = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
         good.data = new PlayerUnitData("Evil", maxHealth, 1, -5, new Ability[] { Ability.DESECRATE, Ability.NONE, Ability.NONE, Ability.NONE });
         good.transform.position = originRoom.transform.position + new Vector3(-3f, 2f);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
 
         Assert.Greater(originRoom.dot, 1);
         good.PerformAbility(0);
 
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(7);
         Assert.Less(originRoom.dot, -1);
     }
 }

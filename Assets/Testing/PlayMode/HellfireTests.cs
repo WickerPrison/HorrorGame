@@ -23,6 +23,7 @@ public class HellfireTests
         SceneManager.LoadScene("HellfireTests");
         yield return null;
         altar = GameObject.FindAnyObjectByType<Altar>();
+        altar.Desecrate();
         originRoom = altar.room;
         otherRoom = GameObject.FindObjectsByType<Room>(FindObjectsSortMode.None).Where(r => r != originRoom).ToArray()[0];
         door = originRoom.doors[0];
@@ -32,9 +33,9 @@ public class HellfireTests
     [UnityTest]
     public IEnumerator HellfireBuildsInAltarRoom()
     {
-        Assert.Greater(originRoom.dot, -1);
+        Assert.Greater(originRoom.dot, -2);
         Assert.Greater(otherRoom.dot, -1);
-        yield return new WaitForSeconds(19);
+        yield return new WaitForSeconds(15);
         Assert.LessOrEqual(originRoom.dot, -3);
         Assert.Greater(otherRoom.dot, -1);
     }
