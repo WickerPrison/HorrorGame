@@ -14,11 +14,14 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen, IInterceptRightClick
     SpriteRenderer[] sprites;
     [System.NonSerialized] public Room room;
     PlayerManager playerManager;
+    Vector3[] interactPoints;
+    float interactDist = 0.7f;
 
 
     void Start()
     {
         room = Utils.GetRoom(transform.position);
+        room.altar = this;
         playerManager = PlayerManager.i;
         sprites = spritesHolder.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in sprites)
@@ -26,6 +29,13 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen, IInterceptRightClick
             sprite.enabled = false;
         }
         SetVisuals();
+        interactPoints = new Vector3[]
+        {
+            transform.position + new Vector3(interactDist, 0, 0),
+            transform.position + new Vector3(-interactDist, 0, 0),
+            transform.position + new Vector3(0, interactDist, 0),
+            transform.position + new Vector3(0, -interactDist, 0),
+        };
     }
 
     private void Update()
@@ -66,6 +76,22 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen, IInterceptRightClick
         {
             sprite.enabled = true;
         }
+    }
+
+    public Vector3 GetDestinationPoint(Vector3 startPos)
+    {
+        Vector3 closestPoint = Vector3.zero;
+        float closestDistance = 1000;
+        foreach(Vector3 point in interactPoints)
+        {
+            float distance = Vector3.Distance(startPos, point);
+            if(distance < closestDistance)
+            {
+                closestPoint = point;
+                closestDistance = distance;
+            }
+        }
+        return closestPoint;
     }
 
     public bool RightClick()

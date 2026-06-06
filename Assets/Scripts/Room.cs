@@ -34,6 +34,7 @@ public class Room : MonoBehaviour
     [SerializeField] SpriteRenderer[] holyAuraIcons;
     float dotRate = 0.5f;
     float dotBuildup = 0;
+    public Altar altar;
 
     public event System.Action<RoomState> onChangeState;
 

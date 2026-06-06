@@ -16,3 +16,5 @@ MonoBehaviour:
   power: {fileID: 11400000, guid: 8086e0602fd02434b8c55fafb9e487c6, type: 2}
   scan: {fileID: 11400000, guid: 18a34a28d2ef2a54daab9b913f2c8b3e, type: 2}
   mine: {fileID: 11400000, guid: a3c94a482c44a764cb32ad077781b839, type: 2}
+  sanctify: {fileID: 11400000, guid: 908340552f998a545a155f85edceac48, type: 2}
+  desecrate: {fileID: 11400000, guid: 554e0cff7259f8f499d94b535a53ca9c, type: 2}

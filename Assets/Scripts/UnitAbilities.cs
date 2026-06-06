@@ -39,6 +39,12 @@ public class UnitAbilities : MonoBehaviour
             case Ability.MINE:
                 PlaceMine();
                 break;
+            case Ability.SANCTIFY:
+                Sanctify();
+                break;
+            case Ability.DESECRATE:
+                Desecrate();
+                break;
         }
     }
 
@@ -153,21 +159,31 @@ public class UnitAbilities : MonoBehaviour
 
     public void Sanctify()
     {
-
+        InterruptAbilities();
+        Room room = Utils.GetRoom(transform.position, 0.1f);
+        if(room.altar != null)
+        {
+            Sanctify(room.altar);
+        }
     }
 
     public void Sanctify(Altar altar)
     {
-        playerUnit.SetDestination(altar.transform.position, () => altar.Sanctify());
+        playerUnit.SetDestination(altar.GetDestinationPoint(transform.position), () => altar.Sanctify());
     }
 
     public void Desecrate()
     {
-
+        InterruptAbilities();
+        Room room = Utils.GetRoom(transform.position, 0.1f);
+        if (room.altar != null)
+        {
+            Desecrate(room.altar);
+        }
     }
 
     public void Desecrate(Altar altar)
     {
-        playerUnit.SetDestination(altar.transform.position, () => altar.Desecrate());
+        playerUnit.SetDestination(altar.GetDestinationPoint(transform.position), () => altar.Desecrate());
     }
 }
