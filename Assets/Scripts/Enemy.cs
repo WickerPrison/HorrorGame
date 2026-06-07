@@ -30,6 +30,8 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
     public int maxHealth;
     [System.NonSerialized] public int health;
     [SerializeField] GameObject deadEnemyPrefab;
+    float maxDestinationTime = 7f;
+    float destinationTime;
 
     void Start()
     {
@@ -76,6 +78,11 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
                 }
                 break;
             case EnemyState.WANDERING:
+                destinationTime += Time.deltaTime;
+                if(destinationTime > maxDestinationTime)
+                {
+                    GetWanderDestination();
+                }
                 if(Vector3.Distance(aiPath.destination, transform.position) <= 0.25f)
                 {
                     state = EnemyState.IDLE;
@@ -146,6 +153,7 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
     {
         seeker.StartPath(transform.position, destination);
         aiPath.destination = destination;
+        destinationTime = 0;
     }
 
     void ChasePlayerUnits()
@@ -207,5 +215,10 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
     public void SetTestingState()
     {
         state = EnemyState.TESTING;
+    }
+
+    public Vector3 TestingGetDestination()
+    {
+        return aiPath.destination;
     }
 }

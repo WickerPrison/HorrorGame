@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ public class Room : MonoBehaviour
     [SerializeField] SpriteRenderer[] holyAuraIcons;
     float dotRate = 1f;
     float dotBuildup = 0;
+    float dotSpreadRate = 0.1f;
     public Altar altar;
 
     public event System.Action<RoomState> onChangeState;
@@ -166,7 +168,20 @@ public class Room : MonoBehaviour
         float halfHeight = boxCollider.size.y / 2 - edgeBuffer;
         float xOffset = Random.Range(-halfWidth, halfWidth);
         float yOffset = Random.Range(-halfHeight, halfHeight);
-        return transform.position + new Vector3(xOffset, yOffset, 0);
+        Vector3 position = transform.position + new Vector3(xOffset, yOffset, 0);
+        NNConstraint constraint = new NNConstraint
+        {
+            constrainWalkability = true,
+            walkable = true,
+            constrainArea = false,
+            constrainTags = false
+        };
+        NNInfo info = AstarPath.active.GetNearest(position, constraint);
+        if(info.node != null && info.node.Walkable)
+        {
+            return info.position;
+        }
+        return position;
     }
 
     public void AddPower(IPowerRooms powerRooms)
@@ -277,15 +292,17 @@ public class Room : MonoBehaviour
     {
         dotDecay = false;
         int hellfireInt = Mathf.CeilToInt(dot);
-        if(sourceLevel == -3 && hellfireInt == -3 && dot > -3.5f)
+
+        if (sourceLevel > hellfireInt) return;
+        if(sourceLevel == hellfireInt && dot > hellfireInt - 0.5f)
         {
-            dot -= 0.2f * Time.deltaTime;
-            UpdateDotIcons();
-            return;
+            dot -= dotSpreadRate * Time.deltaTime;
         }
-        if (sourceLevel >= hellfireInt) return;
-        int diff = sourceLevel - hellfireInt;
-        dot += diff * 0.1f * Time.deltaTime;
+        else
+        {
+            int diff = sourceLevel - hellfireInt;
+            dot += diff * dotSpreadRate * Time.deltaTime;
+        }
         UpdateDotIcons();
     }
 
@@ -293,15 +310,17 @@ public class Room : MonoBehaviour
     {
         dotDecay = false;
         int auraInt = Mathf.FloorToInt(dot);
-        if(sourceLevel == 3 && auraInt == 3 && dot < 3.5f)
+
+        if (sourceLevel < auraInt) return;
+        if(sourceLevel == auraInt && dot < auraInt + 0.5f)
         {
-            dot += 0.2f * Time.deltaTime;
-            UpdateDotIcons();
-            return;
+            dot += dotSpreadRate * Time.deltaTime;
         }
-        if (sourceLevel <= auraInt) return;
-        int diff = sourceLevel - auraInt;
-        dot += diff * 0.1f * Time.deltaTime;
+        else
+        {
+            int diff = sourceLevel - auraInt;
+            dot += diff * dotSpreadRate * Time.deltaTime;
+        }
         UpdateDotIcons();
     }
 
@@ -313,11 +332,11 @@ public class Room : MonoBehaviour
         {
             if(dotInt > 0)
             {
-                room.GainHolyAura(dotInt);
+                room.GainHolyAura(dotInt - 1);
             }
             else
             {
-                room.GainHellfire(dotInt);
+                room.GainHellfire(dotInt + 1);
             }
         }
 
@@ -331,6 +350,10 @@ public class Room : MonoBehaviour
                 {
                     unitsInRoom[i].TakeHolyAuraDamage(dotInt);
                 }
+                for(int i = resources.Count - 1; i >= 0; i--)
+                {
+                    resources[i].TakeDamage(dotInt);
+                }
                 for(int i = enemies.Count - 1; i >= 0; i--)
                 {
                     enemies[i].TakeHolyAuraDamage(dotInt);
@@ -341,6 +364,10 @@ public class Room : MonoBehaviour
                 for (int i = unitsInRoom.Count - 1; i >= 0; i--)
                 {
                     unitsInRoom[i].TakeHellfireDamage(dotInt);
+                }
+                for (int i = resources.Count - 1; i >= 0; i--)
+                {
+                    resources[i].TakeDamage(dotInt);
                 }
             }
             dotBuildup = 0;

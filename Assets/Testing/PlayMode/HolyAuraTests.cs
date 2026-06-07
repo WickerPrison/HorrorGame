@@ -10,8 +10,12 @@ public class HolyAuraTests
     TestingData testData;
     Altar altar;
     Room originRoom;
-    Room otherRoom;
-    Door door;
+    Room room1;
+    Room room2;
+    Room room3;
+    Door door1;
+    Door door2;
+    Door door3;
     GameObject playerUnitPrefab;
     GameObject enemyPrefab;
 
@@ -27,8 +31,12 @@ public class HolyAuraTests
         altar = GameObject.FindAnyObjectByType<Altar>();
         altar.Sanctify();
         originRoom = altar.room;
-        otherRoom = GameObject.FindObjectsByType<Room>(FindObjectsSortMode.None).Where(r => r != originRoom).ToArray()[0];
-        door = originRoom.doors[0];
+        door1 = originRoom.doors[0];
+        room1 = door1.roomDict[originRoom];
+        door2 = room1.doors.Where(d => d != door1).ToArray()[0];
+        room2 = door2.roomDict[room1];
+        door3 = room2.doors.Where(d => d != door2).ToArray()[0];
+        room3 = door3.roomDict[room2];
     }
 
 
@@ -36,24 +44,31 @@ public class HolyAuraTests
     public IEnumerator HolyAuraBuildsInAltarRoom()
     {
         Assert.Less(originRoom.dot, 2);
-        Assert.Less(otherRoom.dot, 1);
+        Assert.Less(room1.dot, 1);
         yield return new WaitForSeconds(15);
         Assert.GreaterOrEqual(originRoom.dot, 3);
-        Assert.Less(otherRoom.dot, 1);
+        Assert.Less(room1.dot, 1);
     }
 
     [UnityTest]
     public IEnumerator HolyAuraSpreadsThroughOpenDoor()
     {
-        Assert.Less(otherRoom.dot, 1);
-        originRoom.dot = 3;
-        originRoom.GainHolyAura(4);
-        door.OpenDoor();
-        yield return new WaitForSeconds(19);
-        Assert.Greater(otherRoom.dot, 2);
-        door.CloseDooor();
-        yield return new WaitForSeconds(15);
-        Assert.Less(otherRoom.dot, 1);
+        Assert.Less(room1.dot, 1);
+        originRoom.SetDot(3.5f);
+        door1.OpenDoor();
+        door2.OpenDoor();
+        door3.OpenDoor();
+        yield return new WaitForSeconds(35);
+        Assert.AreEqual(Mathf.FloorToInt(room1.dot), 2);
+        Assert.AreEqual(Mathf.FloorToInt(room2.dot), 1);
+        Assert.AreEqual(Mathf.FloorToInt(room3.dot), 0);
+        door1.CloseDooor();
+        door2.CloseDooor();
+        door3.CloseDooor();
+        yield return new WaitForSeconds(10);
+        Assert.Less(room1.dot, 1);
+        Assert.Less(room2.dot, 1);
+        Assert.Less(room3.dot, 1);
     }
 
     [UnityTest]
@@ -63,19 +78,19 @@ public class HolyAuraTests
 
         PlayerUnit neutral = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
         neutral.data = new PlayerUnitData("Neutral", maxHealth, 0);
-        neutral.transform.position = otherRoom.transform.position;
+        neutral.transform.position = room1.transform.position;
 
         PlayerUnit good = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
         good.data = new PlayerUnitData("Good", maxHealth, 1, 5);
-        good.transform.position = otherRoom.transform.position + new Vector3(1f, 1f);
+        good.transform.position = room1.transform.position + new Vector3(1f, 1f);
 
         PlayerUnit evil = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
         evil.data = new PlayerUnitData("Evil", maxHealth, 2, -5);
-        evil.transform.position = otherRoom.transform.position + new Vector3(-1f, 0);
+        evil.transform.position = room1.transform.position + new Vector3(-1f, 0);
 
         PlayerUnit superGood = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
         superGood.data = new PlayerUnitData("Super Good", maxHealth, 3, 10);
-        superGood.transform.position = otherRoom.transform.position + new Vector3(-1f, -1f);
+        superGood.transform.position = room1.transform.position + new Vector3(-1f, -1f);
         yield return null;
 
         neutral.TakeHolyAuraDamage(3);

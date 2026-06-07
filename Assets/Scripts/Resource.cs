@@ -7,6 +7,7 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage, IInterceptR
     int value;
     SpriteRenderer sprite;
     PlayerManager playerManager;
+    [SerializeField] GameObject destroyedResourcePrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,6 +39,7 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage, IInterceptR
     {
         room.resources.Remove(this);
         room.RemoveDamageTaker(this);
+        Instantiate(destroyedResourcePrefab).transform.position = transform.position;
         Destroy(gameObject);
     }
 

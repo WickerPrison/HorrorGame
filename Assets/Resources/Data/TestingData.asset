@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cf13255122e144798bb9c514227bb3, type: 3}
   m_Name: TestingData
   m_EditorClassIdentifier: PlayMode::TestData
-  timeScale: 3
+  timeScale: 4

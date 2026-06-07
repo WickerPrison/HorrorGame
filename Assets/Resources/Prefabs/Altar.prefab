@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 7587410526900682453}
   - component: {fileID: 1205282863889547268}
   - component: {fileID: 790178212409160130}
+  - component: {fileID: 2518337763741167758}
   m_Layer: 6
   m_Name: Altar
   m_TagString: Untagged
@@ -336,3 +337,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.7, y: 0.7}
   m_EdgeRadius: 0
+--- !u!114 &2518337763741167758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8413081406233643768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.DynamicGridObstacle
+  version: 1
+  uniqueID: 3897507747257760745
+  updateError: 1
+  checkTime: 0.2

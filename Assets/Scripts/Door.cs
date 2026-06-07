@@ -12,7 +12,7 @@ public class Door : MonoBehaviour, IInterceptRightClick
 {
     [SerializeField] ColorData colorData;
     DoorState state = DoorState.CLOSED;
-    List<Room> rooms;
+    [System.NonSerialized] public List<Room> rooms;
     public Dictionary<Room, Room> roomDict = new Dictionary<Room, Room>();
 
     public event System.Action<float> onDoorProgress;
@@ -27,8 +27,7 @@ public class Door : MonoBehaviour, IInterceptRightClick
     {
         if (startOpen)
         {
-            doorProgress = 1;
-            state = DoorState.OPEN;
+            ImmediateOpen();
         }
         onDoorProgress?.Invoke(doorProgress);
 
@@ -136,6 +135,13 @@ public class Door : MonoBehaviour, IInterceptRightClick
     public void OpenDoor()
     {
         state = DoorState.OPENING;
+    }
+
+    public void ImmediateOpen()
+    {
+        state = DoorState.OPEN;
+        doorProgress = 1;
+        onDoorProgress?.Invoke(doorProgress);
     }
 
     public void CloseDooor()

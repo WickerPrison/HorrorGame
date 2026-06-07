@@ -58,4 +58,19 @@ public class EnemyTests
         yield return new WaitForSeconds(2);
         Assert.AreNotEqual(EnemyState.CHASING, enemy.state);
     }
+
+    [UnityTest]
+    public IEnumerator WanderingSafeguard()
+    {
+        SceneManager.LoadScene("HellfireTests");
+        yield return null;
+        Altar altar = GameObject.FindAnyObjectByType<Altar>();
+        enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        enemy.transform.position = altar.room.transform.position + new Vector3(-2f, 2f);
+        yield return null;
+        enemy.GoTo(altar.transform.position);
+        enemy.state = EnemyState.WANDERING;
+        yield return new WaitForSeconds(12f);
+        Assert.AreNotEqual(altar.transform.position, enemy.TestingGetDestination());
+    }
 }
