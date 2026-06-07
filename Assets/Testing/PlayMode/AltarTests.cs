@@ -62,4 +62,22 @@ public class AltarTests
         yield return new WaitForSeconds(7);
         Assert.Less(originRoom.dot, -1);
     }
+
+    [UnityTest]
+    public IEnumerator CanUseRightClick()
+    {
+        int maxHealth = 100;
+        altar.Desecrate();
+        PlayerUnit good = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
+        good.data = new PlayerUnitData("Good", maxHealth, 0, 5, new Ability[] { Ability.SANCTIFY, Ability.NONE, Ability.NONE, Ability.NONE });
+        good.transform.position = originRoom.transform.position + new Vector3(2f, 2f);
+        yield return new WaitForSeconds(1);
+
+        Assert.Less(originRoom.dot, -1);
+        PlayerManager.i.SelectButton(0);
+        InputManager.i.RightClick(altar.transform.position);
+
+        yield return new WaitForSeconds(7);
+        Assert.Greater(originRoom.dot, 1);
+    }
 }
