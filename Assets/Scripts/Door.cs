@@ -12,7 +12,7 @@ public class Door : MonoBehaviour, IInterceptRightClick
 {
     [SerializeField] ColorData colorData;
     DoorState state = DoorState.CLOSED;
-    List<Room> rooms;
+    [System.NonSerialized] public List<Room> rooms;
     public Dictionary<Room, Room> roomDict = new Dictionary<Room, Room>();
 
     public event System.Action<float> onDoorProgress;
@@ -25,7 +25,10 @@ public class Door : MonoBehaviour, IInterceptRightClick
 
     private void Start()
     {
-        if (startOpen) doorProgress = 1;
+        if (startOpen)
+        {
+            ImmediateOpen();
+        }
         onDoorProgress?.Invoke(doorProgress);
 
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -120,12 +123,29 @@ public class Door : MonoBehaviour, IInterceptRightClick
 
         if(state == DoorState.OPEN || state == DoorState.OPENING)
         {
-            state = DoorState.CLOSING;
+            CloseDooor();
         }
         else
         {
-            state = DoorState.OPENING;
+            OpenDoor();
         }
         return false;
+    }
+
+    public void OpenDoor()
+    {
+        state = DoorState.OPENING;
+    }
+
+    public void ImmediateOpen()
+    {
+        state = DoorState.OPEN;
+        doorProgress = 1;
+        onDoorProgress?.Invoke(doorProgress);
+    }
+
+    public void CloseDooor()
+    {
+        state = DoorState.CLOSING;
     }
 }

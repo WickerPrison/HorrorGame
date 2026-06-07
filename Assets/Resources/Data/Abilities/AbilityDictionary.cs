@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum Ability
 {
-    NONE, COLLECT, SCAN, POWER, MINE
+    NONE, COLLECT, SCAN, POWER, MINE, SANCTIFY, DESECRATE
 }
 
 [CreateAssetMenu(fileName = "AbilityDictionary", menuName = "Scriptable Objects/AbilityDictionary")]
@@ -13,6 +13,8 @@ public class AbilityDictionary : ScriptableObject
     [SerializeField] AbilityData power;
     [SerializeField] AbilityData scan;
     [SerializeField] AbilityData mine;
+    [SerializeField] AbilityData sanctify;
+    [SerializeField] AbilityData desecrate;
 
 
     Dictionary<Ability, AbilityData> _abilityDict;
@@ -36,6 +38,8 @@ public class AbilityDictionary : ScriptableObject
             { Ability.POWER, power },
             { Ability.SCAN, scan },
             { Ability.MINE, mine },
+            { Ability.SANCTIFY, sanctify },
+            { Ability.DESECRATE, desecrate },
         };
     }
 }

@@ -281,8 +281,10 @@ namespace Pathfinding {
 			}
 		}
 
-		/// <summary>Default constructor. Equals to the property <see cref="Default"/></summary>
-		public NNConstraint () {
+        public static NNConstraint Walkable { get; set; }
+
+        /// <summary>Default constructor. Equals to the property <see cref="Default"/></summary>
+        public NNConstraint () {
 		}
 	}
 

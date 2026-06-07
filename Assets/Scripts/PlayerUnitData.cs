@@ -11,11 +11,20 @@ public class PlayerUnitData
 
     public int mineUses = 2;
 
-    public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex)
+    public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex, int unitMorality = 0, Ability[] unitAbilities = null)
     {
         name = unitName;
         maxHealth = unitMaxHealth;
         health = maxHealth;
         index = unitIndex;
+        morality = unitMorality;
+        if(unitAbilities == null)
+        {
+            abilities = new Ability[] { Ability.NONE, Ability.NONE, Ability.NONE, Ability.NONE };
+        }
+        else
+        {
+            abilities = unitAbilities;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ public class Room : MonoBehaviour
     public List<Enemy> enemies;
     [SerializeField] Transform wallsParent;
     List<Wall> walls = new List<Wall>();
-    RoomState state = RoomState.HIDDEN;
+    [SerializeField] RoomState state = RoomState.HIDDEN;
     List<PlayerUnit> scanningUnits = new List<PlayerUnit>();
     [System.NonSerialized] public List<Resource> resources = new List<Resource>();
     [System.NonSerialized] public Terminal terminal;
@@ -28,6 +29,14 @@ public class Room : MonoBehaviour
     List<ITakeDamage> damageTakers = new List<ITakeDamage>();
     [System.NonSerialized] public Portal portal = null;
     List<PlayerUnit> unitsInRoom = new List<PlayerUnit>();
+    public float dot;
+    bool dotDecay = true;
+    [SerializeField] SpriteRenderer[] hellfireIcons;
+    [SerializeField] SpriteRenderer[] holyAuraIcons;
+    float dotRate = 1f;
+    float dotBuildup = 0;
+    float dotSpreadRate = 0.1f;
+    public Altar altar;
 
     public event System.Action<RoomState> onChangeState;
 
@@ -43,6 +52,16 @@ public class Room : MonoBehaviour
         foreach(Wall wall in walls)
         {
             wall.SpriteVisible(false);
+        }
+
+        UpdateDotIcons();
+        foreach(SpriteRenderer sprite in hellfireIcons)
+        {
+            sprite.color = colorData.danger;
+        }
+        foreach(SpriteRenderer sprite in holyAuraIcons)
+        {
+            sprite.color = colorData.holy;
         }
     }
 
@@ -89,6 +108,25 @@ public class Room : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(dotDecay && Mathf.Abs(dot) > 0.1f)
+        {
+            dot -= 0.3f * Mathf.Sign(dot) * Time.deltaTime;
+            UpdateDotIcons();
+        }
+        dotDecay = true;
+
+        if(dot < -1)
+        {
+            HandleRoomDot(Mathf.CeilToInt(dot));
+        }
+        else if(dot > 1)
+        {
+            HandleRoomDot(Mathf.FloorToInt(dot));
+        }
+    }
+
     void SetState(RoomState newState)
     {
         switch (newState)
@@ -110,6 +148,7 @@ public class Room : MonoBehaviour
                 }
                 break;
         }
+        UpdateDotIcons();
     }
 
     public List<Room> GetAccessibleRooms()
@@ -129,7 +168,20 @@ public class Room : MonoBehaviour
         float halfHeight = boxCollider.size.y / 2 - edgeBuffer;
         float xOffset = Random.Range(-halfWidth, halfWidth);
         float yOffset = Random.Range(-halfHeight, halfHeight);
-        return transform.position + new Vector3(xOffset, yOffset, 0);
+        Vector3 position = transform.position + new Vector3(xOffset, yOffset, 0);
+        NNConstraint constraint = new NNConstraint
+        {
+            constrainWalkability = true,
+            walkable = true,
+            constrainArea = false,
+            constrainTags = false
+        };
+        NNInfo info = AstarPath.active.GetNearest(position, constraint);
+        if(info.node != null && info.node.Walkable)
+        {
+            return info.position;
+        }
+        return position;
     }
 
     public void AddPower(IPowerRooms powerRooms)
@@ -227,6 +279,129 @@ public class Room : MonoBehaviour
         for(int i = damageTakers.Count -1; i >= 0; i--)
         {
             damageTakers[i].TakeDamage(amount);
+        }
+    }
+
+    public void SetDot(float dotLevel)
+    {
+        dot = dotLevel;
+        UpdateDotIcons();
+    }
+
+    public void GainHellfire(int sourceLevel)
+    {
+        dotDecay = false;
+        int hellfireInt = Mathf.CeilToInt(dot);
+
+        if (sourceLevel > hellfireInt) return;
+        if(sourceLevel == hellfireInt && dot > hellfireInt - 0.5f)
+        {
+            dot -= dotSpreadRate * Time.deltaTime;
+        }
+        else
+        {
+            int diff = sourceLevel - hellfireInt;
+            dot += diff * dotSpreadRate * Time.deltaTime;
+        }
+        UpdateDotIcons();
+    }
+
+    public void GainHolyAura(int sourceLevel)
+    {
+        dotDecay = false;
+        int auraInt = Mathf.FloorToInt(dot);
+
+        if (sourceLevel < auraInt) return;
+        if(sourceLevel == auraInt && dot < auraInt + 0.5f)
+        {
+            dot += dotSpreadRate * Time.deltaTime;
+        }
+        else
+        {
+            int diff = sourceLevel - auraInt;
+            dot += diff * dotSpreadRate * Time.deltaTime;
+        }
+        UpdateDotIcons();
+    }
+
+    void HandleRoomDot(int dotInt)
+    {
+        List<Room> roomsToSpread = GetAccessibleRooms();
+        roomsToSpread.Remove(this);
+        foreach (Room room in roomsToSpread)
+        {
+            if(dotInt > 0)
+            {
+                room.GainHolyAura(dotInt - 1);
+            }
+            else
+            {
+                room.GainHellfire(dotInt + 1);
+            }
+        }
+
+        dotBuildup += Time.deltaTime;
+        if (dotBuildup >= dotRate)
+        {
+
+            if(dotInt > 0)
+            {
+                for (int i = unitsInRoom.Count - 1; i >= 0; i--)
+                {
+                    unitsInRoom[i].TakeHolyAuraDamage(dotInt);
+                }
+                for(int i = resources.Count - 1; i >= 0; i--)
+                {
+                    resources[i].TakeDamage(dotInt);
+                }
+                for(int i = enemies.Count - 1; i >= 0; i--)
+                {
+                    enemies[i].TakeHolyAuraDamage(dotInt);
+                }
+            }
+            else
+            {
+                for (int i = unitsInRoom.Count - 1; i >= 0; i--)
+                {
+                    unitsInRoom[i].TakeHellfireDamage(dotInt);
+                }
+                for (int i = resources.Count - 1; i >= 0; i--)
+                {
+                    resources[i].TakeDamage(dotInt);
+                }
+            }
+            dotBuildup = 0;
+        }
+    }
+
+    public void ChangeDot(float amount)
+    {
+        dot += amount;
+        UpdateDotIcons();
+    }
+
+    void UpdateDotIcons()
+    {
+        if(state == RoomState.HIDDEN)
+        {
+            foreach(SpriteRenderer sprite in hellfireIcons)
+            {
+                sprite.enabled = false;
+            }
+            foreach (SpriteRenderer sprite in holyAuraIcons)
+            {
+                sprite.enabled = false;
+            }
+            return;
+        }
+
+        for(int i = 0; i < hellfireIcons.Length; i++)
+        {
+            hellfireIcons[i].enabled = -i - 1 > dot;
+        }
+        for(int i = 0; i < holyAuraIcons.Length; i++)
+        {
+            holyAuraIcons[i].enabled = i + 1 < dot;
         }
     }
 

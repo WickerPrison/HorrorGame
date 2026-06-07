@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(IUnhideWhenSeen))]
 public class HiddenTillSeen : MonoBehaviour
 {
-    bool hidden = true;
+    [System.NonSerialized] public bool hidden = true;
     PlayerManager playerManager;
     IUnhideWhenSeen unhideWhenSeen;
     LayerMask layerMask;

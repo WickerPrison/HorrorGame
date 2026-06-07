@@ -21,6 +21,7 @@ public class PlaceholderMainMenu : MonoBehaviour
         levelDetails.threatLevel = ThreatLevel.LOW;
         levelDetails.interference = Interference.LOW;
         levelDetails.rewards = Rewards.MEDIUM;
+        levelDetails.openness = Openness.LOW;
 
         LoadRandomScene();
     }
@@ -30,6 +31,7 @@ public class PlaceholderMainMenu : MonoBehaviour
         levelDetails.threatLevel = ThreatLevel.MEDIUM;
         levelDetails.interference = Interference.MEDIUM;
         levelDetails.rewards = Rewards.MEDIUM;
+        levelDetails.openness = Openness.MEDIUM;
 
         LoadRandomScene();
     }
@@ -39,6 +41,7 @@ public class PlaceholderMainMenu : MonoBehaviour
         levelDetails.threatLevel = ThreatLevel.HIGH;
         levelDetails.interference = Interference.HIGH;
         levelDetails.rewards = Rewards.MEDIUM;
+        levelDetails.openness = Openness.HIGH;
 
         LoadRandomScene();
     }

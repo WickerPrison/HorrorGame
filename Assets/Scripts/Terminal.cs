@@ -15,7 +15,7 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptR
     [SerializeField] Transform interactPoint;
     PlayerManager playerManager;
     [SerializeField] Direction interactPointDirection;
-    float interactPointDistance = 0.5f;
+    float interactPointDistance = 0.6f;
     [SerializeField] GameObject roomFinders;
 
     void Start()

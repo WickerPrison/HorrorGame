@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38dada0bdffca84795e2582cf796b4f, type: 3}
   m_Name: LevelDetails
   m_EditorClassIdentifier: DAta::LevelDetails
-  threatLevel: 2
-  interference: 2
+  threatLevel: 1
+  interference: 0
   rewards: 1

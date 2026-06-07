@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: DAta::TestPlayerUnitData
   unitName: Unit 1
   morality: 0
-  health: 10
-  maxHealth: 10
+  health: 100
+  maxHealth: 100
   index: 1
   abilities: 01000000000000000000000000000000

@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a6be681f96508a4e9d411112a6bb5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  damage: 20
+  damage: 200
   detonateRange: 2
   colorData: {fileID: 11400000, guid: f1181f3012833e64a8674a5c89468206, type: 2}
 --- !u!114 &-3532804217990517934

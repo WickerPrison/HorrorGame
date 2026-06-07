@@ -130,6 +130,20 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
         }
     }
 
+    public void TakeHellfireDamage(int hellfireLevel)
+    {
+        int amount = -hellfireLevel * 3;
+        int damage = Math.Max(amount + data.morality, 0);
+        TakeDamage(damage);
+    }
+
+    public void TakeHolyAuraDamage(int holyAuraLevel)
+    {
+        int amount = holyAuraLevel * 3;
+        int damage = Math.Max(amount - data.morality, 0);
+        TakeDamage(damage);
+    }
+
     public void Death()
     {
         VisionManager.i.RemoveVision(this);

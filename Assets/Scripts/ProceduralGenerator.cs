@@ -14,18 +14,20 @@ public class ProceduralGenerator : MonoBehaviour
     {
         allRooms = FindObjectsByType<Room>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         nonPortalRooms = allRooms.Where(room => room.portal == null).ToArray();
-        GenerateResources();
         MakeRoomsUnscannable();
+        OpenDoors();
+        SetAltars();
         SpawnEnemies();
+        GenerateResources();
     }
 
     void GenerateResources()
     {
         (int, int) minMaxRooms = levelDetails.rewards switch
         {
-            Rewards.LOW => (1, 3),
-            Rewards.MEDIUM => (3, 5),
-            Rewards.HIGH => (5, 9)
+            Rewards.LOW => (2, 4),
+            Rewards.MEDIUM => (4, 6),
+            Rewards.HIGH => (6, 10)
         };
 
         int roomNum = Random.Range(minMaxRooms.Item1, minMaxRooms.Item2);
@@ -72,6 +74,37 @@ public class ProceduralGenerator : MonoBehaviour
         }
     }
 
+    void OpenDoors()
+    {
+        Door[] doors = FindObjectsByType<Door>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        float chance = levelDetails.openness switch
+        {
+            Openness.LOW => 0,
+            Openness.MEDIUM => 0.1f,
+            Openness.HIGH => 0.2f
+        };
+
+        float randFloat;
+        foreach(Door door in doors)
+        {
+            bool portalDoor = false;
+            foreach(Room room in door.rooms)
+            {
+                if (room.portal != null) portalDoor = true;
+            }
+            if (portalDoor)
+            {
+                continue;
+            }
+
+            randFloat = Random.Range(0f, 1f);
+            if(randFloat < chance)
+            {
+                door.ImmediateOpen();
+            }
+        }
+    }
+
     void SpawnEnemies()
     {
         float percent = levelDetails.threatLevel switch
@@ -99,6 +132,28 @@ public class ProceduralGenerator : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab);
             enemy.transform.position = room.GetRandomPointInRoom();
             remainingRooms.Remove(room);
+        }
+    }
+
+    void SetAltars()
+    {
+        List<Altar> altars = FindObjectsByType<Altar>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
+        foreach(Altar altar in altars)
+        {
+            altar.gameObject.SetActive(false);
+        }
+        int count = levelDetails.threatLevel switch
+        {
+            ThreatLevel.LOW => 0,
+            ThreatLevel.MEDIUM => Random.Range(0, 2),
+            ThreatLevel.HIGH => Random.Range(0, 2)
+        };
+        for(int i = 0; i < count; i++)
+        {
+            int index = Random.Range(0, altars.Count);
+            altars[index].gameObject.SetActive(true);
+            altars[index].Desecrate();
+            altars.Remove(altars[index]);
         }
     }
 }
