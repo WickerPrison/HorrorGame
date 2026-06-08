@@ -10,6 +10,7 @@ public class PlayerUnitData
     public Ability[] abilities;
 
     public int mineUses = 2;
+    public int cameraUses = 1;
 
     public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex, int unitMorality = 0, Ability[] unitAbilities = null)
     {

@@ -27,6 +27,9 @@ public static class Utils
             case Ability.MINE:
                 text += $" ({data.mineUses}/2)";
                 break;
+            case Ability.CAMERA:
+                text += $" ({data.cameraUses}/1)";
+                break;
         }
         return text;
     }

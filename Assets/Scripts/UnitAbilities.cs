@@ -9,6 +9,7 @@ public class UnitAbilities : MonoBehaviour
     Portal activatingPortal = null;
     Terminal poweringTerminal = null;
     [SerializeField] GameObject minePrefab;
+    [SerializeField] GameObject cameraPrefab;
 
     private void Start()
     {
@@ -44,6 +45,9 @@ public class UnitAbilities : MonoBehaviour
                 break;
             case Ability.DESECRATE:
                 Desecrate();
+                break;
+            case Ability.CAMERA:
+                PlaceCamera();
                 break;
         }
     }
@@ -185,5 +189,15 @@ public class UnitAbilities : MonoBehaviour
     public void Desecrate(Altar altar)
     {
         playerUnit.SetDestination(altar.GetDestinationPoint(transform.position), () => altar.Desecrate());
+    }
+
+    public void PlaceCamera()
+    {
+        if(playerUnit.data.cameraUses > 0)
+        {
+            playerUnit.data.cameraUses--;
+            Instantiate(cameraPrefab).transform.position = transform.position;
+            PlayerEvents.i.UnitStatChange(playerUnit);
+        }
     }
 }

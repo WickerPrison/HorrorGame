@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   minePrefab: {fileID: 2682197302472470431, guid: b9ffc1f62ab9b47449f8b53979474ba5, type: 3}
+  cameraPrefab: {fileID: 4312665209887149073, guid: ae85b57f2ba8d8c4eb24fcc10cad39c8, type: 3}
 --- !u!114 &9153316430105933169
 MonoBehaviour:
   m_ObjectHideFlags: 0
