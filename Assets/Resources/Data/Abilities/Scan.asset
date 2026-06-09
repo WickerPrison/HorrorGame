@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Scan
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Scan
+  uses: 50

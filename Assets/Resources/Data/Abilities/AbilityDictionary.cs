@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Ability
+public enum AbilityType
 {
     NONE, COLLECT, SCAN, POWER, MINE, SANCTIFY, DESECRATE, CAMERA
 }
@@ -18,8 +18,8 @@ public class AbilityDictionary : ScriptableObject
     [SerializeField] AbilityData camera;
 
 
-    Dictionary<Ability, AbilityData> _abilityDict;
-    public Dictionary<Ability, AbilityData> abilityDict
+    Dictionary<AbilityType, AbilityData> _abilityDict;
+    public Dictionary<AbilityType, AbilityData> abilityDict
     {
         get
         {
@@ -31,17 +31,17 @@ public class AbilityDictionary : ScriptableObject
         }
     }
 
-    Dictionary<Ability, AbilityData> GetDictionary()
+    Dictionary<AbilityType, AbilityData> GetDictionary()
     {
-        return new Dictionary<Ability, AbilityData>()
+        return new Dictionary<AbilityType, AbilityData>()
         {
-            { Ability.COLLECT, collect },
-            { Ability.POWER, power },
-            { Ability.SCAN, scan },
-            { Ability.MINE, mine },
-            { Ability.SANCTIFY, sanctify },
-            { Ability.DESECRATE, desecrate },
-            { Ability.CAMERA, camera },
+            { AbilityType.COLLECT, collect },
+            { AbilityType.POWER, power },
+            { AbilityType.SCAN, scan },
+            { AbilityType.MINE, mine },
+            { AbilityType.SANCTIFY, sanctify },
+            { AbilityType.DESECRATE, desecrate },
+            { AbilityType.CAMERA, camera },
         };
     }
 }

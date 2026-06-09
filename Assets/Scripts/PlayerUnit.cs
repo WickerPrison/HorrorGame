@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleported
 {
@@ -22,6 +23,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
     public TestPlayerUnitData testData;
     [SerializeField] ColorData colorData;
     [SerializeField] TextMeshProUGUI unitName;
+    [SerializeField] AbilityDictionary abilityDictionary;
 
     private void Awake()
     {
@@ -82,7 +84,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
 
     public void PerformAbility(int abilityIndex)
     {
-        if (data.abilities[abilityIndex] == Ability.NONE) return;
+        if (data.abilities[abilityIndex].type == AbilityType.NONE) return;
         unitAbilities.PerformAbility(data.abilities[abilityIndex]);
     }
 
@@ -172,7 +174,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
         {
             data = new PlayerUnitData(testData.unitName, testData.maxHealth, testData.index);
             data.morality = testData.morality;
-            data.abilities = testData.abilities;
+            data.abilities = testData.abilities.Select(abilityType => new Ability(abilityDictionary, abilityType)).ToArray();
         }
     }
 

@@ -27,7 +27,7 @@ public class AbilitiesUi : MonoBehaviour
     {
         foreach (AbilityIcon icon in abilityIcons)
         {
-            icon.SetAbility(Ability.NONE, null);
+            icon.Show(false);
         }
         portalIcon.Show(false);
     }
@@ -36,7 +36,7 @@ public class AbilitiesUi : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            abilityIcons[i].SetAbility(playerUnit.data.abilities[i], playerUnit.data);
+            abilityIcons[i].SetAbility(playerUnit.data.abilities[i]);
         }
         Room room = Utils.GetRoom(playerUnit.transform.position, 0.1f);
         bool unitInRoomWithPortal = room != null && room.portal != null;

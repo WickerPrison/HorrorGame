@@ -13,16 +13,15 @@ public class AbilityIcon : MonoBehaviour
         Show(false);
     }
 
-    public void SetAbility(Ability ability, PlayerUnitData playerData)
+    public void SetAbility(Ability ability)
     {
-        if (ability == Ability.NONE)
+        if (ability.type == AbilityType.NONE)
         {
             Show(false);
         }
         else
         {
-            AbilityData data = abilityDictionary.abilityDict[ability];
-            nameText.text = Utils.AppendUses(ability, data.abilityName, playerData);
+            nameText.text = $"{ability.abilityName} ({ability.uses}/{ability.maxUses})";
             icon.SetActive(true);
             nameText.gameObject.SetActive(true);
         }

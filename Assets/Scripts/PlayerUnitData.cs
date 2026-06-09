@@ -9,9 +9,6 @@ public class PlayerUnitData
     public int index;
     public Ability[] abilities;
 
-    public int mineUses = 2;
-    public int cameraUses = 1;
-
     public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex, int unitMorality = 0, Ability[] unitAbilities = null)
     {
         name = unitName;
@@ -21,11 +18,54 @@ public class PlayerUnitData
         morality = unitMorality;
         if(unitAbilities == null)
         {
-            abilities = new Ability[] { Ability.NONE, Ability.NONE, Ability.NONE, Ability.NONE };
+            abilities = new Ability[] { new Ability(), new Ability(), new Ability(), new Ability() };
         }
         else
         {
             abilities = unitAbilities;
+        }
+    }
+
+    // returns -1 if ability has no usage limit
+    // returns 0 if unit does not have ability
+    public int UsesOfAbilityType(AbilityType abilityType)
+    {
+        foreach(Ability ability in abilities)
+        {
+            if(ability.type == abilityType)
+            {
+                if(ability.uses > 0)
+                {
+                    return ability.uses;
+                }
+                if(ability.maxUses == -1)
+                {
+                    return -1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    //TODO: write test for this
+    public void GainUsesOfAbilityType(AbilityType abilityType, int amount)
+    {
+        foreach(Ability ability in abilities)
+        {
+            if(ability.type == abilityType && ability.uses < ability.maxUses)
+            {
+                int diff = ability.maxUses - ability.uses;
+                if(diff >= amount)
+                {
+                    ability.uses += amount;
+                    return;
+                }
+                else
+                {
+                    ability.uses = ability.maxUses;
+                    amount -= diff;
+                }
+            }
         }
     }
 }

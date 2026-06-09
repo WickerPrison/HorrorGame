@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Desecrate
   m_EditorClassIdentifier: DAta::AbilityData
   abilityName: Desecrate
-  uses: 0
+  uses: -1

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Collect
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Collect
+  uses: -1

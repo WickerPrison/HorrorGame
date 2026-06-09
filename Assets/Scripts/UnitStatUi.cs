@@ -25,10 +25,9 @@ public class UnitStatUi : MonoBehaviour
             abilitiesHeader.text = "Abilities";
             for(int i = 0; i < 4; i++)
             {
-                if(data.abilities[i] != Ability.NONE)
+                if(data.abilities[i].type != AbilityType.NONE)
                 {
-                    string text = abilityDict.abilityDict[data.abilities[i]].abilityName;
-                    abilityNames[i].text = Utils.AppendUses(data.abilities[i], text, data);
+                    abilityNames[i].text = $"{data.abilities[i].abilityName} ({data.abilities[i].uses}/{data.abilities[i].maxUses})";
                 }
                 else
                 {

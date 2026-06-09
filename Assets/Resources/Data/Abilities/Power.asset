@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Power
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Power
+  uses: -1

@@ -19,18 +19,4 @@ public static class Utils
         List<Room> rooms = GetRooms(position, radius);
         return rooms.Count > 0 ? rooms[0] : null;
     }
-
-    public static string AppendUses(Ability ability, string text, PlayerUnitData data)
-    {
-        switch (ability)
-        {
-            case Ability.MINE:
-                text += $" ({data.mineUses}/2)";
-                break;
-            case Ability.CAMERA:
-                text += $" ({data.cameraUses}/1)";
-                break;
-        }
-        return text;
-    }
 }

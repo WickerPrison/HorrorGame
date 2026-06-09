@@ -45,7 +45,7 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage, IInterceptR
 
     public bool RightClick()
     {
-        if(playerManager.selectedUnits.Count != 1 || !playerManager.selectedUnits[0].data.abilities.Contains(Ability.COLLECT))
+        if(playerManager.selectedUnits.Count != 1 || playerManager.selectedUnits[0].data.UsesOfAbilityType(AbilityType.COLLECT) == -1)
         {
             return true;
         }

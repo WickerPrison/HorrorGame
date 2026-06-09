@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sanctify
   m_EditorClassIdentifier: DAta::AbilityData
   abilityName: Sanctify
-  uses: 0
+  uses: -1
