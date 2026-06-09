@@ -47,6 +47,13 @@ public class PlayerUnitData
         return 0;
     }
 
+    public bool CanUseAbilityType(AbilityType abilityType)
+    {
+        int uses = UsesOfAbilityType(abilityType);
+        if (uses > 0 || uses == -1) return true;
+        return false;
+    }
+
     //TODO: write test for this
     public void GainUsesOfAbilityType(AbilityType abilityType, int amount)
     {

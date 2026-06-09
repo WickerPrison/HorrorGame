@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b88caaa04fc15c4c8017d369b2d2018, type: 3}
   m_Name: Desecrate
   m_EditorClassIdentifier: DAta::AbilityData
+  type: 6
   abilityName: Desecrate
   uses: -1

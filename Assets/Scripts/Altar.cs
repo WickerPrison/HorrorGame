@@ -115,7 +115,7 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen, IInterceptRightClick
 
     bool SanctifyAltar()
     {
-        if (playerManager.selectedUnits.Count != 1 || playerManager.selectedUnits[0].data.UsesOfAbilityType(AbilityType.SANCTIFY) == -1)
+        if (playerManager.selectedUnits.Count != 1 || !playerManager.selectedUnits[0].data.CanUseAbilityType(AbilityType.SANCTIFY))
         {
             return true;
         }
@@ -126,7 +126,7 @@ public class Altar : MonoBehaviour, IUnhideWhenSeen, IInterceptRightClick
 
     bool DesecrateAltar()
     {
-        if (playerManager.selectedUnits.Count != 1 || playerManager.selectedUnits[0].data.UsesOfAbilityType(AbilityType.DESECRATE) == -1)
+        if (playerManager.selectedUnits.Count != 1 || !playerManager.selectedUnits[0].data.CanUseAbilityType(AbilityType.DESECRATE))
         {
             return true;
         }

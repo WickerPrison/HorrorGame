@@ -58,13 +58,13 @@ public class AltarTests
     {
         int maxHealth = 100;
         altar.Sanctify();
-        PlayerUnit good = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
-        good.data = new PlayerUnitData("Evil", maxHealth, 1, -5, GetAbilityArray(new AbilityType[] { AbilityType.DESECRATE, AbilityType.NONE, AbilityType.NONE, AbilityType.NONE }));
-        good.transform.position = originRoom.transform.position + new Vector3(-3f, 2f);
+        PlayerUnit evil = GameObject.Instantiate(playerUnitPrefab).GetComponent<PlayerUnit>();
+        evil.data = new PlayerUnitData("Evil", maxHealth, 1, -5, GetAbilityArray(new AbilityType[] { AbilityType.DESECRATE, AbilityType.NONE, AbilityType.NONE, AbilityType.NONE }));
+        evil.transform.position = originRoom.transform.position + new Vector3(-3f, 2f);
         yield return new WaitForSeconds(1);
 
         Assert.Greater(originRoom.dot, 1);
-        good.PerformAbility(0);
+        evil.PerformAbility(0);
 
         yield return new WaitForSeconds(7);
         Assert.Less(originRoom.dot, -1);

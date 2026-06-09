@@ -9,6 +9,7 @@ public enum AbilityType
 [CreateAssetMenu(fileName = "AbilityDictionary", menuName = "Scriptable Objects/AbilityDictionary")]
 public class AbilityDictionary : ScriptableObject
 {
+    [SerializeField] AbilityData none;
     [SerializeField] AbilityData collect;
     [SerializeField] AbilityData power;
     [SerializeField] AbilityData scan;
@@ -35,6 +36,7 @@ public class AbilityDictionary : ScriptableObject
     {
         return new Dictionary<AbilityType, AbilityData>()
         {
+            { AbilityType.NONE, none },
             { AbilityType.COLLECT, collect },
             { AbilityType.POWER, power },
             { AbilityType.SCAN, scan },

@@ -7,13 +7,9 @@ public class Ability
     public int maxUses;
     public int uses;
 
-    public Ability(AbilityDictionary dictionary, AbilityType abilityType)
+    public Ability(AbilityDictionary dictionary, AbilityType abilityType) : this(dictionary.abilityDict[abilityType])
     {
-        AbilityData data = dictionary.abilityDict[type];
-        type = abilityType;
-        abilityName = data.abilityName;
-        maxUses = data.uses;
-        uses = data.uses;
+
     }
 
     public Ability(AbilityData data)

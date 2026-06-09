@@ -26,6 +26,7 @@ public class UnitAbilities : MonoBehaviour
 
     public void PerformAbility(Ability ability)
     {
+        Debug.Log(ability.type);
         switch (ability.type)
         {
             case AbilityType.SCAN:
