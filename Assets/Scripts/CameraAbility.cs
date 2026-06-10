@@ -31,8 +31,7 @@ public class CameraAbility : MonoBehaviour, IHaveVision, ITakeDamage, IIntercept
         if 
         (
             playerManager.selectedUnits.Count != 1 || 
-            !playerManager.selectedUnits[0].data.abilities.Contains(Ability.CAMERA) || 
-            playerManager.selectedUnits[0].data.cameraUses != 0
+            playerManager.selectedUnits[0].data.UsesOfAbilityType(AbilityType.CAMERA) > 0
         )
         {
             return true;
@@ -45,7 +44,7 @@ public class CameraAbility : MonoBehaviour, IHaveVision, ITakeDamage, IIntercept
     void GetCollected(PlayerUnit unit)
     {
         Cleanup();
-        unit.data.cameraUses++;
+        unit.data.GainUsesOfAbilityType(AbilityType.CAMERA, 1);
         PlayerEvents.i.UnitStatChange(unit);
         Destroy(gameObject);
     }

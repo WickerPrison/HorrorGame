@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b88caaa04fc15c4c8017d369b2d2018, type: 3}
   m_Name: Mine
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
+  type: 4
   abilityName: Mine
   uses: 2
-  damage: 20

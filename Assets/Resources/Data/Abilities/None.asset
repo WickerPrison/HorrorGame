@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b88caaa04fc15c4c8017d369b2d2018, type: 3}
-  m_Name: Sanctify
+  m_Name: None
   m_EditorClassIdentifier: DAta::AbilityData
-  type: 5
-  abilityName: Sanctify
-  uses: -1
+  type: 0
+  abilityName: none
+  uses: 0

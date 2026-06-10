@@ -8,5 +8,5 @@ public class TestPlayerUnitData : ScriptableObject
     public int health;
     public int maxHealth;
     public int index;
-    public Ability[] abilities;
+    public AbilityType[] abilities;
 }

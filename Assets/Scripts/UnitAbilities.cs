@@ -24,30 +24,30 @@ public class UnitAbilities : MonoBehaviour
         }
     }
 
-    public void PerformAbility(Ability abilityType)
+    public void PerformAbility(Ability ability)
     {
-        switch (abilityType)
+        switch (ability.type)
         {
-            case Ability.SCAN:
-                Scan();
+            case AbilityType.SCAN:
+                Scan(ability);
                 break;
-            case Ability.COLLECT:
+            case AbilityType.COLLECT:
                 Collect();
                 break;
-            case Ability.POWER:
+            case AbilityType.POWER:
                 Power();
                 break;
-            case Ability.MINE:
-                PlaceMine();
+            case AbilityType.MINE:
+                PlaceMine(ability);
                 break;
-            case Ability.SANCTIFY:
+            case AbilityType.SANCTIFY:
                 Sanctify();
                 break;
-            case Ability.DESECRATE:
+            case AbilityType.DESECRATE:
                 Desecrate();
                 break;
-            case Ability.CAMERA:
-                PlaceCamera();
+            case AbilityType.CAMERA:
+                PlaceCamera(ability);
                 break;
         }
     }
@@ -86,8 +86,11 @@ public class UnitAbilities : MonoBehaviour
         }
     }
 
-    void Scan()
+    void Scan(Ability ability)
     {
+        if (ability.uses <= 0 || scanningFromRoom != null) return;
+        ability.uses--;
+        PlayerEvents.i.UnitStatChange(playerUnit);
         InterruptAbilities();
         playerUnit.Stop();
         scanningFromRoom = Utils.GetRoom(transform.position);
@@ -151,11 +154,11 @@ public class UnitAbilities : MonoBehaviour
         }
     }
 
-    void PlaceMine()
+    void PlaceMine(Ability ablity)
     {
-        if(playerUnit.data.mineUses > 0)
+        if(ablity.uses > 0)
         {
-            playerUnit.data.mineUses--;
+            ablity.uses--;
             Instantiate(minePrefab).transform.position = transform.position;
             PlayerEvents.i.UnitStatChange(playerUnit);
         }
@@ -191,11 +194,11 @@ public class UnitAbilities : MonoBehaviour
         playerUnit.SetDestination(altar.GetDestinationPoint(transform.position), () => altar.Desecrate());
     }
 
-    public void PlaceCamera()
+    public void PlaceCamera(Ability ability)
     {
-        if(playerUnit.data.cameraUses > 0)
+        if(ability.uses > 0)
         {
-            playerUnit.data.cameraUses--;
+            ability.uses--;
             Instantiate(cameraPrefab).transform.position = transform.position;
             PlayerEvents.i.UnitStatChange(playerUnit);
         }
