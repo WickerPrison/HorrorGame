@@ -27,7 +27,14 @@ public class UnitStatUi : MonoBehaviour
             {
                 if(data.abilities[i].type != AbilityType.NONE)
                 {
-                    abilityNames[i].text = $"{data.abilities[i].abilityName} ({data.abilities[i].uses}/{data.abilities[i].maxUses})";
+                    if(data.abilities[i].maxUses == -1)
+                    {
+                        abilityNames[i].text = data.abilities[i].abilityName;
+                    }
+                    else
+                    {
+                        abilityNames[i].text = $"{data.abilities[i].abilityName} ({data.abilities[i].uses}/{data.abilities[i].maxUses})";
+                    }
                 }
                 else
                 {

@@ -72,7 +72,7 @@ public class Terminal : MonoBehaviour, IUnhideWhenSeen, IPowerRooms, IInterceptR
 
     public bool RightClick()
     {
-        if(playerManager.selectedUnits.Count != 1 || playerManager.selectedUnits[0].data.UsesOfAbilityType(AbilityType.POWER) == -1)
+        if(playerManager.selectedUnits.Count != 1 || !playerManager.selectedUnits[0].data.CanUseAbilityType(AbilityType.POWER))
         {
             return true;
         }

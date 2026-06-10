@@ -26,7 +26,6 @@ public class UnitAbilities : MonoBehaviour
 
     public void PerformAbility(Ability ability)
     {
-        Debug.Log(ability.type);
         switch (ability.type)
         {
             case AbilityType.SCAN:
@@ -89,6 +88,9 @@ public class UnitAbilities : MonoBehaviour
 
     void Scan(Ability ability)
     {
+        if (ability.uses <= 0 || scanningFromRoom != null) return;
+        ability.uses--;
+        PlayerEvents.i.UnitStatChange(playerUnit);
         InterruptAbilities();
         playerUnit.Stop();
         scanningFromRoom = Utils.GetRoom(transform.position);

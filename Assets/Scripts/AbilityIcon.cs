@@ -21,7 +21,14 @@ public class AbilityIcon : MonoBehaviour
         }
         else
         {
-            nameText.text = $"{ability.abilityName} ({ability.uses}/{ability.maxUses})";
+            if(ability.maxUses == -1)
+            {
+                nameText.text = ability.abilityName;
+            }
+            else
+            {
+                nameText.text = $"{ability.abilityName} ({ability.uses}/{ability.maxUses})";
+            }
             icon.SetActive(true);
             nameText.gameObject.SetActive(true);
         }
