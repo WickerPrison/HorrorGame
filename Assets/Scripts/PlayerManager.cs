@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour
     public void SelectButton(int unitIndex)
     {
         DeselectAll();
-        if(unitIndex < allUnits.Length)
+        if(allUnits[unitIndex] != null)
         {
             SelectUnit(allUnits[unitIndex]);
         }

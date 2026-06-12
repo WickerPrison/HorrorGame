@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   levelDetails: {fileID: 11400000, guid: bcc487dacf855f141a84ae0717798792, type: 2}
   resourcePrefab: {fileID: 8955051666661998596, guid: c17f581cea6409f409a2244d185afaca, type: 3}
+  enemyPrefab: {fileID: 4765230528870520813, guid: 331696daca1e0de478815d970bb7a347, type: 3}
