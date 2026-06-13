@@ -58,4 +58,10 @@ public class AllRoomsPoweredTests
     {
         yield return AllRoomsHavePower("Level2");
     }
+
+    [UnityTest]
+    public IEnumerator Level3()
+    {
+        yield return AllRoomsHavePower("Level3");
+    }
 }

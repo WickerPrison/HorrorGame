@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2def1b8c4546a48b4931edfc1fc34f, type: 3}
   m_Name: LevelsData
   m_EditorClassIdentifier: DAta::LevelsData
-  randomLevelCount: 2
+  randomLevelCount: 3
