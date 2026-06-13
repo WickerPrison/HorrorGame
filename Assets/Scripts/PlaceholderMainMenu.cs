@@ -48,7 +48,7 @@ public class PlaceholderMainMenu : MonoBehaviour
 
     void LoadRandomScene()
     {
-        int sceneId = Random.Range(1, levelsData.randomLevelCount);
+        int sceneId = Random.Range(1, levelsData.randomLevelCount + 1);
 
         SceneManager.LoadScene($"Level{sceneId}");
     }
