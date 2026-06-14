@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerUnitData
@@ -8,6 +9,16 @@ public class PlayerUnitData
     public int maxHealth;
     public int index;
     public Ability[] abilities;
+
+    public PlayerUnitData(AbilityDictionary dictionary, TestPlayerUnitData testPlayerUnitData) : this
+        (
+            testPlayerUnitData.name,
+            testPlayerUnitData.maxHealth,
+            testPlayerUnitData.index,
+            testPlayerUnitData.morality,
+            testPlayerUnitData.abilities.Select(a => new Ability(dictionary, a)).ToArray()
+        )
+    { }
 
     public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex, int unitMorality = 0, Ability[] unitAbilities = null)
     {

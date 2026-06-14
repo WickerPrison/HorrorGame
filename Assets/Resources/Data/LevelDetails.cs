@@ -27,4 +27,12 @@ public class LevelDetails : ScriptableObject
     public Interference interference;
     public Rewards rewards;
     public Openness openness;
+
+    public void SetData(LevelDetailsData data)
+    {
+        threatLevel = data.threatLevel;
+        interference = data.interference;
+        rewards = data.rewards;
+        openness = data.openness;
+    }
 }

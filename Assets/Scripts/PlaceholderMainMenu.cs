@@ -5,6 +5,7 @@ public class PlaceholderMainMenu : MonoBehaviour
 {
     [SerializeField] LevelDetails levelDetails;
     [SerializeField] LevelsData levelsData;
+    [SerializeField] CampaignData campaignData;
 
     public void StartTutorial()
     {
@@ -51,5 +52,11 @@ public class PlaceholderMainMenu : MonoBehaviour
         int sceneId = Random.Range(1, levelsData.randomLevelCount + 1);
 
         SceneManager.LoadScene($"Level{sceneId}");
+    }
+
+    public void StartCampaign()
+    {
+        campaignData.ResetCampaignData();
+        SceneManager.LoadScene("MissionSelect");
     }
 }

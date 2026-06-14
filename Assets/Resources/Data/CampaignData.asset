@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94747a3e5e1a8ed49a6bc40340cc50ee, type: 3}
+  m_Name: CampaignData
+  m_EditorClassIdentifier: DAta::CampaignData
+  startingUnit1: {fileID: 11400000, guid: 6c8613c8721a68e47b978f50d0a74b03, type: 2}
+  startingUnit2: {fileID: 11400000, guid: f556a4605d87b764aab2b96b6e98abb9, type: 2}
+  abilityDictionary: {fileID: 11400000, guid: 81c11530401376c46b5d805972119e3c, type: 2}
+  resources: 10
