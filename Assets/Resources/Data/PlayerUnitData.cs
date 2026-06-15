@@ -12,7 +12,7 @@ public class PlayerUnitData
 
     public PlayerUnitData(AbilityDictionary dictionary, TestPlayerUnitData testPlayerUnitData) : this
         (
-            testPlayerUnitData.name,
+            testPlayerUnitData.unitName,
             testPlayerUnitData.maxHealth,
             testPlayerUnitData.index,
             testPlayerUnitData.morality,

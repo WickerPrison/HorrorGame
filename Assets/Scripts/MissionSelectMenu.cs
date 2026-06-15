@@ -5,13 +5,16 @@ public class MissionSelectMenu : MonoBehaviour
     [SerializeField] CampaignData campaignData;
     [SerializeField] GameObject missionPrefab;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        if(campaignData.missions == null)
+        if (campaignData.missions == null)
         {
             campaignData.ResetCampaignData();
         }
+    }
+
+    void Start()
+    {
         foreach(LevelDetailsData mission in campaignData.missions)
         {
             Mission misisonObject = Instantiate(missionPrefab).GetComponent<Mission>();

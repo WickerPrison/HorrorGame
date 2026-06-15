@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
 
-public class CampaignManager : MonoBehaviour
+public class CampaignEvents : MonoBehaviour
 {
-    public static CampaignManager i;
-    [SerializeField] CampaignData campaignData;
+    public static CampaignEvents i;
+
+    public event Action onUpdateSquad;
 
     private void Awake()
     {
@@ -14,5 +15,10 @@ public class CampaignManager : MonoBehaviour
             return;
         }
         i = this;
+    }
+
+    public void UpdateSquad()
+    {
+        onUpdateSquad?.Invoke();
     }
 }

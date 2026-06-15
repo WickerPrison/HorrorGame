@@ -10,6 +10,7 @@ public class CampaignData : ScriptableObject
 
     public List<LevelDetailsData> missions;
     public List<PlayerUnitData> playerUnits;
+    public PlayerUnitData[] squad = new PlayerUnitData[4];
     public int resources;
 
     public void ResetCampaignData()
@@ -17,5 +18,7 @@ public class CampaignData : ScriptableObject
         missions = new List<LevelDetailsData>() { new LevelDetailsData(), new LevelDetailsData(), new LevelDetailsData(), new LevelDetailsData(), new LevelDetailsData() };
         resources = 10;
         playerUnits = new List<PlayerUnitData>() { new PlayerUnitData(abilityDictionary, startingUnit1), new PlayerUnitData(abilityDictionary, startingUnit2) };
+        squad[0] = playerUnits[0];
+        squad[1] = playerUnits[1];
     }
 }
