@@ -21,13 +21,27 @@ public class SquadMenu : MonoBehaviour
             }
             squadUnits[i].SetUnitData(campaignData.squad[i]);
         }
+        CampaignEvents.i.UpdateSquad();
+    }
+
+    public void AssignToSquad(PlayerUnitData unitData)
+    {
+        for(int i = 0; i < campaignData.squad.Length; i++)
+        {
+            if(campaignData.squad[i] == null)
+            {
+                campaignData.squad[i] = unitData;
+                UpdateSquadUi();
+                return;
+            }
+        }
     }
 
     public void RemoveFromSquad(int index)
     {
+        campaignData.squad[index].index = 0;
         campaignData.squad[index] = null;
         UpdateSquadUi();
-        CampaignEvents.i.UpdateSquad();
     }
 
     public void MoveUnitUp(int index)

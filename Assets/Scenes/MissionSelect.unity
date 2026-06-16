@@ -1052,6 +1052,7 @@ MonoBehaviour:
   - {fileID: 1896261074}
   - {fileID: 592357521}
   - {fileID: 1818329316}
+  squadMenu: {fileID: 855881192}
 --- !u!1 &855881188
 GameObject:
   m_ObjectHideFlags: 0

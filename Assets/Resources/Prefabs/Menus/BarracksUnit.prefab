@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99271641c6550fa4098a9e391ca6152e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  assign: {fileID: 8368981199544381470}
 --- !u!1001 &7903216478987548879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,6 +139,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1840078393976228049, guid: e78ff76f7639e1f41a413ffb410ddf14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4902762351739852058}
+    - target: {fileID: 1840078393976228049, guid: e78ff76f7639e1f41a413ffb410ddf14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AssignToSquad
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840078393976228049, guid: e78ff76f7639e1f41a413ffb410ddf14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BarracksUnit, Scripts
+      objectReference: {fileID: 0}
     - target: {fileID: 6649519543605206617, guid: e78ff76f7639e1f41a413ffb410ddf14, type: 3}
       propertyPath: m_Name
       value: AddToSquad
@@ -151,6 +164,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e78ff76f7639e1f41a413ffb410ddf14, type: 3}
+--- !u!114 &8368981199544381470 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1840078393976228049, guid: e78ff76f7639e1f41a413ffb410ddf14, type: 3}
+  m_PrefabInstance: {fileID: 7903216478987548879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df74cce87910c6438ba337f2ea92525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!224 &9205271732035573171 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1302222392675544444, guid: e78ff76f7639e1f41a413ffb410ddf14, type: 3}
