@@ -19,4 +19,23 @@ public static class Utils
         List<Room> rooms = GetRooms(position, radius);
         return rooms.Count > 0 ? rooms[0] : null;
     }
+
+    public static string GetAbilityName(Ability ability)
+    {
+        if (ability.type != AbilityType.NONE)
+        {
+            if (ability.maxUses == -1)
+            {
+               return ability.abilityName;
+            }
+            else
+            {
+               return $"{ability.abilityName} ({ability.uses}/{ability.maxUses})";
+            }
+        }
+        else
+        {
+           return "";
+        }
+    }
 }

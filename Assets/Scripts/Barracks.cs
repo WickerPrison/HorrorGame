@@ -9,6 +9,11 @@ public class Barracks : MonoBehaviour
     [SerializeField] BarracksUnit[] barracksUnits;
     [SerializeField] SquadMenu squadMenu;
 
+    private void Start()
+    {
+        UpdateUnits();
+    }
+
     void UpdateUnits()
     {
         bool squadHasRoom = campaignData.squad.Any(unit => unit == null);

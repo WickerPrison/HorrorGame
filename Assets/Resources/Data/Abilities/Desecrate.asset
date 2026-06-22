@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: DAta::AbilityData
   type: 6
   abilityName: Desecrate
+  description: Cause a neutral or Holy Altar to produce Hellfire
   uses: -1

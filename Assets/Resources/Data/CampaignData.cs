@@ -12,6 +12,7 @@ public class CampaignData : ScriptableObject
     public List<PlayerUnitData> playerUnits;
     public PlayerUnitData[] squad = new PlayerUnitData[4];
     public int resources;
+    public List<Ability> unequippedAbilities;
 
     public void ResetCampaignData()
     {
@@ -20,5 +21,6 @@ public class CampaignData : ScriptableObject
         playerUnits = new List<PlayerUnitData>() { new PlayerUnitData(abilityDictionary, startingUnit1), new PlayerUnitData(abilityDictionary, startingUnit2) };
         squad[0] = playerUnits[0];
         squad[1] = playerUnits[1];
+        unequippedAbilities = new List<Ability>();
     }
 }

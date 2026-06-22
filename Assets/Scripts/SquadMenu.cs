@@ -21,7 +21,6 @@ public class SquadMenu : MonoBehaviour
             }
             squadUnits[i].SetUnitData(campaignData.squad[i]);
         }
-        CampaignEvents.i.UpdateSquad();
     }
 
     public void AssignToSquad(PlayerUnitData unitData)
@@ -32,9 +31,15 @@ public class SquadMenu : MonoBehaviour
             {
                 campaignData.squad[i] = unitData;
                 UpdateSquadUi();
+                CampaignEvents.i.UpdateSquad();
                 return;
             }
         }
+    }
+
+    public void SelectSquadUnit(int index)
+    {
+        CampaignEvents.i.SelectUnit(campaignData.squad[index]);
     }
 
     public void RemoveFromSquad(int index)
@@ -42,6 +47,7 @@ public class SquadMenu : MonoBehaviour
         campaignData.squad[index].index = 0;
         campaignData.squad[index] = null;
         UpdateSquadUi();
+        CampaignEvents.i.UpdateSquad();
     }
 
     public void MoveUnitUp(int index)
@@ -49,6 +55,7 @@ public class SquadMenu : MonoBehaviour
         if (index == 0) return;
         (campaignData.squad[index], campaignData.squad[index - 1]) = (campaignData.squad[index - 1], campaignData.squad[index]);
         UpdateSquadUi();
+        CampaignEvents.i.UpdateSquad();
     }
 
     public void MoveUnitDown(int index)
@@ -56,5 +63,21 @@ public class SquadMenu : MonoBehaviour
         if (index == 3) return;
         (campaignData.squad[index], campaignData.squad[index + 1]) = (campaignData.squad[index + 1], campaignData.squad[index]);
         UpdateSquadUi();
+        CampaignEvents.i.UpdateSquad();
+    }
+
+    private void Campaign_onUpdateSquad()
+    {
+        UpdateSquadUi();
+    }
+
+    private void OnEnable()
+    {
+        CampaignEvents.i.onUpdateSquad += Campaign_onUpdateSquad;
+    }
+
+    private void OnDisable()
+    {
+        CampaignEvents.i.onUpdateSquad -= Campaign_onUpdateSquad;  
     }
 }
