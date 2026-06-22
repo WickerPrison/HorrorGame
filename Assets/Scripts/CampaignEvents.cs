@@ -8,6 +8,7 @@ public class CampaignEvents : MonoBehaviour
     public event Action onUpdateSquad;
     public event Action<PlayerUnitData> onSelectUnit;
     public event Action onUpdateAbilities;
+    public event Action<string> onSetDescription;
 
     private void Awake()
     {
@@ -32,5 +33,10 @@ public class CampaignEvents : MonoBehaviour
     public void UpdateAbilities()
     {
         onUpdateAbilities?.Invoke();
+    }
+
+    public void SetDescription(string description)
+    {
+        onSetDescription?.Invoke(description);
     }
 }

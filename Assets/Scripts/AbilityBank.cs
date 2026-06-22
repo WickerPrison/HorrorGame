@@ -5,6 +5,7 @@ public class AbilityBank : MonoBehaviour
 {
     [SerializeField] CampaignData campaignData;
     [SerializeField] GameObject abilityPrefab;
+    [SerializeField] DescriptionBox descriptionBox;
     List<AbilityBankItem> abilityBankItems = new List<AbilityBankItem>();
     PlayerUnitData selectedUnit;
 
