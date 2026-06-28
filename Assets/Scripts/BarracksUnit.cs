@@ -3,6 +3,7 @@ using UnityEngine;
 public class BarracksUnit : MonoBehaviour
 {
     UnitStatUi statsUi;
+    [SerializeField] MenuButton edit;
     [SerializeField] MenuButton assign;
     PlayerUnitData unit;
     Barracks barracks;
@@ -25,6 +26,7 @@ public class BarracksUnit : MonoBehaviour
 
     public void SetUnitData(PlayerUnitData unitData)
     {
+        edit.gameObject.SetActive(unitData != null);
         assign.gameObject.SetActive(unitData != null);
         unit = unitData;
         statsUi.SetUnit(unitData);
@@ -33,5 +35,10 @@ public class BarracksUnit : MonoBehaviour
     public void AssignToSquad()
     {
         barracks.AssignUnit(unit);
+    }
+
+    public void SelectUnit()
+    {
+        CampaignEvents.i.SelectUnit(unit);
     }
 }
