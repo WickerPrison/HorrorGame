@@ -20,18 +20,17 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
     Action destinationCallback;
     bool atDestination = false;
     public PlayerUnitData data;
-    public TestPlayerUnitData testData;
     [SerializeField] ColorData colorData;
     [SerializeField] TextMeshProUGUI unitName;
     [SerializeField] AbilityDictionary abilityDictionary;
 
-    private void Awake()
-    {
-        LoadTestData();
-    }
-
     void Start()
     {
+        if(data == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
         unitAbilities = GetComponent<UnitAbilities>();
@@ -168,14 +167,10 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
         SetSelected(false);
     }
 
-    void LoadTestData()
+    public void SetUnitData(PlayerUnitData unitData)
     {
-        if (testData != null)
-        {
-            data = new PlayerUnitData(testData.unitName, testData.maxHealth, testData.index);
-            data.morality = testData.morality;
-            data.abilities = testData.abilities.Select(abilityType => new Ability(abilityDictionary, abilityType)).ToArray();
-        }
+        if (unitData == null) Destroy(gameObject);
+        data = unitData;
     }
 
     public void AddToVisionManager()

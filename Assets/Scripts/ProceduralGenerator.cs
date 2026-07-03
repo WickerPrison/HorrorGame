@@ -4,11 +4,17 @@ using System.Collections.Generic;
 
 public class ProceduralGenerator : MonoBehaviour
 {
+    [SerializeField] CampaignData campaignData;
     [SerializeField] LevelDetails levelDetails;
     [SerializeField] GameObject resourcePrefab;
     [SerializeField] GameObject enemyPrefab;
     Room[] allRooms;
     Room[] nonPortalRooms;
+
+    private void Awake()
+    {
+        SetUpPlayerUnits();
+    }
 
     void Start()
     {
@@ -154,6 +160,15 @@ public class ProceduralGenerator : MonoBehaviour
             altars[index].gameObject.SetActive(true);
             altars[index].Desecrate();
             altars.Remove(altars[index]);
+        }
+    }
+
+    void SetUpPlayerUnits()
+    {
+        List<PlayerUnit> playerUnits = FindObjectsByType<PlayerUnit>(FindObjectsSortMode.None).ToList();
+        for(int i = campaignData.squad.Length - 1; i >= 0; i--)
+        {
+            playerUnits[i].SetUnitData(campaignData.squad[i]);
         }
     }
 }

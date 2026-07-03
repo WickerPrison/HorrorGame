@@ -17,9 +17,10 @@ public class MissionSelectMenu : MonoBehaviour
     {
         foreach(LevelDetailsData mission in campaignData.missions)
         {
-            Mission misisonObject = Instantiate(missionPrefab).GetComponent<Mission>();
-            misisonObject.transform.SetParent(gameObject.transform);
-            misisonObject.data = mission;
+            Mission missionObject = Instantiate(missionPrefab).GetComponent<Mission>();
+            missionObject.transform.SetParent(gameObject.transform);
+            missionObject.transform.localScale = Vector3.one;
+            missionObject.data = mission;
         }
     }
 

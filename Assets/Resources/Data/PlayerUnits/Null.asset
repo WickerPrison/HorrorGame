@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96f9e2019eb12eb409489f38ae270e99, type: 3}
-  m_Name: PowerCam
+  m_Name: Null
   m_EditorClassIdentifier: DAta::TestPlayerUnitData
-  unitName: Unit 2
-  morality: 5
-  health: 70
-  maxHealth: 70
-  index: 1
-  abilities: 03000000070000000000000000000000
+  unitName: Null
+  morality: 0
+  health: 0
+  maxHealth: 0
+  index: 0
+  abilities: 

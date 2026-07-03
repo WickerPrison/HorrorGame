@@ -6,6 +6,10 @@ public class PlaceholderMainMenu : MonoBehaviour
     [SerializeField] LevelDetails levelDetails;
     [SerializeField] LevelsData levelsData;
     [SerializeField] CampaignData campaignData;
+    [SerializeField] AbilityDictionary abilityDictionary;
+    [SerializeField] TestPlayerUnitData scout;
+    [SerializeField] TestPlayerUnitData power;
+    [SerializeField] TestPlayerUnitData holy;
 
     public void StartTutorial()
     {
@@ -50,6 +54,11 @@ public class PlaceholderMainMenu : MonoBehaviour
     void LoadRandomScene()
     {
         int sceneId = Random.Range(1, levelsData.randomLevelCount + 1);
+
+        campaignData.squad[0] = new PlayerUnitData(abilityDictionary, scout);
+        campaignData.squad[1] = new PlayerUnitData(abilityDictionary, power);
+        campaignData.squad[2] = new PlayerUnitData(abilityDictionary, holy);
+        campaignData.squad[3] = null;
 
         SceneManager.LoadScene($"Level{sceneId}");
     }

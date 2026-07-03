@@ -763,6 +763,10 @@ MonoBehaviour:
   levelDetails: {fileID: 11400000, guid: bcc487dacf855f141a84ae0717798792, type: 2}
   levelsData: {fileID: 11400000, guid: 09986d47311107743a39bb6d30396208, type: 2}
   campaignData: {fileID: 11400000, guid: 0353ee83719eade4bb72d4f9384b3d9e, type: 2}
+  abilityDictionary: {fileID: 11400000, guid: 81c11530401376c46b5d805972119e3c, type: 2}
+  scout: {fileID: 11400000, guid: 4908ba74f2327c24c9a6d1e682cb84a8, type: 2}
+  power: {fileID: 11400000, guid: 64704e4a54f3fee4b81483a425d01b72, type: 2}
+  holy: {fileID: 11400000, guid: f9b0ff8da1c050b44b08e1f842ebc758, type: 2}
 --- !u!4 &1330110524
 Transform:
   m_ObjectHideFlags: 0

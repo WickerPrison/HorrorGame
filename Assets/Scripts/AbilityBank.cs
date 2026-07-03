@@ -30,6 +30,7 @@ public class AbilityBank : MonoBehaviour
                     AbilityBankItem newBankItem = Instantiate(abilityPrefab).GetComponent<AbilityBankItem>();
                     newBankItem.SetAbility(campaignData.unequippedAbilities[i], selectedUnit);
                     newBankItem.transform.SetParent(transform);
+                    newBankItem.transform.localScale = Vector3.one;
                     newBankItem.abilityBank = this;
                     abilityBankItems.Add(newBankItem);
                 }
