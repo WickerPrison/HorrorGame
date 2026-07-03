@@ -13,6 +13,7 @@ public class CampaignData : ScriptableObject
     public PlayerUnitData[] squad = new PlayerUnitData[4];
     public int resources;
     public List<Ability> unequippedAbilities;
+    public bool testingLevel = false;
 
     public void ResetCampaignData()
     {

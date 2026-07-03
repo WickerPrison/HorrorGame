@@ -620,6 +620,7 @@ MonoBehaviour:
   colorData: {fileID: 11400000, guid: f1181f3012833e64a8674a5c89468206, type: 2}
   levelsData: {fileID: 11400000, guid: 09986d47311107743a39bb6d30396208, type: 2}
   levelDetails: {fileID: 11400000, guid: bcc487dacf855f141a84ae0717798792, type: 2}
+  campaignData: {fileID: 11400000, guid: 0353ee83719eade4bb72d4f9384b3d9e, type: 2}
 --- !u!114 &3324310355665640455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,6 +677,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  text: {fileID: 8848998627310719987}
 --- !u!1 &6537644241607849878
 GameObject:
   m_ObjectHideFlags: 0

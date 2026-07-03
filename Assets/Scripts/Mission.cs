@@ -12,6 +12,7 @@ public class Mission : MonoBehaviour
     [SerializeField] ColorData colorData;
     [SerializeField] LevelsData levelsData;
     [SerializeField] LevelDetails levelDetails;
+    [SerializeField] CampaignData campaignData;
 
     [System.NonSerialized] public LevelDetailsData data;
 
@@ -31,8 +32,11 @@ public class Mission : MonoBehaviour
 
     public void StartMission()
     {
+        if (campaignData.resources < data.cost) return;
+        campaignData.resources -= data.cost;
         levelDetails.SetData(data);
         int sceneId = Random.Range(1, levelsData.randomLevelCount + 1);
+        campaignData.testingLevel = false;
         SceneManager.LoadScene($"Level{sceneId}");
     }
 }

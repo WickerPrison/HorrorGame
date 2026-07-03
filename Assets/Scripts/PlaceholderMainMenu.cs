@@ -55,6 +55,7 @@ public class PlaceholderMainMenu : MonoBehaviour
     {
         int sceneId = Random.Range(1, levelsData.randomLevelCount + 1);
 
+        campaignData.testingLevel = true;
         campaignData.squad[0] = new PlayerUnitData(abilityDictionary, scout);
         campaignData.squad[1] = new PlayerUnitData(abilityDictionary, power);
         campaignData.squad[2] = new PlayerUnitData(abilityDictionary, holy);

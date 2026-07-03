@@ -4,10 +4,11 @@ using TMPro;
 public class ResourceCounter : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
+    [SerializeField] CampaignData campaignData;
 
     private void Start()
     {
-        UpdateDisplay(0);
+        UpdateDisplay(campaignData.resources);
     }
 
     void UpdateDisplay(int value)

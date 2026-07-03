@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class TestingLevelManager : MonoBehaviour
 {
+    [SerializeField] CampaignData campaignData;
+
     private void OnEnable()
     {
         GlobalEvents.i.onUnitLeaveMission += Global_onUnitLeaveMission;
@@ -19,7 +21,14 @@ public class TestingLevelManager : MonoBehaviour
     {
         if(PlayerManager.i.AllUnitsCount() == 0)
         {
-            SceneManager.LoadScene("PlaceholderMainMenu");
+            if (campaignData.testingLevel)
+            {
+                SceneManager.LoadScene("PlaceholderMainMenu");
+            }
+            else
+            {
+                SceneManager.LoadScene("MissionSelect");
+            }
         }
     }
 
@@ -27,7 +36,14 @@ public class TestingLevelManager : MonoBehaviour
     {
         if(PlayerManager.i.AllUnitsCount() == 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (campaignData.testingLevel)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else
+            {
+                SceneManager.LoadScene("MissionSelect");
+            }
         }
     }
 }

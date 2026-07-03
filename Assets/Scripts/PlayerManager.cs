@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 
     [System.NonSerialized] public PlayerUnit[] allUnits = new PlayerUnit[4];
     [System.NonSerialized] public List<PlayerUnit> selectedUnits = new List<PlayerUnit>();
-    int resources = 0;
+    [SerializeField] CampaignData campaignData;
 
     private void Awake()
     {
@@ -90,8 +90,8 @@ public class PlayerManager : MonoBehaviour
 
     public void GainResources(int amount)
     {
-        resources += amount;
-        GlobalEvents.i.UpdateResources(resources);
+        campaignData.resources += amount;
+        GlobalEvents.i.UpdateResources(campaignData.resources);
     }
 
     private void Player_onUnitLeaveMission(PlayerUnit leftUnit)
