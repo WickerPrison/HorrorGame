@@ -58,7 +58,7 @@ public class LevelDetailsData
         return $"Operation {part1}-{part2}";
     }
 
-    private string GetRandomAlphanumericString(int length, System.Random random)
+    static string GetRandomAlphanumericString(int length, System.Random random)
     {
         char[] result = new char[length];
 

@@ -9,6 +9,7 @@ public class CampaignEvents : MonoBehaviour
     public event Action<PlayerUnitData> onSelectUnit;
     public event Action onUpdateAbilities;
     public event Action<string> onSetDescription;
+    public event Action onUpdateResources;
 
     private void Awake()
     {
@@ -38,5 +39,10 @@ public class CampaignEvents : MonoBehaviour
     public void SetDescription(string description)
     {
         onSetDescription?.Invoke(description);
+    }
+
+    public void UpdateResources()
+    {
+        onUpdateResources?.Invoke();
     }
 }

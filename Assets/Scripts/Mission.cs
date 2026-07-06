@@ -34,6 +34,7 @@ public class Mission : MonoBehaviour
     {
         if (campaignData.resources < data.cost) return;
         campaignData.resources -= data.cost;
+        CampaignEvents.i.UpdateResources();
         levelDetails.SetData(data);
         int sceneId = Random.Range(1, levelsData.randomLevelCount + 1);
         campaignData.testingLevel = false;

@@ -11,6 +11,7 @@ public class CampaignData : ScriptableObject
     public List<LevelDetailsData> missions;
     public List<PlayerUnitData> playerUnits;
     public PlayerUnitData[] squad = new PlayerUnitData[4];
+    public List<PlayerUnitData> recruits = new List<PlayerUnitData>();
     public int resources;
     public List<Ability> unequippedAbilities;
     public bool testingLevel = false;

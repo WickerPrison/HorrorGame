@@ -16,4 +16,19 @@ public class MenuStats : MonoBehaviour
     {
         resources.text = $"Resources: {campaignData.resources}";
     }
+
+    private void Campaign_onUpdateResources()
+    {
+        UpdateStats();
+    }
+
+    private void OnEnable()
+    {
+        CampaignEvents.i.onUpdateResources += Campaign_onUpdateResources;
+    }
+
+    private void OnDisable()
+    {
+        CampaignEvents.i.onUpdateResources -= Campaign_onUpdateResources;
+    }
 }

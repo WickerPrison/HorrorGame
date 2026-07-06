@@ -9,6 +9,7 @@ public class PlayerUnitData
     public int maxHealth;
     public int index;
     public Ability[] abilities;
+    public int cost;
 
     public PlayerUnitData(AbilityDictionary dictionary, TestPlayerUnitData testPlayerUnitData) : this
         (
@@ -20,7 +21,7 @@ public class PlayerUnitData
         )
     { }
 
-    public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex, int unitMorality = 0, Ability[] unitAbilities = null)
+    public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex = 0, int unitMorality = 0, Ability[] unitAbilities = null)
     {
         name = unitName;
         maxHealth = unitMaxHealth;

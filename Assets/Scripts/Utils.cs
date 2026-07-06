@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class Utils
 {
+    private static readonly string AlphanumericChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
     public static List<Room> GetRooms(Vector3 position, float radius = 0.5f)
     {
         List<Room> rooms = Physics2D.OverlapCircleAll(position, radius)
@@ -37,5 +39,23 @@ public static class Utils
         {
            return "";
         }
+    }
+
+    public static string GetRandomAlphanumericString(int length)
+    {
+        System.Random random = new System.Random();
+        return GetRandomAlphanumericString(length, random);
+    }
+
+    public static string GetRandomAlphanumericString(int length, System.Random random)
+    {
+        char[] result = new char[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            result[i] = AlphanumericChars[random.Next(AlphanumericChars.Length)];
+        }
+
+        return new string(result);
     }
 }
