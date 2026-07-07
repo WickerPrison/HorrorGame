@@ -16,3 +16,4 @@ MonoBehaviour:
   abilityName: Mine
   description: Place a mine that detonates when enemies approach
   uses: 2
+  cost: 6

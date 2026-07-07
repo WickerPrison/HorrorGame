@@ -5,24 +5,24 @@ using UnityEngine.EventSystems;
 
 public class AbilityBankItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] TextMeshProUGUI abilityName;
-    [SerializeField] MenuButton equipButton;
+    [SerializeField] protected TextMeshProUGUI abilityName;
+    [SerializeField] protected MenuButton button;
     [System.NonSerialized] public AbilityBank abilityBank;
-    Ability currentAbility;
+    protected Ability currentAbility;
 
-    public void SetAbility(Ability ability, PlayerUnitData selectedUnit)
+    public virtual void SetAbility(Ability ability, PlayerUnitData selectedUnit)
     {
         currentAbility = ability;
         if(ability == null)
         {
             abilityName.text = "";
-            equipButton.gameObject.SetActive(false);
+            button.gameObject.SetActive(false);
         }
         else
         {
             abilityName.text = Utils.GetAbilityName(ability);
             bool showEquipButton = selectedUnit != null && selectedUnit.abilities.Any(ability => ability.type == AbilityType.NONE);
-            equipButton.gameObject.SetActive(showEquipButton);
+            button.gameObject.SetActive(showEquipButton);
         }
     }
 

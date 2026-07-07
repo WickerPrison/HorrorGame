@@ -28,7 +28,7 @@ public class CampaignManager : MonoBehaviour
 
     private void Start()
     {
-        ManageUnits();
+        //ManageUnits();
     }
 
     public void Shop()
@@ -68,5 +68,16 @@ public class CampaignManager : MonoBehaviour
             newUnit.cost = UnityEngine.Random.Range(0, 5) + 6;
             campaignData.recruits.Add(newUnit);
         }
+    }
+
+    public bool CanAfford(int cost)
+    {
+        return cost <= campaignData.resources;
+    }
+
+    public void SpendResources(int amount)
+    {
+        campaignData.resources -= amount;
+        CampaignEvents.i.UpdateResources();
     }
 }

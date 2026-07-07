@@ -16,3 +16,4 @@ MonoBehaviour:
   abilityName: Sanctify
   description: Cause a neutral or Hellish Altar to produce Holy Aura
   uses: -1
+  cost: 3

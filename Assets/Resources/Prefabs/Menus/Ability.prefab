@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   abilityName: {fileID: 9042856649924893518}
-  equipButton: {fileID: 60935450283707458}
+  button: {fileID: 60935450283707458}
 --- !u!1001 &1824303047613908115
 PrefabInstance:
   m_ObjectHideFlags: 0

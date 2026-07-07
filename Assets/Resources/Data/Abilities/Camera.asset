@@ -16,3 +16,4 @@ MonoBehaviour:
   abilityName: Camera
   description: Place a camera and gain vision in an area around it
   uses: 1
+  cost: 5

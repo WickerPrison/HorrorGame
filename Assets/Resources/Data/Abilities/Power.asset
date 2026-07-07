@@ -16,3 +16,4 @@ MonoBehaviour:
   abilityName: Power
   description: Activate a terminal to provide power to nearby rooms
   uses: -1
+  cost: 2

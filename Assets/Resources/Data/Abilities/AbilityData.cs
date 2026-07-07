@@ -7,4 +7,5 @@ public class AbilityData : ScriptableObject
     public string abilityName;
     public string description;
     public int uses;
+    public int cost;
 }

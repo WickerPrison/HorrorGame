@@ -16,3 +16,4 @@ MonoBehaviour:
   abilityName: Desecrate
   description: Cause a neutral or Holy Altar to produce Hellfire
   uses: -1
+  cost: 3

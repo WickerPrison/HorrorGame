@@ -16,3 +16,4 @@ MonoBehaviour:
   abilityName: Collect
   description: Collect a nearby resource
   uses: -1
+  cost: 2
