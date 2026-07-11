@@ -15,14 +15,23 @@ public class CampaignData : ScriptableObject
     public int resources;
     public List<Ability> unequippedAbilities;
     public bool testingLevel = false;
+    public List<Ability> shopInventory = new List<Ability>();
 
     public void ResetCampaignData()
     {
-        missions = new List<LevelDetailsData>() { new LevelDetailsData(), new LevelDetailsData(), new LevelDetailsData(), new LevelDetailsData(), new LevelDetailsData() };
+        missions = new List<LevelDetailsData>();
+        for(int i = 0; i < 5; i++)
+        {
+            LevelDetailsData newMission = new LevelDetailsData();
+            newMission.GenerateData();
+            missions.Add(newMission);
+        }
         resources = 10;
         playerUnits = new List<PlayerUnitData>() { new PlayerUnitData(abilityDictionary, startingUnit1), new PlayerUnitData(abilityDictionary, startingUnit2) };
         squad[0] = playerUnits[0];
         squad[1] = playerUnits[1];
+        squad[2] = new PlayerUnitData();
+        squad[3] = new PlayerUnitData();
         unequippedAbilities = new List<Ability>();
     }
 }

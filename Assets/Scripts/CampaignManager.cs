@@ -13,6 +13,7 @@ public class CampaignManager : MonoBehaviour
     [SerializeField] GameObject recruits;
     [SerializeField] MenuButton manageUnits;
     [SerializeField] MenuButton shop;
+    [SerializeField] List<AbilityData> abilitiesForShop = new List<AbilityData>();
 
     private void Awake()
     {
@@ -68,6 +69,11 @@ public class CampaignManager : MonoBehaviour
             newUnit.cost = UnityEngine.Random.Range(0, 5) + 6;
             campaignData.recruits.Add(newUnit);
         }
+    }
+
+    void GenerateShopInventory()
+    {
+
     }
 
     public bool CanAfford(int cost)

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class LevelDetailsData
 {
     public string missionName;
@@ -13,7 +14,7 @@ public class LevelDetailsData
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 
-    public LevelDetailsData()
+    public void GenerateData()
     {
         missionName = GenerateOperationName();
         int randInt = Random.Range(0, 3);

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class Ability
 {
     public AbilityType type;

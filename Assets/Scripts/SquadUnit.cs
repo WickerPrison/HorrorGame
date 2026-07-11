@@ -18,7 +18,7 @@ public class SquadUnit : MonoBehaviour
 
     public void SetUnitData(PlayerUnitData unitData)
     {
-        bool hasUnit = unitData != null;
+        bool hasUnit = unitData.name != "";
         edit.gameObject.SetActive(hasUnit);
         remove.gameObject.SetActive(hasUnit);
         up.gameObject.SetActive(hasUnit);

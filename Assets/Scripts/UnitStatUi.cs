@@ -17,7 +17,7 @@ public class UnitStatUi : MonoBehaviour
 
     public void SetUnit(PlayerUnitData data)
     {
-        if(data != null)
+        if (data != null && data.name != "")
         {
             nameText.text = data.name;
             morality.text = $"Morality: {data.morality}";

@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerUnitData
 {
     public string name;
@@ -36,6 +37,16 @@ public class PlayerUnitData
         {
             abilities = unitAbilities;
         }
+    }
+
+    public PlayerUnitData()
+    {
+        name = "";
+        maxHealth = 0;
+        health = maxHealth;
+        index = 0;
+        morality = 0;
+        abilities = new Ability[] { new Ability(), new Ability(), new Ability(), new Ability() };
     }
 
     // returns -1 if ability has no usage limit

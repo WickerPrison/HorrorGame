@@ -15,10 +15,7 @@ public class SquadMenu : MonoBehaviour
     {
         for (int i = 0; i < campaignData.squad.Length; i++)
         {
-            if (campaignData.squad[i] != null)
-            {
-                campaignData.squad[i].index = i;
-            }
+            campaignData.squad[i].index = i;
             squadUnits[i].SetUnitData(campaignData.squad[i]);
         }
     }
