@@ -6,24 +6,73 @@ public class AbilityShop : MonoBehaviour
 {
     [SerializeField] GameObject abilityShopItemPrefab;
     [SerializeField] AbilityDictionary abilityDictionary;
-    List<AbilityShopItem> shopItems;
+    AbilityShopItem[] permanentStock;
+    List<AbilityShopItem> shopItems = new List<AbilityShopItem>();
     [SerializeField] CampaignData campaignData;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        shopItems = GetComponentsInChildren<AbilityShopItem>().ToList();
+        permanentStock = GetComponentsInChildren<AbilityShopItem>();
+        GenerateShopInventory();
         UpdateStock();
     }
 
     void UpdateStock()
     {
-        shopItems[0].SetAbility(new Ability(abilityDictionary, AbilityType.COLLECT));
-        shopItems[1].SetAbility(new Ability(abilityDictionary, AbilityType.SCAN));
-        shopItems[2].SetAbility(new Ability(abilityDictionary, AbilityType.POWER));
+        permanentStock[0].SetAbility(new Ability(abilityDictionary, AbilityType.COLLECT));
+        permanentStock[1].SetAbility(new Ability(abilityDictionary, AbilityType.SCAN));
+        permanentStock[2].SetAbility(new Ability(abilityDictionary, AbilityType.POWER));
+        SetAbilities();
+    }
+
+    public void SetAbilities()
+    {
+        for (int i = 0; i < Mathf.Max(campaignData.shopInventory.Count, shopItems.Count); i++)
+        {
+            if (i < campaignData.shopInventory.Count)
+            {
+                if (i < shopItems.Count)
+                {
+                    shopItems[i].SetAbility(campaignData.shopInventory[i]);
+                }
+                else
+                {
+                    AbilityShopItem newShopItem = Instantiate(abilityShopItemPrefab).GetComponent<AbilityShopItem>();
+                    newShopItem.SetAbility(campaignData.shopInventory[i]);
+                    newShopItem.transform.SetParent(transform);
+                    newShopItem.transform.localScale = Vector3.one;
+                    newShopItem.abilityShop = this;
+                    shopItems.Add(newShopItem);
+                }
+            }
+            else
+            {
+                shopItems[i].SetAbility(null);
+            }
+        }
+    }
+
+    public void GenerateShopInventory()
+    {
+        campaignData.shopInventory.Clear();
+        List<AbilityType> abilityOptions = abilityDictionary.commonAbilities.ToList();
+        for(int i = 0; i < 3; i++)
+        {
+            int randInt = Random.Range(0, abilityOptions.Count);
+            campaignData.shopInventory.Add(new Ability(abilityDictionary, abilityOptions[randInt]));
+            abilityOptions.RemoveAt(randInt);
+        }
     }
 
     public void BuyAbility(Ability ability)
+    {
+        if (campaignData.resources < ability.cost) return;
+        campaignData.shopInventory.Remove(ability);
+        BuyAbilityDontRemove(ability);
+    }
+
+    public void BuyAbilityDontRemove(Ability ability)
     {
         if (campaignData.resources < ability.cost) return;
         campaignData.resources -= ability.cost;

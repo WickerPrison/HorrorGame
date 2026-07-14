@@ -31,6 +31,11 @@ public class AbilityShopItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
         abilityShop.BuyAbility(currentAbility);
     }
 
+    public void BuyPermanentStock()
+    {
+        abilityShop.BuyAbilityDontRemove(currentAbility);
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (currentAbility == null || currentAbility.type == AbilityType.NONE) return;
