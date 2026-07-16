@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -11,9 +12,11 @@ public class CampaignManager : MonoBehaviour
     [SerializeField] GameObject selectedUnit;
     [SerializeField] GameObject abilities;
     [SerializeField] GameObject recruits;
+    [SerializeField] GameObject missionList;
     [SerializeField] MenuButton manageUnits;
-    [SerializeField] MenuButton shop;
+    [SerializeField] MenuButton missionSelect;
     [SerializeField] List<AbilityData> abilitiesForShop = new List<AbilityData>();
+    [SerializeField] AbilityDictionary abilityDictionary;
 
     private void Awake()
     {
@@ -25,20 +28,22 @@ public class CampaignManager : MonoBehaviour
         i = this;
 
         GenerateRecruits();
+        GenerateShopInventory();
     }
 
     private void Start()
     {
-        //ManageUnits();
+        ManageUnits();
     }
 
-    public void Shop()
+    public void MissionSelect()
     {
         barracks.SetActive(false);
         selectedUnit.SetActive(false);
         abilities.SetActive(false);
-        recruits.SetActive(true);
-        shop.interactable = false;
+        recruits.SetActive(false);
+        missionList.SetActive(true);
+        missionSelect.interactable = false;
         manageUnits.interactable = true;
     }
 
@@ -47,8 +52,9 @@ public class CampaignManager : MonoBehaviour
         barracks.SetActive(true);
         selectedUnit.SetActive(true);
         abilities.SetActive(true);
-        recruits.SetActive(false);
-        shop.interactable = true;
+        recruits.SetActive(true);
+        missionList.SetActive(false);
+        missionSelect.interactable = true;
         manageUnits.interactable = false;
         CampaignEvents.i.UpdateSquad();
     }
@@ -73,7 +79,14 @@ public class CampaignManager : MonoBehaviour
 
     void GenerateShopInventory()
     {
-
+        campaignData.shopInventory.Clear();
+        List<AbilityType> abilityOptions = abilityDictionary.commonAbilities.ToList();
+        for (int i = 0; i < 3; i++)
+        {
+            int randInt = UnityEngine.Random.Range(0, abilityOptions.Count);
+            campaignData.shopInventory.Add(new Ability(abilityDictionary, abilityOptions[randInt]));
+            abilityOptions.RemoveAt(randInt);
+        }
     }
 
     public bool CanAfford(int cost)

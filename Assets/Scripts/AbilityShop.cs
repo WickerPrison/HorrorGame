@@ -14,7 +14,6 @@ public class AbilityShop : MonoBehaviour
     void Start()
     {
         permanentStock = GetComponentsInChildren<AbilityShopItem>();
-        GenerateShopInventory();
         UpdateStock();
     }
 
@@ -50,18 +49,6 @@ public class AbilityShop : MonoBehaviour
             {
                 shopItems[i].SetAbility(null);
             }
-        }
-    }
-
-    public void GenerateShopInventory()
-    {
-        campaignData.shopInventory.Clear();
-        List<AbilityType> abilityOptions = abilityDictionary.commonAbilities.ToList();
-        for(int i = 0; i < 3; i++)
-        {
-            int randInt = Random.Range(0, abilityOptions.Count);
-            campaignData.shopInventory.Add(new Ability(abilityDictionary, abilityOptions[randInt]));
-            abilityOptions.RemoveAt(randInt);
         }
     }
 

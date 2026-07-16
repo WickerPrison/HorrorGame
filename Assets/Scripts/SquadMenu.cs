@@ -24,7 +24,7 @@ public class SquadMenu : MonoBehaviour
     {
         for(int i = 0; i < campaignData.squad.Length; i++)
         {
-            if(campaignData.squad[i] == null)
+            if(campaignData.squad[i].isActive == false)
             {
                 campaignData.squad[i] = unitData;
                 UpdateSquadUi();
@@ -42,7 +42,7 @@ public class SquadMenu : MonoBehaviour
     public void RemoveFromSquad(int index)
     {
         campaignData.squad[index].index = 0;
-        campaignData.squad[index] = null;
+        campaignData.squad[index] = new PlayerUnitData();
         UpdateSquadUi();
         CampaignEvents.i.UpdateSquad();
     }

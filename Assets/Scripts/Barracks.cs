@@ -16,7 +16,7 @@ public class Barracks : MonoBehaviour
 
     void UpdateUnits()
     {
-        bool squadHasRoom = campaignData.squad.Any(unit => unit == null);
+        bool squadHasRoom = campaignData.squad.Any(unit => unit.isActive == false);
         unassignedUnits = campaignData.playerUnits.Where(unit => !campaignData.squad.Contains(unit)).ToList();
         for(int i = 0; i < barracksUnits.Length; i++)
         {

@@ -169,7 +169,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
 
     public void SetUnitData(PlayerUnitData unitData)
     {
-        if (unitData == null) Destroy(gameObject);
+        if (unitData.isActive == false) Destroy(gameObject);
         data = unitData;
     }
 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f9e2019eb12eb409489f38ae270e99, type: 3}
   m_Name: Holy
   m_EditorClassIdentifier: DAta::TestPlayerUnitData
+  isActive: 1
   unitName: Unit 3
   morality: 7
   health: 100

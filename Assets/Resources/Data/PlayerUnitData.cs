@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerUnitData
 {
+    public bool isActive;
     public string name;
     public int morality;
     public int health;
@@ -18,12 +19,14 @@ public class PlayerUnitData
             testPlayerUnitData.maxHealth,
             testPlayerUnitData.index,
             testPlayerUnitData.morality,
-            testPlayerUnitData.abilities.Select(a => new Ability(dictionary, a)).ToArray()
+            testPlayerUnitData.abilities.Select(a => new Ability(dictionary, a)).ToArray(),
+            testPlayerUnitData.isActive
         )
     { }
 
-    public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex = 0, int unitMorality = 0, Ability[] unitAbilities = null)
+    public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex = 0, int unitMorality = 0, Ability[] unitAbilities = null, bool unitActive = true)
     {
+        isActive = unitActive;
         name = unitName;
         maxHealth = unitMaxHealth;
         health = maxHealth;
@@ -41,6 +44,7 @@ public class PlayerUnitData
 
     public PlayerUnitData()
     {
+        isActive = false;
         name = "";
         maxHealth = 0;
         health = maxHealth;

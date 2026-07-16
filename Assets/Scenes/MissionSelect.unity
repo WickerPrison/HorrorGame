@@ -1726,15 +1726,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1037090331381866958, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_text
-      value: Shop
+      value: Mission Select
       objectReference: {fileID: 0}
     - target: {fileID: 2403610945375289067, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_Name
-      value: shop
+      value: missionSelect
       objectReference: {fileID: 0}
     - target: {fileID: 2403610945375289067, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7247914868666116195, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: text
@@ -1746,7 +1746,7 @@ PrefabInstance:
       objectReference: {fileID: 2022087057}
     - target: {fileID: 7247914868666116195, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Shop
+      value: MissionSelect
       objectReference: {fileID: 0}
     - target: {fileID: 7247914868666116195, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1778,7 +1778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8002595259021430222, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8002595259021430222, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3306,7 +3306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1000.3023, y: -59}
+  m_AnchoredPosition: {x: -242, y: -59}
   m_SizeDelta: {x: 435.1432, y: 1049.5853}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1611784251
@@ -4892,13 +4892,15 @@ MonoBehaviour:
   selectedUnit: {fileID: 1877252413}
   abilities: {fileID: 2062026709}
   recruits: {fileID: 573921956}
+  missionList: {fileID: 1611784249}
   manageUnits: {fileID: 1030669715}
-  shop: {fileID: 1469110083}
+  missionSelect: {fileID: 1469110083}
   abilitiesForShop:
   - {fileID: 11400000, guid: 90649c9c68d54c84785b274bb2e3c8bc, type: 2}
   - {fileID: 11400000, guid: 554e0cff7259f8f499d94b535a53ca9c, type: 2}
   - {fileID: 11400000, guid: a3c94a482c44a764cb32ad077781b839, type: 2}
   - {fileID: 11400000, guid: 908340552f998a545a155f85edceac48, type: 2}
+  abilityDictionary: {fileID: 11400000, guid: 81c11530401376c46b5d805972119e3c, type: 2}
 --- !u!4 &2022087058
 Transform:
   m_ObjectHideFlags: 0
@@ -5354,7 +5356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2403610945375289067, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7247914868666116195, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: text
@@ -5398,7 +5400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8002595259021430222, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 179.18
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8002595259021430222, guid: c9d22e90f56e47f4ba0fc570dc099a3b, type: 3}
       propertyPath: m_SizeDelta.y
