@@ -1,11 +1,14 @@
 using UnityEngine;
 
+[System.Serializable]
 public class Ability
 {
     public AbilityType type;
     public string abilityName;
+    public string description;
     public int maxUses;
     public int uses;
+    public int cost;
 
     public Ability(AbilityDictionary dictionary, AbilityType abilityType) : this(dictionary.abilityDict[abilityType])
     {
@@ -16,15 +19,24 @@ public class Ability
     {
         type = data.type;
         abilityName = data.abilityName;
+        description = data.description;
         maxUses = data.uses;
         uses = data.uses;
+        cost = data.cost;
     }
 
     public Ability()
     {
         type = AbilityType.NONE;
         abilityName = "none";
+        description = "";
         maxUses = 0;
         uses = 0;
+        cost = 0;
+    }
+
+    public static Ability None()
+    {
+        return new Ability();
     }
 }

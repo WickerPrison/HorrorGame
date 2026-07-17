@@ -4,11 +4,17 @@ using System.Collections.Generic;
 
 public class ProceduralGenerator : MonoBehaviour
 {
+    [SerializeField] CampaignData campaignData;
     [SerializeField] LevelDetails levelDetails;
     [SerializeField] GameObject resourcePrefab;
     [SerializeField] GameObject enemyPrefab;
     Room[] allRooms;
     Room[] nonPortalRooms;
+
+    private void Awake()
+    {
+        SetUpPlayerUnits();
+    }
 
     void Start()
     {
@@ -26,8 +32,8 @@ public class ProceduralGenerator : MonoBehaviour
         (int, int) minMaxRooms = levelDetails.rewards switch
         {
             Rewards.LOW => (2, 4),
-            Rewards.MEDIUM => (4, 6),
-            Rewards.HIGH => (6, 10)
+            Rewards.MEDIUM => (3, 5),
+            Rewards.HIGH => (4, 6)
         };
 
         int roomNum = Random.Range(minMaxRooms.Item1, minMaxRooms.Item2);
@@ -45,8 +51,8 @@ public class ProceduralGenerator : MonoBehaviour
         (int, int) minMax = levelDetails.rewards switch
         {
             Rewards.LOW => (1, 1),
-            Rewards.MEDIUM => (1, 3),
-            Rewards.HIGH => (2, 4)
+            Rewards.MEDIUM => (1, 2),
+            Rewards.HIGH => (1, 4)
         };
 
         int resourceCount = Random.Range(minMax.Item1, minMax.Item2);
@@ -154,6 +160,15 @@ public class ProceduralGenerator : MonoBehaviour
             altars[index].gameObject.SetActive(true);
             altars[index].Desecrate();
             altars.Remove(altars[index]);
+        }
+    }
+
+    void SetUpPlayerUnits()
+    {
+        List<PlayerUnit> playerUnits = FindObjectsByType<PlayerUnit>(FindObjectsSortMode.None).ToList();
+        for(int i = campaignData.squad.Length - 1; i >= 0; i--)
+        {
+            playerUnits[i].SetUnitData(campaignData.squad[i]);
         }
     }
 }

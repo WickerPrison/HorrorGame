@@ -1,16 +1,32 @@
+using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerUnitData
 {
+    public bool isActive;
     public string name;
     public int morality;
     public int health;
     public int maxHealth;
     public int index;
     public Ability[] abilities;
+    public int cost;
 
-    public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex, int unitMorality = 0, Ability[] unitAbilities = null)
+    public PlayerUnitData(AbilityDictionary dictionary, TestPlayerUnitData testPlayerUnitData) : this
+        (
+            testPlayerUnitData.unitName,
+            testPlayerUnitData.maxHealth,
+            testPlayerUnitData.index,
+            testPlayerUnitData.morality,
+            testPlayerUnitData.abilities.Select(a => new Ability(dictionary, a)).ToArray(),
+            testPlayerUnitData.isActive
+        )
+    { }
+
+    public PlayerUnitData(string unitName, int unitMaxHealth, int unitIndex = 0, int unitMorality = 0, Ability[] unitAbilities = null, bool unitActive = true)
     {
+        isActive = unitActive;
         name = unitName;
         maxHealth = unitMaxHealth;
         health = maxHealth;
@@ -24,6 +40,17 @@ public class PlayerUnitData
         {
             abilities = unitAbilities;
         }
+    }
+
+    public PlayerUnitData()
+    {
+        isActive = false;
+        name = "";
+        maxHealth = 0;
+        health = maxHealth;
+        index = 0;
+        morality = 0;
+        abilities = new Ability[] { new Ability(), new Ability(), new Ability(), new Ability() };
     }
 
     // returns -1 if ability has no usage limit

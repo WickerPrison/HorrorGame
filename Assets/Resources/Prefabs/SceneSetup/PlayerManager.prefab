@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d8483c3c6212248ac8d83c09c26310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  campaignData: {fileID: 11400000, guid: 0353ee83719eade4bb72d4f9384b3d9e, type: 2}
 --- !u!114 &4290687444755211341
 MonoBehaviour:
   m_ObjectHideFlags: 0

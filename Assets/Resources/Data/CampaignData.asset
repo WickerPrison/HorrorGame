@@ -1,0 +1,365 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94747a3e5e1a8ed49a6bc40340cc50ee, type: 3}
+  m_Name: CampaignData
+  m_EditorClassIdentifier: DAta::CampaignData
+  startingUnit1: {fileID: 11400000, guid: 6c8613c8721a68e47b978f50d0a74b03, type: 2}
+  startingUnit2: {fileID: 11400000, guid: f556a4605d87b764aab2b96b6e98abb9, type: 2}
+  abilityDictionary: {fileID: 11400000, guid: 81c11530401376c46b5d805972119e3c, type: 2}
+  missions:
+  - missionName: Operation EQ7U-H7Y5
+    threatLevel: 1
+    interference: 2
+    rewards: 1
+    openness: 0
+    cost: 4
+  - missionName: Operation JPCI-H2VN
+    threatLevel: 0
+    interference: 1
+    rewards: 2
+    openness: 2
+    cost: 3
+  - missionName: Operation KGCC-ZCNV
+    threatLevel: 1
+    interference: 2
+    rewards: 0
+    openness: 2
+    cost: 2
+  - missionName: Operation 2XKQ-7D2S
+    threatLevel: 1
+    interference: 2
+    rewards: 1
+    openness: 2
+    cost: 2
+  - missionName: Operation 6CGT-P6RH
+    threatLevel: 1
+    interference: 1
+    rewards: 1
+    openness: 1
+    cost: 1
+  playerUnits:
+  - name: Unit 1
+    morality: 0
+    health: 75
+    maxHealth: 75
+    index: 0
+    abilities:
+    - type: 1
+      abilityName: Collect
+      description: Collect a nearby resource
+      maxUses: -1
+      uses: -1
+      cost: 2
+    - type: 2
+      abilityName: Scan
+      description: Scan adjacent rooms for danger
+      maxUses: 50
+      uses: 50
+      cost: 1
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 0
+  - name: Unit 2
+    morality: 0
+    health: 75
+    maxHealth: 75
+    index: 1
+    abilities:
+    - type: 3
+      abilityName: Power
+      description: Activate a terminal to provide power to nearby rooms
+      maxUses: -1
+      uses: -1
+      cost: 2
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 0
+  squad:
+  - name: Unit 1
+    morality: 0
+    health: 75
+    maxHealth: 75
+    index: 0
+    abilities:
+    - type: 1
+      abilityName: Collect
+      description: Collect a nearby resource
+      maxUses: -1
+      uses: -1
+      cost: 2
+    - type: 2
+      abilityName: Scan
+      description: Scan adjacent rooms for danger
+      maxUses: 50
+      uses: 50
+      cost: 1
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 0
+  - name: Unit 2
+    morality: 0
+    health: 75
+    maxHealth: 75
+    index: 1
+    abilities:
+    - type: 3
+      abilityName: Power
+      description: Activate a terminal to provide power to nearby rooms
+      maxUses: -1
+      uses: -1
+      cost: 2
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 0
+  - name: 
+    morality: 0
+    health: 0
+    maxHealth: 0
+    index: 2
+    abilities:
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 0
+  - name: 
+    morality: 0
+    health: 0
+    maxHealth: 0
+    index: 3
+    abilities:
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 0
+  recruits:
+  - name: Unit XZRB7
+    morality: 2
+    health: 92
+    maxHealth: 92
+    index: 0
+    abilities:
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 10
+  - name: Unit XPY57
+    morality: 5
+    health: 90
+    maxHealth: 90
+    index: 0
+    abilities:
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 6
+  - name: Unit GZ9MT
+    morality: -3
+    health: 81
+    maxHealth: 81
+    index: 0
+    abilities:
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 9
+  - name: Unit N7IP5
+    morality: 0
+    health: 89
+    maxHealth: 89
+    index: 0
+    abilities:
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    - type: 0
+      abilityName: none
+      description: 
+      maxUses: 0
+      uses: 0
+      cost: 0
+    cost: 8
+  resources: 10
+  unequippedAbilities: []
+  testingLevel: 0
+  shopInventory: []

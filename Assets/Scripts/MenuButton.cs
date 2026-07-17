@@ -4,7 +4,7 @@ using TMPro;
 
 public class MenuButton : Button
 {
-    TMP_Text text;
+    [SerializeField] TMP_Text text;
 
     protected override void Awake()
     {

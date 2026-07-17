@@ -17,6 +17,13 @@ public class AbilityDictionary : ScriptableObject
     [SerializeField] AbilityData sanctify;
     [SerializeField] AbilityData desecrate;
     [SerializeField] AbilityData camera;
+    [System.NonSerialized] public AbilityType[] commonAbilities = 
+    { 
+        AbilityType.MINE, 
+        AbilityType.CAMERA, 
+        AbilityType.DESECRATE, 
+        AbilityType.SANCTIFY 
+    };
 
 
     Dictionary<AbilityType, AbilityData> _abilityDict;

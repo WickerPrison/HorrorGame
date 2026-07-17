@@ -17,7 +17,7 @@ public class UnitStatUi : MonoBehaviour
 
     public void SetUnit(PlayerUnitData data)
     {
-        if(data != null)
+        if (data != null && data.name != "")
         {
             nameText.text = data.name;
             morality.text = $"Morality: {data.morality}";
@@ -25,21 +25,7 @@ public class UnitStatUi : MonoBehaviour
             abilitiesHeader.text = "Abilities";
             for(int i = 0; i < 4; i++)
             {
-                if(data.abilities[i].type != AbilityType.NONE)
-                {
-                    if(data.abilities[i].maxUses == -1)
-                    {
-                        abilityNames[i].text = data.abilities[i].abilityName;
-                    }
-                    else
-                    {
-                        abilityNames[i].text = $"{data.abilities[i].abilityName} ({data.abilities[i].uses}/{data.abilities[i].maxUses})";
-                    }
-                }
-                else
-                {
-                    abilityNames[i].text = "";
-                }
+                abilityNames[i].text = Utils.GetAbilityName(data.abilities[i]);
             }
         }
         else
@@ -51,6 +37,21 @@ public class UnitStatUi : MonoBehaviour
             foreach(TextMeshProUGUI text in abilityNames)
             {
                 text.text = "";
+            }
+        }
+    }
+
+    public void SetUnitWithAbilityDescription(PlayerUnitData data, int descriptionFontSize = 0)
+    {
+        SetUnit(data);
+        if (data == null) return;
+        string font1 = descriptionFontSize == 0 ? "" : $"<size={descriptionFontSize}>";
+        string font2 = descriptionFontSize == 0 ? "" : "</size>";
+        for (int i = 0; i < 4; i++)
+        {
+            if (data.abilities[i].type != AbilityType.NONE)
+            {
+                abilityNames[i].text += $" - {font1}{data.abilities[i].description}{font2}";
             }
         }
     }

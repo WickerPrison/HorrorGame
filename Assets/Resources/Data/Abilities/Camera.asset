@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: DAta::AbilityData
   type: 7
   abilityName: Camera
+  description: Place a camera and gain vision in an area around it
   uses: 1
+  cost: 5

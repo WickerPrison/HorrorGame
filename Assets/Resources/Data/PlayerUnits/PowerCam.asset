@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f9e2019eb12eb409489f38ae270e99, type: 3}
   m_Name: PowerCam
   m_EditorClassIdentifier: DAta::TestPlayerUnitData
-  unitName: Unit2
+  isActive: 1
+  unitName: Unit 2
   morality: 5
   health: 70
   maxHealth: 70

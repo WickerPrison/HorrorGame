@@ -50,6 +50,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level3.unity
     guid: 075f3441a203ce94ea4ab385d7bcaecf
+  - enabled: 1
+    path: Assets/Scenes/MissionSelect.unity
+    guid: d382adf6ab5e1914696c444a7a2f2756
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

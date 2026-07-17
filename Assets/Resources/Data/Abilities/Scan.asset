@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   type: 2
   abilityName: Scan
+  description: Scan adjacent rooms for danger
   uses: 50
+  cost: 1

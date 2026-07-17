@@ -19,7 +19,7 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage, IInterceptR
         room.resources.Add(this);
         room.AddDamageTaker(this);
 
-        value = Random.Range(1, 5);
+        value = Random.Range(1, 2);
     }
 
     public void Unhide()

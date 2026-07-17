@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba449da5e1ac8a44aa18c7d8908fbf81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  campaignData: {fileID: 11400000, guid: 0353ee83719eade4bb72d4f9384b3d9e, type: 2}
