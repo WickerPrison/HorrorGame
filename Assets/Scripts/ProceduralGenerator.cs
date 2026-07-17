@@ -32,8 +32,8 @@ public class ProceduralGenerator : MonoBehaviour
         (int, int) minMaxRooms = levelDetails.rewards switch
         {
             Rewards.LOW => (2, 4),
-            Rewards.MEDIUM => (4, 6),
-            Rewards.HIGH => (6, 10)
+            Rewards.MEDIUM => (3, 5),
+            Rewards.HIGH => (4, 6)
         };
 
         int roomNum = Random.Range(minMaxRooms.Item1, minMaxRooms.Item2);
@@ -51,8 +51,8 @@ public class ProceduralGenerator : MonoBehaviour
         (int, int) minMax = levelDetails.rewards switch
         {
             Rewards.LOW => (1, 1),
-            Rewards.MEDIUM => (1, 3),
-            Rewards.HIGH => (2, 4)
+            Rewards.MEDIUM => (1, 2),
+            Rewards.HIGH => (1, 4)
         };
 
         int resourceCount = Random.Range(minMax.Item1, minMax.Item2);
