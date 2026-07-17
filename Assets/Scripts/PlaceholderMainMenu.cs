@@ -18,6 +18,10 @@ public class PlaceholderMainMenu : MonoBehaviour
 
     public void TestLevel(int levelNum)
     {
+        campaignData.ResetCampaignData();
+        campaignData.testingLevel = true;
+        campaignData.squad[0] = new PlayerUnitData(abilityDictionary, scout);
+        campaignData.squad[0] = new PlayerUnitData(abilityDictionary, power);
         SceneManager.LoadScene($"TestLevel{levelNum}");
     }
 
@@ -55,11 +59,12 @@ public class PlaceholderMainMenu : MonoBehaviour
     {
         int sceneId = Random.Range(1, levelsData.randomLevelCount + 1);
 
+        campaignData.ResetCampaignData();
         campaignData.testingLevel = true;
         campaignData.squad[0] = new PlayerUnitData(abilityDictionary, scout);
         campaignData.squad[1] = new PlayerUnitData(abilityDictionary, power);
         campaignData.squad[2] = new PlayerUnitData(abilityDictionary, holy);
-        campaignData.squad[3] = null;
+        campaignData.squad[3] = new PlayerUnitData();
 
         SceneManager.LoadScene($"Level{sceneId}");
     }
