@@ -32,8 +32,8 @@ public class Mission : MonoBehaviour
 
     public void StartMission()
     {
-        if (campaignData.resources < data.cost) return;
-        campaignData.resources -= data.cost;
+        if (campaignData.aether < data.cost) return;
+        campaignData.aether -= data.cost;
         CampaignEvents.i.UpdateResources();
         levelDetails.SetData(data);
         int sceneId = Random.Range(1, levelsData.randomLevelCount + 1);

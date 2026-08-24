@@ -1,6 +1,11 @@
 using System.Linq;
 using UnityEngine;
 
+public enum ResourceType
+{
+    AETHER, BRIMSTONE, QUINTESSENCE
+}
+
 public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage, IInterceptRightClick
 {
     Room room;
@@ -8,6 +13,7 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage, IInterceptR
     SpriteRenderer sprite;
     PlayerManager playerManager;
     [SerializeField] GameObject destroyedResourcePrefab;
+    [SerializeField] ResourceType type;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,7 +35,7 @@ public class Resource : MonoBehaviour, IUnhideWhenSeen, ITakeDamage, IInterceptR
 
     public void GetCollected()
     {
-        playerManager.GainResources(value);
+        playerManager.GainResources(value, type);
         room.resources.Remove(this);
         room.RemoveDamageTaker(this);
         Destroy(gameObject);

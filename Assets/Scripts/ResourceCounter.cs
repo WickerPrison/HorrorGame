@@ -8,12 +8,12 @@ public class ResourceCounter : MonoBehaviour
 
     private void Start()
     {
-        UpdateDisplay(campaignData.resources);
+        UpdateDisplay(campaignData.aether);
     }
 
     void UpdateDisplay(int value)
     {
-        text.text = $"Resources: {value}";
+        text.text = $"Aether: {value}";
     }
 
     private void Global_onUpdateResources(int amount)

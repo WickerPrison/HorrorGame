@@ -91,12 +91,12 @@ public class CampaignManager : MonoBehaviour
 
     public bool CanAfford(int cost)
     {
-        return cost <= campaignData.resources;
+        return cost <= campaignData.aether;
     }
 
     public void SpendResources(int amount)
     {
-        campaignData.resources -= amount;
+        campaignData.aether -= amount;
         CampaignEvents.i.UpdateResources();
     }
 }

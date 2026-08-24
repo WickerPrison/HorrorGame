@@ -54,15 +54,15 @@ public class AbilityShop : MonoBehaviour
 
     public void BuyAbility(Ability ability)
     {
-        if (campaignData.resources < ability.cost) return;
+        if (campaignData.aether < ability.cost) return;
         campaignData.shopInventory.Remove(ability);
         BuyAbilityDontRemove(ability);
     }
 
     public void BuyAbilityDontRemove(Ability ability)
     {
-        if (campaignData.resources < ability.cost) return;
-        campaignData.resources -= ability.cost;
+        if (campaignData.aether < ability.cost) return;
+        campaignData.aether -= ability.cost;
         campaignData.unequippedAbilities.Add(ability);
         UpdateStock();
         CampaignEvents.i.UpdateAbilities();

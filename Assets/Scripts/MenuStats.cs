@@ -3,7 +3,7 @@ using TMPro;
 
 public class MenuStats : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI resources;
+    [SerializeField] TextMeshProUGUI aether;
     [SerializeField] CampaignData campaignData;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,7 +14,7 @@ public class MenuStats : MonoBehaviour
 
     void UpdateStats()
     {
-        resources.text = $"Resources: {campaignData.resources}";
+        aether.text = $"Aether: {campaignData.aether}";
     }
 
     private void Campaign_onUpdateResources()

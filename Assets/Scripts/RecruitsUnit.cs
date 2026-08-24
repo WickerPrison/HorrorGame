@@ -26,7 +26,7 @@ public class RecruitsUnit : MonoBehaviour
         {
             cost.text = $"Cost: {unitData.cost}";
             buy.gameObject.SetActive(true);
-            buy.interactable = unitData.cost <= campaignData.resources;
+            buy.interactable = unitData.cost <= campaignData.aether;
         }
 
         unit = unitData;
@@ -36,13 +36,13 @@ public class RecruitsUnit : MonoBehaviour
     public void UpdateBuyInteractivity()
     {
         if (unit == null) return;
-        buy.interactable = unit.cost <= campaignData.resources;
+        buy.interactable = unit.cost <= campaignData.aether;
     }
 
     public void Buy()
     {
-        if (campaignData.resources < unit.cost || unit == null) return;
-        campaignData.resources -= unit.cost;
+        if (campaignData.aether < unit.cost || unit == null) return;
+        campaignData.aether -= unit.cost;
         campaignData.recruits.Remove(unit);
         campaignData.playerUnits.Add(unit);
         CampaignEvents.i.UpdateResources();

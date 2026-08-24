@@ -88,10 +88,15 @@ public class PlayerManager : MonoBehaviour
         allUnits[unit.data.index] = unit;
     }
 
-    public void GainResources(int amount)
+    public void GainResources(int amount, ResourceType type)
     {
-        campaignData.resources += amount;
-        GlobalEvents.i.UpdateResources(campaignData.resources);
+        switch (type)
+        {
+            case ResourceType.AETHER:
+                campaignData.aether += amount;
+                GlobalEvents.i.UpdateResources(campaignData.aether);
+                break;
+        }
     }
 
     private void Player_onUnitLeaveMission(PlayerUnit leftUnit)
