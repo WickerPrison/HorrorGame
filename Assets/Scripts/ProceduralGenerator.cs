@@ -6,7 +6,8 @@ public class ProceduralGenerator : MonoBehaviour
 {
     [SerializeField] CampaignData campaignData;
     [SerializeField] LevelDetails levelDetails;
-    [SerializeField] GameObject resourcePrefab;
+    [SerializeField] GameObject aetherPrefab;
+    [SerializeField] GameObject brimstonePrefab;
     [SerializeField] GameObject enemyPrefab;
     Room[] allRooms;
     Room[] nonPortalRooms;
@@ -48,18 +49,31 @@ public class ProceduralGenerator : MonoBehaviour
 
     void SpawnResourcesInRoom(Room room)
     {
-        (int, int) minMax = levelDetails.rewards switch
+        (int, int) aetherMinMax = levelDetails.rewards switch
         {
-            Rewards.LOW => (1, 1),
+            Rewards.LOW => (0, 1),
             Rewards.MEDIUM => (1, 2),
             Rewards.HIGH => (1, 4)
         };
 
-        int resourceCount = Random.Range(minMax.Item1, minMax.Item2);
-        for(int i = 0; i < resourceCount; i++)
+        (int, int) brimstoneMinMax = levelDetails.rewards switch
         {
-            GameObject resource = Instantiate(resourcePrefab);
-            resource.transform.position = room.GetRandomPointInRoom(0.5f);
+            Rewards.LOW => (0, 1),
+            Rewards.MEDIUM => (0, 2),
+            Rewards.HIGH => (1, 2),
+        };
+
+        int aetherCount = Random.Range(aetherMinMax.Item1, aetherMinMax.Item2);
+        int brimstoneCount = Random.Range(brimstoneMinMax.Item1, brimstoneMinMax.Item2);
+        for(int i = 0; i < aetherCount; i++)
+        {
+            GameObject aether = Instantiate(aetherPrefab);
+            aether.transform.position = room.GetRandomPointInRoom(0.5f);
+        }
+        for(int i = 0; i < brimstoneCount; i++)
+        {
+            GameObject brimstone = Instantiate(brimstonePrefab);
+            brimstone.transform.position = room.GetRandomPointInRoom(0.5f);
         }
     }
 

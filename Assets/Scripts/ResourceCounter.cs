@@ -3,22 +3,24 @@ using TMPro;
 
 public class ResourceCounter : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI text;
     [SerializeField] CampaignData campaignData;
+    [SerializeField] TextMeshProUGUI aether;
+    [SerializeField] TextMeshProUGUI brimstone;
 
     private void Start()
     {
-        UpdateDisplay(campaignData.aether);
+        UpdateDisplay();
     }
 
-    void UpdateDisplay(int value)
+    void UpdateDisplay()
     {
-        text.text = $"Aether: {value}";
+        aether.text = $"Aether: {campaignData.aether}";
+        brimstone.text = $"Brimstone: {campaignData.brimstone}";
     }
 
-    private void Global_onUpdateResources(int amount)
+    private void Global_onUpdateResources()
     {
-        UpdateDisplay(amount);
+        UpdateDisplay();
     }
 
     private void OnEnable()

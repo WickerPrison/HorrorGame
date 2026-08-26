@@ -26,14 +26,14 @@ public class Mission : MonoBehaviour
         missionName.text = data.missionName;
         threatLevel.text = $"Threat Level: {LevelDetailsData.GetString(data.threatLevel, colorData)}";
         resourceLevel.text = $"Resources: {LevelDetailsData.GetString(data.rewards)}";
-        cost.text = $"Cost: {data.cost}";
+        cost.text = $"Cost: {data.cost} Brimstone";
         interference.text = $"Interference: {LevelDetailsData.GetString(data.interference, colorData)}";
     }
 
     public void StartMission()
     {
-        if (campaignData.aether < data.cost) return;
-        campaignData.aether -= data.cost;
+        if (campaignData.brimstone < data.cost) return;
+        campaignData.brimstone -= data.cost;
         CampaignEvents.i.UpdateResources();
         levelDetails.SetData(data);
         int sceneId = Random.Range(1, levelsData.randomLevelCount + 1);

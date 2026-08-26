@@ -46,5 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   campaignData: {fileID: 11400000, guid: 0353ee83719eade4bb72d4f9384b3d9e, type: 2}
   levelDetails: {fileID: 11400000, guid: bcc487dacf855f141a84ae0717798792, type: 2}
-  resourcePrefab: {fileID: 8955051666661998596, guid: c17f581cea6409f409a2244d185afaca, type: 3}
+  aetherPrefab: {fileID: 8955051666661998596, guid: c17f581cea6409f409a2244d185afaca, type: 3}
+  brimstonePrefab: {fileID: 2204539424872305620, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
   enemyPrefab: {fileID: 4765230528870520813, guid: 331696daca1e0de478815d970bb7a347, type: 3}

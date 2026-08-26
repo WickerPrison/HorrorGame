@@ -94,9 +94,12 @@ public class PlayerManager : MonoBehaviour
         {
             case ResourceType.AETHER:
                 campaignData.aether += amount;
-                GlobalEvents.i.UpdateResources(campaignData.aether);
+                break;
+            case ResourceType.BRIMSTONE:
+                campaignData.brimstone += amount;
                 break;
         }
+        GlobalEvents.i.UpdateResources();
     }
 
     private void Player_onUnitLeaveMission(PlayerUnit leftUnit)

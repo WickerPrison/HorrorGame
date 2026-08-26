@@ -13,6 +13,7 @@ public class CampaignData : ScriptableObject
     public PlayerUnitData[] squad = new PlayerUnitData[4];
     public List<PlayerUnitData> recruits = new List<PlayerUnitData>();
     public int aether;
+    public int brimstone;
     public List<Ability> unequippedAbilities;
     public bool testingLevel = false;
     public List<Ability> shopInventory = new List<Ability>();
@@ -27,6 +28,7 @@ public class CampaignData : ScriptableObject
             missions.Add(newMission);
         }
         aether = 10;
+        brimstone = 4;
         playerUnits = new List<PlayerUnitData>() { new PlayerUnitData(abilityDictionary, startingUnit1), new PlayerUnitData(abilityDictionary, startingUnit2) };
         squad[0] = playerUnits[0];
         squad[1] = playerUnits[1];

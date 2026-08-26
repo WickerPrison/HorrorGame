@@ -72,7 +72,7 @@ public class CampaignManager : MonoBehaviour
             randInt2 = UnityEngine.Random.Range(-5, 6);
             int morality = randInt + randInt2;
             PlayerUnitData newUnit = new PlayerUnitData(name, health, 0, morality);
-            newUnit.cost = UnityEngine.Random.Range(0, 5) + 6;
+            newUnit.cost = UnityEngine.Random.Range(0, 4) + 3;
             campaignData.recruits.Add(newUnit);
         }
     }
