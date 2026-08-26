@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7607390433909604434}
   - component: {fileID: 6499513273447933066}
   m_Layer: 7
-  m_Name: Triangle
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   destroyedResourcePrefab: {fileID: 7659294810462989310, guid: 7e021509928e38945a9a5baca9dee82f, type: 3}
+  type: 0
 --- !u!114 &1621716276520192067
 MonoBehaviour:
   m_ObjectHideFlags: 0

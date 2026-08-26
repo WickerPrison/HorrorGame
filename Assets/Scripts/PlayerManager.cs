@@ -98,6 +98,9 @@ public class PlayerManager : MonoBehaviour
             case ResourceType.BRIMSTONE:
                 campaignData.brimstone += amount;
                 break;
+            case ResourceType.QUINTESSENCE:
+                campaignData.quintessence += amount;
+                break;
         }
         GlobalEvents.i.UpdateResources();
     }

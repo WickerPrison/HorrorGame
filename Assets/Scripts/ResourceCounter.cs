@@ -6,6 +6,7 @@ public class ResourceCounter : MonoBehaviour
     [SerializeField] CampaignData campaignData;
     [SerializeField] TextMeshProUGUI aether;
     [SerializeField] TextMeshProUGUI brimstone;
+    [SerializeField] TextMeshProUGUI quintessence;
 
     private void Start()
     {
@@ -14,8 +15,9 @@ public class ResourceCounter : MonoBehaviour
 
     void UpdateDisplay()
     {
-        aether.text = $"Aether: {campaignData.aether}";
-        brimstone.text = $"Brimstone: {campaignData.brimstone}";
+        aether.text = $": {campaignData.aether}";
+        brimstone.text = $": {campaignData.brimstone}";
+        quintessence.text = $": {campaignData.quintessence}";
     }
 
     private void Global_onUpdateResources()

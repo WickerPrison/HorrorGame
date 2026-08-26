@@ -316,6 +316,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0190a40b1a7a1794f8c318949e403cb6, type: 3}
+--- !u!1001 &157586276
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1469177386}
+    m_Modifications:
+    - target: {fileID: 2204539424872305620, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_Name
+      value: Brimstone
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
 --- !u!1 &157975255
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,6 +724,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd91efb743c8c8049ae5828a6812cd6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Scripts::HiddenTillSeen
+--- !u!4 &269647387 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6023961183366369247, guid: 7ed540fc06e049e4b9091b6cc217db73, type: 3}
+  m_PrefabInstance: {fileID: 157586276}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &296892244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1584,11 +1646,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3551031275109768207, guid: c17f581cea6409f409a2244d185afaca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.27
+      value: 6.4
       objectReference: {fileID: 0}
     - target: {fileID: 3551031275109768207, guid: c17f581cea6409f409a2244d185afaca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.11
+      value: -0.47
       objectReference: {fileID: 0}
     - target: {fileID: 3551031275109768207, guid: c17f581cea6409f409a2244d185afaca, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3308,6 +3370,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1828176446112795040, guid: e2de4110e6fc12b4c8fb5814a641eba9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 880033834}
+    - targetCorrespondingSourceObject: {fileID: 1828176446112795040, guid: e2de4110e6fc12b4c8fb5814a641eba9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 269647387}
     - targetCorrespondingSourceObject: {fileID: 9127196285920467621, guid: e2de4110e6fc12b4c8fb5814a641eba9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 402468448}

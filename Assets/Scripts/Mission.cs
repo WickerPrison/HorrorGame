@@ -26,7 +26,7 @@ public class Mission : MonoBehaviour
         missionName.text = data.missionName;
         threatLevel.text = $"Threat Level: {LevelDetailsData.GetString(data.threatLevel, colorData)}";
         resourceLevel.text = $"Resources: {LevelDetailsData.GetString(data.rewards)}";
-        cost.text = $"Cost: {data.cost} Brimstone";
+        cost.text = $"Cost: {data.cost}";
         interference.text = $"Interference: {LevelDetailsData.GetString(data.interference, colorData)}";
     }
 

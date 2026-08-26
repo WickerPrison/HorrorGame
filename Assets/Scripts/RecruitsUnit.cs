@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class RecruitsUnit : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class RecruitsUnit : MonoBehaviour
     [SerializeField] TextMeshProUGUI cost;
     [SerializeField] MenuButton buy;
     [SerializeField] CampaignData campaignData;
+    [SerializeField] Image costIcon;
     Recruits recruits;
     PlayerUnitData unit;
 
@@ -19,12 +21,14 @@ public class RecruitsUnit : MonoBehaviour
     {
         if(unitData == null)
         {
+            costIcon.enabled = false;
             cost.text = "";
             buy.gameObject.SetActive(false);
         }
         else
         {
-            cost.text = $"Cost: {unitData.cost}";
+            costIcon.enabled = true;
+            cost.text = $": {unitData.cost}";
             buy.gameObject.SetActive(true);
             buy.interactable = unitData.cost <= campaignData.aether;
         }
