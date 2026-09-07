@@ -8,6 +8,7 @@ public class ProceduralGenerator : MonoBehaviour
     [SerializeField] LevelDetails levelDetails;
     [SerializeField] GameObject aetherPrefab;
     [SerializeField] GameObject brimstonePrefab;
+    [SerializeField] GameObject quintessencePrefab;
     [SerializeField] GameObject enemyPrefab;
     Room[] allRooms;
     Room[] nonPortalRooms;
@@ -45,6 +46,20 @@ public class ProceduralGenerator : MonoBehaviour
             SpawnResourcesInRoom(usableRooms[roomIndex]);
             usableRooms.Remove(usableRooms[roomIndex]);
         }
+
+        (int, int) minMaxQuintessence = levelDetails.rewards switch
+        {
+            Rewards.LOW => (0, 0),
+            Rewards.MEDIUM => (0, 1),
+            Rewards.HIGH => (1, 2)
+        };
+        int quintessence = Random.Range(minMaxQuintessence.Item1, minMaxQuintessence.Item2);
+        for(int i = 0; i < quintessence; i++)
+        {
+            int roomIndex = Random.Range(0, usableRooms.Count);
+            SpawnQuintessenceInRoom(usableRooms[roomIndex]);
+            usableRooms.Remove(usableRooms[roomIndex]);
+        }
     }
 
     void SpawnResourcesInRoom(Room room)
@@ -75,6 +90,12 @@ public class ProceduralGenerator : MonoBehaviour
             GameObject brimstone = Instantiate(brimstonePrefab);
             brimstone.transform.position = room.GetRandomPointInRoom(0.5f);
         }
+    }
+
+    void SpawnQuintessenceInRoom(Room room)
+    {
+        GameObject quintessence = Instantiate(quintessencePrefab);
+        quintessence.transform.position = room.GetRandomPointInRoom(0.5f);
     }
 
     void MakeRoomsUnscannable()
