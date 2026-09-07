@@ -88,10 +88,21 @@ public class PlayerManager : MonoBehaviour
         allUnits[unit.data.index] = unit;
     }
 
-    public void GainResources(int amount)
+    public void GainResources(int amount, ResourceType type)
     {
-        campaignData.resources += amount;
-        GlobalEvents.i.UpdateResources(campaignData.resources);
+        switch (type)
+        {
+            case ResourceType.AETHER:
+                campaignData.aether += amount;
+                break;
+            case ResourceType.BRIMSTONE:
+                campaignData.brimstone += amount;
+                break;
+            case ResourceType.QUINTESSENCE:
+                campaignData.quintessence += amount;
+                break;
+        }
+        GlobalEvents.i.UpdateResources();
     }
 
     private void Player_onUnitLeaveMission(PlayerUnit leftUnit)

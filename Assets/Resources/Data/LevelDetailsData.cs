@@ -46,7 +46,7 @@ public class LevelDetailsData
             2 => Openness.HIGH,
         };
 
-        cost = Random.Range(1, 6);
+        cost = Random.Range(1, 3);
     }
 
     public string GenerateOperationName()

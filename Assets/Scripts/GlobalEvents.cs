@@ -7,7 +7,7 @@ public class GlobalEvents : MonoBehaviour
     public static GlobalEvents i;
 
     public event Action<PlayerUnit> onUnitStopScanning;
-    public event Action<int> onUpdateResources;
+    public event Action onUpdateResources;
     public event Action<List<PlayerUnit>> onSelectUnits;
     public event EventHandler onDeselectAll;
     public event Action<Enemy> onEnemyDeath;
@@ -31,9 +31,9 @@ public class GlobalEvents : MonoBehaviour
         onUnitStopScanning?.Invoke(scanningUnit);
     }
 
-    public void UpdateResources(int amount)
+    public void UpdateResources()
     {
-        onUpdateResources?.Invoke(amount);
+        onUpdateResources?.Invoke();
     }
 
     public void SelectUnits(List<PlayerUnit> selectedUnits)

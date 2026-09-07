@@ -72,7 +72,7 @@ public class CampaignManager : MonoBehaviour
             randInt2 = UnityEngine.Random.Range(-5, 6);
             int morality = randInt + randInt2;
             PlayerUnitData newUnit = new PlayerUnitData(name, health, 0, morality);
-            newUnit.cost = UnityEngine.Random.Range(0, 5) + 6;
+            newUnit.cost = UnityEngine.Random.Range(0, 4) + 3;
             campaignData.recruits.Add(newUnit);
         }
     }
@@ -91,12 +91,12 @@ public class CampaignManager : MonoBehaviour
 
     public bool CanAfford(int cost)
     {
-        return cost <= campaignData.resources;
+        return cost <= campaignData.aether;
     }
 
     public void SpendResources(int amount)
     {
-        campaignData.resources -= amount;
+        campaignData.aether -= amount;
         CampaignEvents.i.UpdateResources();
     }
 }
