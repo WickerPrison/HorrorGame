@@ -2597,6 +2597,7 @@ GameObject:
   - component: {fileID: 1121181411}
   - component: {fileID: 1121181410}
   - component: {fileID: 1121181409}
+  - component: {fileID: 1121181413}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2695,6 +2696,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &1121181413
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121181408}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1208388561
 GameObject:
   m_ObjectHideFlags: 0
@@ -5292,6 +5305,7 @@ GameObject:
   - component: {fileID: 2022087058}
   - component: {fileID: 2022087057}
   - component: {fileID: 2022087059}
+  - component: {fileID: 2022087060}
   m_Layer: 0
   m_Name: CampaignManager
   m_TagString: Untagged
@@ -5350,6 +5364,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15f60a2479564b5448b3eefdc1b9f5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &2022087060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022087056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3170ee9e28016804d9a52e798101f735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
 --- !u!1 &2023473438

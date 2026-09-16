@@ -10,7 +10,7 @@ public class UnitStatUi : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] abilityNames;
     [SerializeField] AbilityDictionary abilityDict;
 
-    private void Start()
+    private void Awake()
     {
         SetUnit(null);
     }
@@ -34,7 +34,7 @@ public class UnitStatUi : MonoBehaviour
             morality.text = "";
             health.text = "";
             abilitiesHeader.text = "";
-            foreach(TextMeshProUGUI text in abilityNames)
+            foreach (TextMeshProUGUI text in abilityNames)
             {
                 text.text = "";
             }
