@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -19,11 +18,6 @@ public class PlayerManager : MonoBehaviour
             return;
         }
         i = this;
-    }
-
-    private void Start()
-    {
-        InputManager.i.SetInputState(InputState.CONTROL_UNITS);
     }
 
     void LeftClick(Vector3 worldPos)
@@ -79,13 +73,13 @@ public class PlayerManager : MonoBehaviour
     {
         selectedUnits.Add(unit);
         unit.SetSelected(true);
-        GlobalEvents.i.SelectUnits(selectedUnits);
+        MissionEvents.i.SelectUnits(selectedUnits);
     }
 
     void DeselectAll()
     {
         selectedUnits.Clear();
-        GlobalEvents.i.DeselectAll();
+        MissionEvents.i.DeselectAll();
     }
 
     private void PlayerEvents_onUnitExists(PlayerUnit unit)
@@ -107,7 +101,7 @@ public class PlayerManager : MonoBehaviour
                 campaignData.quintessence += amount;
                 break;
         }
-        GlobalEvents.i.UpdateResources();
+        MissionEvents.i.UpdateResources();
     }
 
     private void Player_onUnitLeaveMission(PlayerUnit leftUnit)
@@ -115,7 +109,7 @@ public class PlayerManager : MonoBehaviour
         selectedUnits.Remove(leftUnit);
         allUnits[leftUnit.data.index] = null;
         PlayerEvents.i.UnitStatChange(leftUnit);
-        GlobalEvents.i.UnitLeaveMission(leftUnit);
+        MissionEvents.i.UnitLeaveMission(leftUnit);
     }
 
     private void PlayerEvents_onUnitDeath(PlayerUnit deadUnit)
@@ -127,14 +121,14 @@ public class PlayerManager : MonoBehaviour
 
     private void Player_onUnitStatChange(PlayerUnit playerUnit)
     {
-        GlobalEvents.i.UnitStatChange(playerUnit, selectedUnits.Count == 1 && selectedUnits[0] == playerUnit);
+        MissionEvents.i.UnitStatChange(playerUnit, selectedUnits.Count == 1 && selectedUnits[0] == playerUnit);
 
     }
 
     private void Player_onPortalRoomChange(PlayerUnit playerUnit, bool inPortalRoom)
     {
         if (selectedUnits.Count != 1 || selectedUnits[0] != playerUnit) return;
-        GlobalEvents.i.PortalRoomChange(playerUnit, inPortalRoom);
+        MissionEvents.i.PortalRoomChange(playerUnit, inPortalRoom);
     }
 
     void OnEnable()

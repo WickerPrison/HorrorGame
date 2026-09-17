@@ -23,7 +23,7 @@ public class MineTests
         playerUnitPrefab = Resources.Load<GameObject>("Prefabs/PlayerUnit");
         testData = Resources.Load<TestingData>("Data/TestingData");
         testDummyData = new PlayerUnitData("Test Dummy", 100, 0);
-        resourcePrefab = Resources.Load<GameObject>("Prefabs/Resource");
+        resourcePrefab = Resources.Load<GameObject>("Prefabs/Resources/Aether");
         Time.timeScale = testData.timeScale;
     }
 

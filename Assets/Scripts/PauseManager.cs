@@ -43,6 +43,7 @@ public class PauseManager : MonoBehaviour
         SetPause(true);
         previousState = InputManager.i.inputState;
         InputManager.i.SetInputState(InputState.PAUSED);
+        GlobalEvents.i.OnPause();
     }
 
     public void OnUnpause()
@@ -50,6 +51,7 @@ public class PauseManager : MonoBehaviour
         SetPause(false);
         InputManager.i.SetInputState(previousState);
         previousState = InputState.NONE;
+        GlobalEvents.i.OnUnpause();
     }
 
 

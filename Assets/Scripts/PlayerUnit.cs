@@ -154,15 +154,15 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
 
     private void OnEnable()
     {
-        GlobalEvents.i.onDeselectAll += GlobalEvents_onDeselectAll;
+        MissionEvents.i.onDeselectAll += MissionEvents_onDeselectAll;
     }
 
     private void OnDisable()
     {
-        GlobalEvents.i.onDeselectAll -= GlobalEvents_onDeselectAll;
+        MissionEvents.i.onDeselectAll -= MissionEvents_onDeselectAll;
     }
 
-    private void GlobalEvents_onDeselectAll(object sender, System.EventArgs e)
+    private void MissionEvents_onDeselectAll(object sender, System.EventArgs e)
     {
         SetSelected(false);
     }

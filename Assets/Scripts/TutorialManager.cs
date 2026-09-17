@@ -22,13 +22,13 @@ public class TutorialManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GlobalEvents.i.onUnitLeaveMission += Global_onUnitLeaveMission;
+        MissionEvents.i.onUnitLeaveMission += Global_onUnitLeaveMission;
         PlayerEvents.i.onUnitDeath += Player_onUnitDeath;
     }
 
     private void OnDisable()
     {
-        GlobalEvents.i.onUnitLeaveMission -= Global_onUnitLeaveMission;
+        MissionEvents.i.onUnitLeaveMission -= Global_onUnitLeaveMission;
         PlayerEvents.i.onUnitDeath -= Player_onUnitDeath;
     }
 
