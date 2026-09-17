@@ -1,16 +1,70 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static PauseManager i;
+
+    public List<CanvasGroup> sceneCanvases = new List<CanvasGroup>();
+    [SerializeField] Canvas pauseCanvas;
+    [SerializeField] CanvasGroup pauseCanvasGroup;
+    InputState previousState;
+
+    private void Awake()
     {
-        
+        if (i != null && i != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        i = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        SetPause(false);
+    }
+
+    private void OnEnable()
+    {
+        InputManager.i.onPause += OnPause;
+        InputManager.i.onUnpause += OnUnpause;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.i.onPause -= OnPause;
+        InputManager.i.onUnpause -= OnUnpause;
+    }
+
+    private void OnPause()
+    {
+        SetPause(true);
+        previousState = InputManager.i.inputState;
+        InputManager.i.SetInputState(InputState.PAUSED);
+    }
+
+    public void OnUnpause()
+    {
+        SetPause(false);
+        InputManager.i.SetInputState(previousState);
+        previousState = InputState.NONE;
+    }
+
+
+    void SetPause(bool paused)
+    {
+        pauseCanvasGroup.interactable = paused;
+        pauseCanvas.enabled = paused;
+        foreach(CanvasGroup canvasGroup in sceneCanvases)
+        {
+            canvasGroup.interactable = !paused;
+        }
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("PlaceholderMainMenu");
     }
 }

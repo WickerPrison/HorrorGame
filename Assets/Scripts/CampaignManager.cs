@@ -33,6 +33,7 @@ public class CampaignManager : MonoBehaviour
 
     private void Start()
     {
+        InputManager.i.SetInputState(InputState.MENU);
         ManageUnits();
     }
 

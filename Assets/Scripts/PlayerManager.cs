@@ -21,6 +21,11 @@ public class PlayerManager : MonoBehaviour
         i = this;
     }
 
+    private void Start()
+    {
+        InputManager.i.SetInputState(InputState.CONTROL_UNITS);
+    }
+
     void LeftClick(Vector3 worldPos)
     {
         DeselectAll();
@@ -134,7 +139,6 @@ public class PlayerManager : MonoBehaviour
 
     void OnEnable()
     {
-        InputManager.i.SetControlUnits();
         InputManager.i.onLeftClick += LeftClick;
         InputManager.i.onRightClick += RightClick;
         InputManager.i.onAbility += Ability;
@@ -149,7 +153,6 @@ public class PlayerManager : MonoBehaviour
 
     private void OnDisable()
     {
-        InputManager.i.DisableControlUnits();
         InputManager.i.onLeftClick -= LeftClick;
         InputManager.i.onRightClick -= RightClick;
         InputManager.i.onAbility -= Ability;
