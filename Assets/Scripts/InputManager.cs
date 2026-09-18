@@ -32,6 +32,10 @@ public class InputManager : MonoBehaviour
         i = this;
 
         inputSystem = new InputSystem_Actions();
+    }
+
+    private void OnEnable()
+    {
         inputSystem.ControlUnits.LeftClick.performed += LeftClick;
         inputSystem.ControlUnits.RightClick.performed += RightClick;
         inputSystem.ControlUnits.Ability1.performed += Ability1;
@@ -46,7 +50,27 @@ public class InputManager : MonoBehaviour
         inputSystem.ControlUnits.Select4.performed += Select4;
         inputSystem.ControlUnits.Pause.performed += Pause;
         inputSystem.Menu.Pause.performed += Pause;
-        inputSystem.Paused.Unpause.performed += Unpause;
+        inputSystem.Paused.Unpause.performed += Unpause;   
+    }
+
+    private void OnDisable()
+    {
+        inputSystem.ControlUnits.LeftClick.performed -= LeftClick;
+        inputSystem.ControlUnits.RightClick.performed -= RightClick;
+        inputSystem.ControlUnits.Ability1.performed -= Ability1;
+        inputSystem.ControlUnits.Ability2.performed -= Ability2;
+        inputSystem.ControlUnits.Ability3.performed -= Ability3;
+        inputSystem.ControlUnits.Ability4.performed -= Ability4;
+        inputSystem.ControlUnits.Portal.performed -= Portal;
+        inputSystem.ControlUnits.LeaveMission.performed -= LeaveMission;
+        inputSystem.ControlUnits.Select1.performed -= Select1;
+        inputSystem.ControlUnits.Select2.performed -= Select2;
+        inputSystem.ControlUnits.Select3.performed -= Select3;
+        inputSystem.ControlUnits.Select4.performed -= Select4;
+        inputSystem.ControlUnits.Pause.performed -= Pause;
+        inputSystem.Menu.Pause.performed -= Pause;
+        inputSystem.Paused.Unpause.performed -= Unpause;
+        inputSystem.Disable();
     }
 
     private void LeaveMission(InputAction.CallbackContext ctx)
@@ -159,50 +183,19 @@ public class InputManager : MonoBehaviour
 
     public void SetInputState(InputState state)
     {
-        Debug.Log($"input state: {state}");
         inputState = state;
+        inputSystem.Disable();
         switch (state)
         {
             case InputState.CONTROL_UNITS:
-                SetControlUnits();
+                inputSystem.ControlUnits.Enable();
                 break;
             case InputState.MENU:
-                SetMenu();
+                inputSystem.Menu.Enable();
                 break;
             case InputState.PAUSED:
-                SetPaused();
-                break;
-            case InputState.NONE:
-                DisableAllStates();
+                inputSystem.Paused.Enable();
                 break;
         }
-    }
-
-    void SetControlUnits()
-    {
-        inputSystem.ControlUnits.Enable();
-        inputSystem.Paused.Disable();
-        inputSystem.Menu.Disable();
-    } 
-    
-    void SetMenu()
-    {
-        inputSystem.ControlUnits.Disable();
-        inputSystem.Paused.Disable();
-        inputSystem.Menu.Enable();
-    }
-
-    void SetPaused()
-    {
-        inputSystem.ControlUnits.Disable();
-        inputSystem.Paused.Enable();
-        inputSystem.Menu.Disable();
-    }
-
-    void DisableAllStates()
-    {
-        inputSystem.ControlUnits.Disable();
-        inputSystem.Paused.Disable();
-        inputSystem.Menu.Disable();
     }
 }

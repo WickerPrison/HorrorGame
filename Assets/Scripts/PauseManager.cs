@@ -67,6 +67,7 @@ public class PauseManager : MonoBehaviour
 
     public void MainMenu()
     {
+        OnUnpause();
         SceneManager.LoadScene("PlaceholderMainMenu");
     }
 }
