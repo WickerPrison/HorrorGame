@@ -27,7 +27,7 @@ public class PortalManager : MonoBehaviour
         {
             portal.SetVisualsActive(true);
         }
-        GlobalEvents.i.PortalActivation(true);
+        MissionEvents.i.PortalActivation(true);
     }
 
     public void DeactivatePortal()
@@ -38,7 +38,7 @@ public class PortalManager : MonoBehaviour
         {
             portal.SetVisualsActive(false);
         }
-        GlobalEvents.i.PortalActivation(false);
+        MissionEvents.i.PortalActivation(false);
     }
 
     public void LeaveMission()

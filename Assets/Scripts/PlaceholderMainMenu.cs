@@ -74,4 +74,9 @@ public class PlaceholderMainMenu : MonoBehaviour
         campaignData.ResetCampaignData();
         SceneManager.LoadScene("MissionSelect");
     }
+
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
 }

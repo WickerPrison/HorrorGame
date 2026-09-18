@@ -417,11 +417,11 @@ public class Room : MonoBehaviour
 
     private void OnEnable()
     {
-        GlobalEvents.i.onUnitStopScanning += Global_onUnitStopScanning;
+        MissionEvents.i.onUnitStopScanning += Global_onUnitStopScanning;
     }
 
     private void OnDisable()
     {
-        GlobalEvents.i.onUnitStopScanning -= Global_onUnitStopScanning;
+        MissionEvents.i.onUnitStopScanning -= Global_onUnitStopScanning;
     }
 }

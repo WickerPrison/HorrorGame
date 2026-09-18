@@ -99,7 +99,7 @@ public class UnitAbilities : MonoBehaviour
     void StopScanning()
     {
         scanningFromRoom = null;
-        GlobalEvents.i.UnitStopScanning(playerUnit);
+        MissionEvents.i.UnitStopScanning(playerUnit);
     }
 
     public void Collect()

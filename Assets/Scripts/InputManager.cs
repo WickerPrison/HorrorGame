@@ -1,10 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum InputState
+{
+    NONE, CONTROL_UNITS, MENU, PAUSED
+}
+
 public class InputManager : MonoBehaviour
 {
     public static InputManager i;
     public InputSystem_Actions inputSystem;
+
+    public InputState inputState { get; private set; } = InputState.NONE;
 
     public event System.Action<Vector3> onLeftClick;
     public event System.Action<Vector3> onRightClick;
@@ -12,6 +19,8 @@ public class InputManager : MonoBehaviour
     public event System.Action onPortal;
     public event System.Action onLeaveMission;
     public event System.Action<int> onSelectButton;
+    public event System.Action onPause;
+    public event System.Action onUnpause;
 
     void Awake()
     {
@@ -23,6 +32,10 @@ public class InputManager : MonoBehaviour
         i = this;
 
         inputSystem = new InputSystem_Actions();
+    }
+
+    private void OnEnable()
+    {
         inputSystem.ControlUnits.LeftClick.performed += LeftClick;
         inputSystem.ControlUnits.RightClick.performed += RightClick;
         inputSystem.ControlUnits.Ability1.performed += Ability1;
@@ -35,6 +48,29 @@ public class InputManager : MonoBehaviour
         inputSystem.ControlUnits.Select2.performed += Select2;
         inputSystem.ControlUnits.Select3.performed += Select3;
         inputSystem.ControlUnits.Select4.performed += Select4;
+        inputSystem.ControlUnits.Pause.performed += Pause;
+        inputSystem.Menu.Pause.performed += Pause;
+        inputSystem.Paused.Unpause.performed += Unpause;   
+    }
+
+    private void OnDisable()
+    {
+        inputSystem.ControlUnits.LeftClick.performed -= LeftClick;
+        inputSystem.ControlUnits.RightClick.performed -= RightClick;
+        inputSystem.ControlUnits.Ability1.performed -= Ability1;
+        inputSystem.ControlUnits.Ability2.performed -= Ability2;
+        inputSystem.ControlUnits.Ability3.performed -= Ability3;
+        inputSystem.ControlUnits.Ability4.performed -= Ability4;
+        inputSystem.ControlUnits.Portal.performed -= Portal;
+        inputSystem.ControlUnits.LeaveMission.performed -= LeaveMission;
+        inputSystem.ControlUnits.Select1.performed -= Select1;
+        inputSystem.ControlUnits.Select2.performed -= Select2;
+        inputSystem.ControlUnits.Select3.performed -= Select3;
+        inputSystem.ControlUnits.Select4.performed -= Select4;
+        inputSystem.ControlUnits.Pause.performed -= Pause;
+        inputSystem.Menu.Pause.performed -= Pause;
+        inputSystem.Paused.Unpause.performed -= Unpause;
+        inputSystem.Disable();
     }
 
     private void LeaveMission(InputAction.CallbackContext ctx)
@@ -135,14 +171,31 @@ public class InputManager : MonoBehaviour
         onSelectButton?.Invoke(3);
     }
 
-
-    public void SetControlUnits()
+    void Pause(InputAction.CallbackContext ctx)
     {
-        inputSystem.ControlUnits.Enable();
+        onPause?.Invoke();
     }
 
-    public void DisableControlUnits()
+    void Unpause(InputAction.CallbackContext ctx)
     {
-        inputSystem.ControlUnits.Disable();
+        onUnpause?.Invoke();
+    }
+
+    public void SetInputState(InputState state)
+    {
+        inputState = state;
+        inputSystem.Disable();
+        switch (state)
+        {
+            case InputState.CONTROL_UNITS:
+                inputSystem.ControlUnits.Enable();
+                break;
+            case InputState.MENU:
+                inputSystem.Menu.Enable();
+                break;
+            case InputState.PAUSED:
+                inputSystem.Paused.Enable();
+                break;
+        }
     }
 }

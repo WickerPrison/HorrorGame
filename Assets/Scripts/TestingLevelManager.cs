@@ -7,17 +7,17 @@ public class TestingLevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GlobalEvents.i.onUnitLeaveMission += Global_onUnitLeaveMission;
+        MissionEvents.i.onUnitLeaveMission += Mission_onUnitLeaveMission;
         PlayerEvents.i.onUnitDeath += Player_onUnitDeath;
     }
 
     private void OnDisable()
     {
-        GlobalEvents.i.onUnitLeaveMission -= Global_onUnitLeaveMission;
+        MissionEvents.i.onUnitLeaveMission -= Mission_onUnitLeaveMission;
         PlayerEvents.i.onUnitDeath -= Player_onUnitDeath;
     }
 
-    private void Global_onUnitLeaveMission(PlayerUnit leavingUnit)
+    private void Mission_onUnitLeaveMission(PlayerUnit leavingUnit)
     {
         if(PlayerManager.i.AllUnitsCount() == 0)
         {

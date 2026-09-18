@@ -27,11 +27,11 @@ public class ResourceCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        GlobalEvents.i.onUpdateResources += Global_onUpdateResources;
+        MissionEvents.i.onUpdateResources += Global_onUpdateResources;
     }
 
     private void OnDisable()
     {
-        GlobalEvents.i.onUpdateResources -= Global_onUpdateResources;
+        MissionEvents.i.onUpdateResources -= Global_onUpdateResources;
     }
 }
