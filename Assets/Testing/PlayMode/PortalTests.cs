@@ -18,7 +18,7 @@ public class PortalTests
     public IEnumerator Setup()
     {
         SceneManager.LoadScene("PortalTest");
-        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy");
+        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemies/Enemy");
         playerUnitPrefab = Resources.Load<GameObject>("Prefabs/PlayerUnit");
         testData = Resources.Load<TestingData>("Data/TestingData");
         Time.timeScale = testData.timeScale;
@@ -109,7 +109,7 @@ public class PortalTests
     public IEnumerator CanTeleportEnemies()
     {
         PlayerUnit playerUnit = SpawnUnit(portalRooms[0].portal.transform.position, 0);
-        Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        EnemyAi enemy = GameObject.Instantiate(enemyPrefab).GetComponent<EnemyAi>();
         enemy.transform.position = portalRooms[1].portal.transform.position;
         enemy.SetTestingState();
         yield return null;
@@ -148,7 +148,7 @@ public class PortalTests
     public IEnumerator CanLeaveMissionWithEnemies()
     {
         PlayerUnit playerUnit = SpawnUnit(portalRooms[0].portal.transform.position, 0);
-        Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        EnemyAi enemy = GameObject.Instantiate(enemyPrefab).GetComponent<EnemyAi>();
         enemy.transform.position = portalRooms[1].portal.transform.position;
         enemy.SetTestingState();
         yield return null;

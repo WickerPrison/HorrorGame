@@ -58,4 +58,9 @@ public static class Utils
 
         return new string(result);
     }
+
+    public static void IncorrectInitialization(string className)
+    {
+        throw new System.Exception($"{className} must be initialized with constructor method");
+    }
 }
