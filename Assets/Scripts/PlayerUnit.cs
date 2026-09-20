@@ -87,6 +87,11 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
         unitAbilities.PerformAbility(data.abilities[abilityIndex]);
     }
 
+    public void SetDestination(float x, float y, Action callback = null)
+    {
+        SetDestination(new Vector3(x, y, 0), callback);
+    }
+
     public void SetDestination(Vector3 destination, Action callback = null)
     {
         aiPath.isStopped = false;

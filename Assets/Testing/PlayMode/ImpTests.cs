@@ -48,4 +48,16 @@ public class ImpTests
         yield return new WaitForSeconds(2f);
         Assert.Less(testDummyData.health, testDummyData.maxHealth);
     }
+
+    [UnityTest]
+    public IEnumerator AttackMovingTarget()
+    {
+        yield return LoadBasicScene();
+        SpawnPlayerUnit(new Vector2(-2.2f, -2.2f));
+        yield return null;
+        //yield return new WaitForSeconds(1f);
+        playerUnit.SetDestination(-2.2f, 2.2f);
+        yield return new WaitForSeconds(1f);
+        Assert.Less(testDummyData.health, testDummyData.maxHealth);
+    }
 }
