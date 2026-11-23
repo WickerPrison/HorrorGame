@@ -27,6 +27,7 @@ public class ImpTests
     {
         SceneManager.LoadScene("BasicTest");
         yield return null;
+        Debug.Log(enemyPrefab);
         imp = GameObject.Instantiate(enemyPrefab).GetComponent<ImpAi>();
         imp.transform.position = new Vector3(0, 0);
         TestingUtils.GiveRoomsVisionNodes();

@@ -27,7 +27,6 @@ public abstract class EnemyAi : MonoBehaviour
     [SerializeField] float wanderEndReachedDistance;
     [SerializeField] float triggerAttackRange;
     float timeInCurrentRoom;
-    [SerializeField] protected int damage;
     float maxDestinationTime = 7f;
     float destinationTime;
 
@@ -107,7 +106,7 @@ public abstract class EnemyAi : MonoBehaviour
             if (distance <= visionRange)
             {
                 Vector3 direction = unit.transform.position - transform.position;
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, unit.visionRange, layerMask);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, visionRange, layerMask);
                 if (hit.transform != null && hit.transform.GetComponent<PlayerUnit>())
                 {
                     unitsInSight.Add(unit);
@@ -117,7 +116,7 @@ public abstract class EnemyAi : MonoBehaviour
         }
     }
 
-    void GetWanderDestination()
+    protected virtual void GetWanderDestination()
     {
         Room room = Utils.GetRoom(transform.position);
         List<Room> accessibleRooms = room.GetAccessibleRooms();

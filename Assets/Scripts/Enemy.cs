@@ -23,9 +23,14 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
         health -= amount;
         if(health <= 0)
         {
-            Instantiate(deadEnemyPrefab).transform.position = transform.position;
-            Destroy(gameObject);
+            Death();
         }
+    }
+
+    public void Death()
+    {
+        Instantiate(deadEnemyPrefab).transform.position = transform.position;
+        Destroy(gameObject);
     }
 
     public void GotTeleported()
