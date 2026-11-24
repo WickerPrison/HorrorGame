@@ -30,7 +30,7 @@ public class ImpAi : EnemyAi
     IEnumerator AttackRoutine()
     {
         yield return attackDelay;
-        PlayerUnit target = GetClosestPlayer();
+        IFightDemons target = GetClosestDemonFighter();
         Vector3 direction = Vector3.Normalize(target.transform.position - transform.position);
         laser.SetPosition(0, transform.position + direction.normalized * 0.17f);
         laser.SetPosition(1, target.transform.position);

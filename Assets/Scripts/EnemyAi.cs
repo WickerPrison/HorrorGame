@@ -12,10 +12,10 @@ public abstract class EnemyAi : MonoBehaviour
     public float visionRange;
     SpriteRenderer sprite;
     PlayerManager playerManager;
-    LayerMask layerMask;
-    List<PlayerUnit> unitsInSight = new List<PlayerUnit>();
+    protected LayerMask layerMask;
+    protected List<IFightDemons> demonFightersInSight = new List<IFightDemons>();
     Seeker seeker;
-    AIPath aiPath;
+    protected AIPath aiPath;
     [System.NonSerialized] public EnemyState state = EnemyState.IDLE;
     float idleMaxTime = 5f;
     float idleTimer;
@@ -25,23 +25,26 @@ public abstract class EnemyAi : MonoBehaviour
     [SerializeField] float wanderSpeed;
     [SerializeField] float wanderSlowdownDistance;
     [SerializeField] float wanderEndReachedDistance;
-    [SerializeField] float triggerAttackRange;
+    [SerializeField] protected float triggerAttackRange;
     float timeInCurrentRoom;
     float maxDestinationTime = 7f;
     float destinationTime;
+    protected Enemy enemy;
+    protected IFightDemons closestDemonFighter;
 
     protected virtual void Start()
     {
         playerManager = PlayerEvents.i.GetComponent<PlayerManager>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         sprite.enabled = false;
-        layerMask = LayerMask.GetMask("Default", "Obstacle", "Player");
+        layerMask = LayerMask.GetMask("Default", "Obstacle", "Player", "Enemy");
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
         idleTimer = idleMaxTime;
         aiPath.maxSpeed = wanderSpeed;
         aiPath.slowdownDistance = wanderSlowdownDistance;
         aiPath.endReachedDistance = wanderEndReachedDistance;
+        enemy = GetComponent<Enemy>();
     }
 
     private void Update()
@@ -57,13 +60,13 @@ public abstract class EnemyAi : MonoBehaviour
         {
             case EnemyState.CHASING:
                 Aggro();
-                if (unitsInSight.Count == 0)
+                if (LostTargets())
                 {
                     EndChasing();
                 }
                 else
                 {
-                    ChasePlayerUnits();
+                    ChaseDemonFighters();
                 }
                 break;
             case EnemyState.IDLE:
@@ -96,24 +99,29 @@ public abstract class EnemyAi : MonoBehaviour
 
     protected virtual void ManageCooldowns() { }
 
-    void Aggro()
+    protected virtual void Aggro()
     {
-        unitsInSight.Clear();
-        foreach (PlayerUnit unit in playerManager.allUnits)
+        demonFightersInSight.Clear();
+        foreach (IFightDemons demonFighter in MissionManager.i.demonFighters)
         {
-            if (unit == null) continue;
-            float distance = Vector2.Distance(transform.position, unit.transform.position);
+            if (demonFighter == null) continue;
+            float distance = Vector2.Distance(transform.position, demonFighter.transform.position);
             if (distance <= visionRange)
             {
-                Vector3 direction = unit.transform.position - transform.position;
+                Vector3 direction = demonFighter.transform.position - transform.position;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, visionRange, layerMask);
-                if (hit.transform != null && hit.transform.GetComponent<PlayerUnit>())
+                if (hit.transform != null && hit.transform.GetComponent<IFightDemons>() == demonFighter)
                 {
-                    unitsInSight.Add(unit);
+                    demonFightersInSight.Add(demonFighter);
                     state = EnemyState.CHASING;
                 }
             }
         }
+    }
+
+    protected virtual bool LostTargets()
+    {
+        return demonFightersInSight.Count == 0;
     }
 
     protected virtual void GetWanderDestination()
@@ -145,17 +153,17 @@ public abstract class EnemyAi : MonoBehaviour
         destinationTime = 0;
     }
 
-    void ChasePlayerUnits()
+    protected virtual void ChaseDemonFighters()
     {
         aiPath.maxSpeed = chaseSpeed;
         aiPath.slowdownDistance = chaseSlowdownDistance;
         aiPath.endReachedDistance = chaseEndReachedDistance;
-        PlayerUnit closestPlayer = GetClosestPlayer();
+        IFightDemons closestDemonFighter = GetClosestDemonFighter();
 
-        if (closestPlayer != null)
+        if (closestDemonFighter != null)
         {
-            aiPath.destination = closestPlayer.transform.position;
-            if (Vector2.Distance(transform.position, closestPlayer.transform.position) < triggerAttackRange)
+            aiPath.destination = closestDemonFighter.transform.position;
+            if (Vector2.Distance(transform.position, closestDemonFighter.transform.position) < triggerAttackRange)
             {
                 TriggerAttack();
             }
@@ -166,20 +174,20 @@ public abstract class EnemyAi : MonoBehaviour
         }
     }
 
-    protected PlayerUnit GetClosestPlayer()
+    protected IFightDemons GetClosestDemonFighter()
     {
         float distance = 1000;
-        PlayerUnit closestPlayer = null;
-        foreach (PlayerUnit unit in unitsInSight)
+        closestDemonFighter = null;
+        foreach (IFightDemons demonFighter in demonFightersInSight)
         {
-            float currentDistance = Vector2.Distance(unit.transform.position, transform.position);
+            float currentDistance = Vector2.Distance(demonFighter.transform.position, transform.position);
             if (currentDistance < distance)
             {
                 distance = currentDistance;
-                closestPlayer = unit;
+                closestDemonFighter = demonFighter;
             }
         }
-        return closestPlayer;
+        return closestDemonFighter;
     }
 
     public virtual void TriggerAttack()

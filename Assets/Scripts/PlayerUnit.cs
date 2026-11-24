@@ -5,7 +5,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 
-public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleported
+public class PlayerUnit : MonoBehaviour, IHaveVision, IGetTeleported, IFightDemons
 {
     private Seeker seeker;
     private AIPath aiPath;
@@ -37,6 +37,7 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
         PlayerEvents.i.UnitExists(this);
         PlayerEvents.i.UnitStatChange(this);
         AddToVisionManager();
+        RegisterWithMissionManager();
         visionRange = setVisionRange;
         visionMask = GetComponentInChildren<SpriteMask>();
         visionMask.transform.localScale = visionRange * 2 * Vector3.one;
@@ -152,7 +153,8 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
 
     public void Death()
     {
-        VisionManager.i.RemoveVision(this);
+        RemoveFromVisionManager();
+        RemoveFromMissionManager();
         PlayerEvents.i.UnitDeath(this);
         Destroy(gameObject);
     }
@@ -186,5 +188,15 @@ public class PlayerUnit : MonoBehaviour, ITakeDamage, IHaveVision, IGetTeleporte
     public void RemoveFromVisionManager()
     {
         VisionManager.i.RemoveVision(this);
+    }
+
+    public void RegisterWithMissionManager()
+    {
+        MissionEvents.i.DemonFighterExists(this);
+    }
+
+    public void RemoveFromMissionManager()
+    {
+        MissionEvents.i.DemonFighterDeath(this);
     }
 }

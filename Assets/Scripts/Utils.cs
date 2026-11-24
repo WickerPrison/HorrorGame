@@ -88,4 +88,10 @@ public static class Utils
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         return Quaternion.AngleAxis(angle, Vector3.forward);
     }
+
+    public static float GetAngle(Vector3 vectorA, Vector3 vectorB)
+    {
+        float angle = Mathf.Acos(Vector3.Dot(vectorA, vectorB) / (vectorA.magnitude * vectorB.magnitude));
+        return angle * Mathf.Rad2Deg;
+    }
 }

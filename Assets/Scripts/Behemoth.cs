@@ -4,8 +4,16 @@ using UnityEngine;
 public class Behemoth : EnemyAi
 {
     [SerializeField] SlashAnimation slashAnimation;
-    float attackCd = 0.9f;
+    [SerializeField] int clawDamage;
+    float attackCd = 2f;
     float attackTimer = 0;
+    IFightDemons attackTarget;
+
+    protected override void Start()
+    {
+        base.Start();
+        slashAnimation.stopAttackingMethod = EndAttacking;
+    }
 
     protected override void ManageCooldowns()
     {
@@ -25,9 +33,22 @@ public class Behemoth : EnemyAi
     {
         base.Attack();
         if (attackTimer > 0) return;
+        attackTimer = attackCd;
         GoTo(transform.position);
         state = EnemyState.ATTACKING;
-        PlayerUnit target = GetClosestPlayer();
-        slashAnimation.Animation(transform.position, target.transform.position - transform.position);
+        attackTarget = GetClosestDemonFighter();
+        slashAnimation.Animation(transform.position, attackTarget.transform, HitTarget);
+    }
+
+    void HitTarget(bool hit)
+    {
+        if (!hit) return;
+        attackTarget.TakeDamage(clawDamage);
+    }
+
+    void EndAttacking()
+    {
+        attackTarget = null;
+        state = EnemyState.CHASING;
     }
 }

@@ -20,7 +20,7 @@ public class BehemothTests
         enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemies/Behemoth");
         playerUnitPrefab = Resources.Load<GameObject>("Prefabs/PlayerUnit");
         testData = Resources.Load<TestingData>("Data/TestingData");
-        testDummyData = new PlayerUnitData("Test Dummy", 100, 0);
+        testDummyData = new PlayerUnitData("Test Dummy", 400, 0);
         //Time.timeScale = testData.timeScale;
     }
 
@@ -48,5 +48,6 @@ public class BehemothTests
         SpawnPlayerUnit(new Vector2(-3.2f, -3.2f));
         yield return new WaitForSeconds(3f);
         Assert.Less(testDummyData.health, testDummyData.maxHealth);
+        yield return new WaitForSeconds(3f);
     }
 }

@@ -10,6 +10,7 @@ public class MissionEvents : MonoBehaviour
     public event Action onUpdateResources;
     public event Action<List<PlayerUnit>> onSelectUnits;
     public event EventHandler onDeselectAll;
+    public event Action<Enemy> onEnemyExists;
     public event Action<Enemy> onEnemyDeath;
     public event Action<PlayerUnit, bool> onUnitStatChange;
     public event Action<PlayerUnit, bool> onPortalRoomChange;
@@ -17,6 +18,8 @@ public class MissionEvents : MonoBehaviour
     public event Action<PlayerUnit> onUnitLeaveMission;
     public event System.Action onPause;
     public event System.Action onUnpause;
+    public event Action<IFightDemons> onDemonFighterExists;
+    public event Action<IFightDemons> onDemonFighterDeath;
 
     private void Awake()
     {
@@ -66,5 +69,25 @@ public class MissionEvents : MonoBehaviour
     public void UnitLeaveMission(PlayerUnit unit)
     {
         onUnitLeaveMission?.Invoke(unit);
+    }
+
+    public void DemonFighterExists(IFightDemons demonFighter)
+    {
+        onDemonFighterExists?.Invoke(demonFighter);
+    }
+
+    public void DemonFighterDeath(IFightDemons demonFighter)
+    {
+        onDemonFighterDeath?.Invoke(demonFighter);
+    }
+
+    public void EnemyExists(Enemy enemy)
+    {
+        onEnemyExists?.Invoke(enemy);
+    }
+
+    public void EnemyDeath(Enemy enemy)
+    {
+        onEnemyDeath?.Invoke(enemy);
     }
 }

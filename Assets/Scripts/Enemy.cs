@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
     void Start()
     {
         health = maxHealth;
+        MissionEvents.i.EnemyExists(this);
     }
 
     public void TakeHolyAuraDamage(int holyAuraLevel)
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
     public void Death()
     {
         Instantiate(deadEnemyPrefab).transform.position = transform.position;
+        MissionEvents.i.EnemyDeath(this);
         Destroy(gameObject);
     }
 
@@ -40,6 +42,7 @@ public class Enemy : MonoBehaviour, ITakeDamage, IGetTeleported
 
     public void LeaveMission()
     {
+        MissionEvents.i.EnemyDeath(this);
         Destroy(gameObject);
         //TODO: let players kidnap demons
     }
