@@ -150,7 +150,8 @@ MonoBehaviour:
   wanderSpeed: 1
   wanderSlowdownDistance: 0
   wanderEndReachedDistance: 0
-  triggerAttackRange: 1
+  triggerAttackRange: 0.7
+  slashAnimation: {fileID: 2606015878111694919}
 --- !u!114 &6659141110795000784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,3 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1b93e92d4542c4a8d682f63961ad29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  slash: {fileID: 6408180572814926355}
+  dist: 0.5
+  angle: 45
+  slashTime: 0.15

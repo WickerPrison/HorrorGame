@@ -4,6 +4,14 @@ using UnityEngine;
 public class Behemoth : EnemyAi
 {
     [SerializeField] SlashAnimation slashAnimation;
+    float attackCd = 0.9f;
+    float attackTimer = 0;
+
+    protected override void ManageCooldowns()
+    {
+        base.ManageCooldowns();
+        if (attackTimer > 0) attackTimer -= Time.deltaTime;
+    }
 
     protected override void GetWanderDestination()
     {
@@ -13,9 +21,13 @@ public class Behemoth : EnemyAi
         state = EnemyState.WANDERING;
     }
 
-    public override void Attack()
+    public override void TriggerAttack()
     {
         base.Attack();
-        //slashAnimation.Animation()
+        if (attackTimer > 0) return;
+        GoTo(transform.position);
+        state = EnemyState.ATTACKING;
+        PlayerUnit target = GetClosestPlayer();
+        slashAnimation.Animation(transform.position, target.transform.position - transform.position);
     }
 }
