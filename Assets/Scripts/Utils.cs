@@ -58,4 +58,40 @@ public static class Utils
 
         return new string(result);
     }
+
+    public static void IncorrectInitialization(string className)
+    {
+        throw new System.Exception($"{className} must be initialized with constructor method");
+    }
+
+    public static Quaternion RotateFacingDirection(Vector3 currentDirection, float angleDegrees)
+    {
+        if (currentDirection == Vector3.zero)
+            return Quaternion.identity;
+
+        float currentAngle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
+        float targetAngle = currentAngle + angleDegrees;
+
+        return Quaternion.Euler(0f, 0f, targetAngle);
+    }
+
+    public static Vector3 RotateDirection(Vector3 oldDirection, float degrees)
+    {
+        Vector3 newDirection = Vector3.zero;
+        newDirection.x = Mathf.Cos(degrees * Mathf.Deg2Rad) * oldDirection.x - Mathf.Sin(degrees * Mathf.Deg2Rad) * oldDirection.y;
+        newDirection.y = Mathf.Sin(degrees * Mathf.Deg2Rad) * oldDirection.x + Mathf.Cos(degrees * Mathf.Deg2Rad) * oldDirection.y;
+        return newDirection;
+    }
+
+    public static Quaternion Look(Vector2 lookDir)
+    {
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+        return Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    public static float GetAngle(Vector3 vectorA, Vector3 vectorB)
+    {
+        float angle = Mathf.Acos(Vector3.Dot(vectorA, vectorB) / (vectorA.magnitude * vectorB.magnitude));
+        return angle * Mathf.Rad2Deg;
+    }
 }

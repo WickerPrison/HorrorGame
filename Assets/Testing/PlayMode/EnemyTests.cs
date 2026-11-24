@@ -8,7 +8,7 @@ public class EnemyTests
 {
     TestingData testData;
     GameObject enemyPrefab;
-    Enemy enemy;
+    EnemyAi enemy;
     GameObject playerUnitPrefab;
     PlayerUnit playerUnit;
     PlayerUnitData testDummyData;
@@ -16,7 +16,7 @@ public class EnemyTests
     [SetUp]
     public void Setup()
     {
-        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy");
+        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemies/Enemy");
         playerUnitPrefab = Resources.Load<GameObject>("Prefabs/PlayerUnit");
         testData = Resources.Load<TestingData>("Data/TestingData");
         testDummyData = new PlayerUnitData("Test Dummy", 100, 0);
@@ -27,7 +27,7 @@ public class EnemyTests
     {
         SceneManager.LoadScene("TwoRooms");
         yield return null;
-        enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        enemy = GameObject.Instantiate(enemyPrefab).GetComponent<EnemyAi>();
         enemy.transform.position = new Vector3(-4f, 0);
         TestingUtils.GiveRoomsVisionNodes();
         yield return null;
@@ -65,7 +65,7 @@ public class EnemyTests
         SceneManager.LoadScene("HellfireTests");
         yield return null;
         Altar altar = GameObject.FindAnyObjectByType<Altar>();
-        enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        enemy = GameObject.Instantiate(enemyPrefab).GetComponent<EnemyAi>();
         enemy.transform.position = altar.room.transform.position + new Vector3(-2f, 2f);
         yield return null;
         enemy.GoTo(altar.transform.position);

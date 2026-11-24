@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6920360016124556490}
   - component: {fileID: 4282244392415911777}
   - component: {fileID: 1952179461706818220}
+  - component: {fileID: -991958358732632213}
   m_Layer: 0
   m_Name: MissionManager
   m_TagString: Untagged
@@ -70,3 +71,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfde20ffd9452642bc67bcbefd3b5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Scripts::PortalManager
+--- !u!114 &-991958358732632213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610588272980187622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3033b65b658e6849b4b5ea4ed8b6033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::MissionManager

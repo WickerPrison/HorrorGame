@@ -23,7 +23,7 @@ public class HolyAuraTests
     public IEnumerator Setup()
     {
         playerUnitPrefab = Resources.Load<GameObject>("Prefabs/PlayerUnit");
-        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy");
+        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemies/Enemy");
         testData = Resources.Load<TestingData>("Data/TestingData");
         Time.timeScale = testData.timeScale;
         SceneManager.LoadScene("HellfireTests");

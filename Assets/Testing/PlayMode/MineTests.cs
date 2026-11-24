@@ -19,7 +19,7 @@ public class MineTests
     public void Setup()
     {
         minePrefab = Resources.Load<GameObject>("Prefabs/Mine");
-        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy");
+        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemies/Enemy");
         playerUnitPrefab = Resources.Load<GameObject>("Prefabs/PlayerUnit");
         testData = Resources.Load<TestingData>("Data/TestingData");
         testDummyData = new PlayerUnitData("Test Dummy", 100, 0);
@@ -50,15 +50,18 @@ public class MineTests
         yield return LoadBasicScene();
         Mine mine = GameObject.Instantiate(minePrefab).GetComponent<Mine>();
         mine.transform.position = new Vector3(3f, 3f);
-        Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
-        enemy.transform.position = new Vector3(-3f, -3f);
-        enemy.SetTestingState();
+        EnemyAi enemyAi = GameObject.Instantiate(enemyPrefab).GetComponent<EnemyAi>();
+        enemyAi.transform.position = new Vector3(-3f, -3f);
+        enemyAi.SetTestingState();
+        Enemy enemy = enemyAi.GetComponent<Enemy>();
         
         yield return new WaitForSeconds(0.5f);
         Assert.AreEqual(enemy.health, enemy.maxHealth);
 
-        enemy.GoTo(mine.transform.position);
+        enemyAi.GoTo(mine.transform.position);
         yield return new WaitForSeconds(3);
+
+        Debug.Log(room.enemies.Count);
 
         Assert.Less(enemy.health, enemy.maxHealth);
     }
@@ -69,7 +72,7 @@ public class MineTests
         yield return LoadBasicScene();
         Mine mine = GameObject.Instantiate(minePrefab).GetComponent<Mine>();
         mine.transform.position = new Vector3(3f, 3f);
-        Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        EnemyAi enemy = GameObject.Instantiate(enemyPrefab).GetComponent<EnemyAi>();
         enemy.transform.position = new Vector3(-3f, -3f);
         enemy.SetTestingState();
 
@@ -92,7 +95,7 @@ public class MineTests
         yield return LoadBasicScene();
         Mine mine = GameObject.Instantiate(minePrefab).GetComponent<Mine>();
         mine.transform.position = new Vector3(3f, 3f);
-        Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        EnemyAi enemy = GameObject.Instantiate(enemyPrefab).GetComponent<EnemyAi>();
         enemy.transform.position = new Vector3(-3f, -3f);
         enemy.SetTestingState();
         GameObject.Instantiate(resourcePrefab).transform.position = new Vector3(1, 5);
@@ -114,7 +117,7 @@ public class MineTests
         yield return LoadTwoRoomScene();
         Mine mine = GameObject.Instantiate(minePrefab).GetComponent<Mine>();
         mine.transform.position = new Vector3(0.5f, 3f);
-        Enemy enemy = GameObject.Instantiate(enemyPrefab).GetComponent<Enemy>();
+        EnemyAi enemy = GameObject.Instantiate(enemyPrefab).GetComponent<EnemyAi>();
         enemy.transform.position = new Vector3(-1f, -3f);
         enemy.SetTestingState();
 
