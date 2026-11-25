@@ -9,12 +9,24 @@ public class ProceduralGenerator : MonoBehaviour
     [SerializeField] GameObject aetherPrefab;
     [SerializeField] GameObject brimstonePrefab;
     [SerializeField] GameObject quintessencePrefab;
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject impPrefab;
+    [SerializeField] GameObject devilSkullPrefab;
+    [SerializeField] GameObject behemothPrefab;
+    [SerializeField] GameObject demonPrefab;
     Room[] allRooms;
     Room[] nonPortalRooms;
 
+    Dictionary<EnemyTypes, GameObject> enemyPrefabDict;
+
     private void Awake()
     {
+        enemyPrefabDict = new Dictionary<EnemyTypes, GameObject>
+        {
+            {EnemyTypes.IMP, impPrefab },
+            {EnemyTypes.DEVIL_SKULL, devilSkullPrefab },
+            {EnemyTypes.BEHEMOTH, behemothPrefab },
+            {EnemyTypes.DEMON, demonPrefab },
+        };
         SetUpPlayerUnits();
     }
 
@@ -170,7 +182,8 @@ public class ProceduralGenerator : MonoBehaviour
         {
             int roomIndex = Random.Range(0, remainingRooms.Count);
             Room room = remainingRooms[roomIndex];
-            GameObject enemy = Instantiate(enemyPrefab);
+            int randInt = Random.Range(0, levelDetails.enemyTypes.Count);
+            GameObject enemy = Instantiate(enemyPrefabDict[levelDetails.enemyTypes[randInt]]);
             enemy.transform.position = room.GetRandomPointInRoom();
             remainingRooms.Remove(room);
         }

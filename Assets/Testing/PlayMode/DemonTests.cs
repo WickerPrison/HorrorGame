@@ -122,4 +122,13 @@ public class DemonTests
         Assert.Less(demonEnemy.health, demonEnemy.maxHealth);
         Assert.Less(testDummyData.health, testDummyData.maxHealth);
     }
+
+    [UnityTest]
+    public IEnumerator KillPlayerUnit()
+    {
+        yield return LoadTwoRoomScene();
+        SpawnPlayerUnit(new Vector2(-3.2f, -3.2f));
+        testDummyData.health = 50;
+        yield return new WaitForSeconds(3f);
+    }
 }

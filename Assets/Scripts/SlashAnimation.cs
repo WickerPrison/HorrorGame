@@ -32,6 +32,7 @@ public class SlashAnimation : MonoBehaviour
         StartCoroutine(Slash(origin, targetDirection, target, hitMethod));
     }
 
+    // TODO: reduce this to 1 slash and make it the resposibility of the caller to call twice for a double slash
     IEnumerator Slash(Vector3 origin, Vector3 direction, Transform target, Action<bool> hitMethod)
     {
         slash.enabled = true;

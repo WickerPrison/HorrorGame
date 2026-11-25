@@ -61,4 +61,13 @@ public class ImpTests
         yield return new WaitForSeconds(1f);
         Assert.Less(testDummyData.health, testDummyData.maxHealth);
     }
+
+    [UnityTest]
+    public IEnumerator KillPlayerUnit()
+    {
+        yield return LoadBasicScene();
+        SpawnPlayerUnit(new Vector2(-2.2f, -2.2f));
+        testDummyData.health = 50;
+        yield return new WaitForSeconds(4f);
+    }
 }

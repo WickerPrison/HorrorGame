@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -5,10 +6,18 @@ public class LevelDetailsData
 {
     public string missionName;
     public ThreatLevel threatLevel;
+    public List<EnemyTypes> enemyTypes;
     public Interference interference;
     public Rewards rewards;
     public Openness openness;
     public int cost;
+
+    static Dictionary<ThreatLevel, List<EnemyTypes>> threatLevelTypes = new Dictionary<ThreatLevel, List<EnemyTypes>>
+    {
+        { ThreatLevel.LOW, new List<EnemyTypes> { EnemyTypes.IMP } },
+        { ThreatLevel.MEDIUM, new List<EnemyTypes> { EnemyTypes.IMP, EnemyTypes.DEVIL_SKULL, EnemyTypes.BEHEMOTH } },
+        { ThreatLevel.HIGH, new List<EnemyTypes> { EnemyTypes.IMP, EnemyTypes.DEVIL_SKULL, EnemyTypes.BEHEMOTH, EnemyTypes.DEMON } },
+    };
 
     private static readonly string AlphanumericChars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -24,6 +33,7 @@ public class LevelDetailsData
             1 => ThreatLevel.MEDIUM,
             2 => ThreatLevel.HIGH,
         };
+        enemyTypes = ChooseEnemyTypes(threatLevel);
         randInt = Random.Range(0, 3);
         interference = randInt switch
         {
@@ -57,6 +67,26 @@ public class LevelDetailsData
         string part2 = GetRandomAlphanumericString(4, random);
 
         return $"Operation {part1}-{part2}";
+    }
+
+    public static List<EnemyTypes> ChooseEnemyTypes(ThreatLevel threatLevel)
+    {
+        List<EnemyTypes> enemyTypes = new List<EnemyTypes>();
+        (int, int) typeRange = threatLevel switch
+        {
+            ThreatLevel.LOW => (1, 1),
+            ThreatLevel.MEDIUM => (1, 3),
+            ThreatLevel.HIGH => (2, 4),
+        };
+        int typeCount = Random.Range(typeRange.Item1, typeRange.Item2 + 1);
+        List<EnemyTypes> enemyOptions = new List<EnemyTypes>(threatLevelTypes[threatLevel]);
+        for(int i = 0; i < typeCount; i++)
+        {
+            int randInt = Random.Range(0, enemyOptions.Count);
+            enemyTypes.Add(enemyOptions[randInt]);
+            enemyOptions.RemoveAt(randInt);
+        }
+        return enemyTypes;
     }
 
     static string GetRandomAlphanumericString(int length, System.Random random)

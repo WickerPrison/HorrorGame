@@ -127,6 +127,7 @@ public class DemonAi : EnemyAi, IFightDemons
     void HitTarget(bool hit)
     {
         if (!hit) return;
+        Debug.Log(attackTarget);
         attackTarget.TakeDamage(clawDamage);
     }
 

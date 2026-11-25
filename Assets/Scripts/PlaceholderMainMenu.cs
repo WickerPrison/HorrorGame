@@ -28,6 +28,7 @@ public class PlaceholderMainMenu : MonoBehaviour
     public void EasyRandomLevel()
     {
         levelDetails.threatLevel = ThreatLevel.LOW;
+        levelDetails.enemyTypes = LevelDetailsData.ChooseEnemyTypes(levelDetails.threatLevel);
         levelDetails.interference = Interference.LOW;
         levelDetails.rewards = Rewards.MEDIUM;
         levelDetails.openness = Openness.LOW;
@@ -38,6 +39,7 @@ public class PlaceholderMainMenu : MonoBehaviour
     public void MediumRandomLevel()
     {
         levelDetails.threatLevel = ThreatLevel.MEDIUM;
+        levelDetails.enemyTypes = LevelDetailsData.ChooseEnemyTypes(levelDetails.threatLevel);
         levelDetails.interference = Interference.MEDIUM;
         levelDetails.rewards = Rewards.MEDIUM;
         levelDetails.openness = Openness.MEDIUM;
@@ -48,6 +50,7 @@ public class PlaceholderMainMenu : MonoBehaviour
     public void HardRandomLevel()
     {
         levelDetails.threatLevel = ThreatLevel.HIGH;
+        levelDetails.enemyTypes = LevelDetailsData.ChooseEnemyTypes(levelDetails.threatLevel);
         levelDetails.interference = Interference.HIGH;
         levelDetails.rewards = Rewards.MEDIUM;
         levelDetails.openness = Openness.HIGH;

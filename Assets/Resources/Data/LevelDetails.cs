@@ -1,8 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum ThreatLevel
 {
     LOW, MEDIUM, HIGH
+}
+
+public enum EnemyTypes
+{
+    IMP, DEVIL_SKULL, BEHEMOTH, DEMON
 }
 
 public enum Interference
@@ -24,6 +30,7 @@ public enum Openness
 public class LevelDetails : ScriptableObject
 {
     public ThreatLevel threatLevel;
+    public List<EnemyTypes> enemyTypes = new List<EnemyTypes>();
     public Interference interference;
     public Rewards rewards;
     public Openness openness;
@@ -31,6 +38,7 @@ public class LevelDetails : ScriptableObject
     public void SetData(LevelDetailsData data)
     {
         threatLevel = data.threatLevel;
+        enemyTypes = data.enemyTypes;
         interference = data.interference;
         rewards = data.rewards;
         openness = data.openness;
